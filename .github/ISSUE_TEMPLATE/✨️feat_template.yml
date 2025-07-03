@@ -1,12 +1,3 @@
----
-name: "✨️Feat_template"
-about: 기능 추가
-title: ''
-labels: "✨️Feat"
-assignees: ''
-
----
-
 name: "✨ Feature"
 description: "새로운 기능 추가"
 labels: ["feature"]
