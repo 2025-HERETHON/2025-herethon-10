@@ -1,5 +1,5 @@
 ---
-name: "\U0001F6E0Refactor"
+name: "\U0001F6E0Refactor_template"
 about: 리팩토링
 title: ''
 labels: "\U0001F6E0Refactor"
