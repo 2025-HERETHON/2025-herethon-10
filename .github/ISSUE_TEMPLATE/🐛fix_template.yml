@@ -1,12 +1,3 @@
----
-name: "\U0001F41BFix_template"
-about: 오류 수정
-title: ''
-labels: "\U0001F41BFix"
-assignees: ''
-
----
-
 name: "🐛 Bug Fix"
 description: "버그 수정"
 labels: ["bug"]
