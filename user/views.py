@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from .forms import SignupForm, IndependencePlanForm
+from django.contrib.auth import authenticate, login
+from .forms import SignupForm, IndependencePlanForm, LoginForm
 
 def signup_view(request):
     if request.method == 'POST':
@@ -26,3 +26,15 @@ def signup_view(request):
         'user_form': user_form,
         'plan_form': plan_form,
     })
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('/')  # 로그인 성공 후 이동할 경로 (임시로 홈)
+    else:
+        form = LoginForm()
+
+    return render(request, 'user/login.html', {'form': form})
