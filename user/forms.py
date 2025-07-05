@@ -18,6 +18,10 @@ MOVE_DATE_CHOICES = [
 class SignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     
+    birth_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+    
     GENDER_CHOICES = [
         ('여성', '여성'),
         ('남성', '남성'),

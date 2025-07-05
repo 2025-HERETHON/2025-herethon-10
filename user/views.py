@@ -17,7 +17,7 @@ def signup_view(request):
             plan.save()
 
             login(request, user)  # 회원가입 후 바로 로그인 처리
-            return redirect('home:home')  # 홈 화면으로 리디렉트 (URL name에 따라 수정 가능)
+            return redirect('user:login')  # 로그인 화면으로 이동 (임시)
     else:
         user_form = SignupForm()
         plan_form = IndependencePlanForm()
@@ -33,7 +33,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('/')  # 로그인 성공 후 이동할 경로 (임시로 홈)
+            return redirect('/')  # 로그인 성공 후 이동할 경로 (임시)
     else:
         form = LoginForm()
 
