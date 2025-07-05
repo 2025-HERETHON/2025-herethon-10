@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+    <h2>회원가입 테스트</h2>
+
+    <!--  회원가입 실패 시 오류 메시지 출력 -->
+    {% if user_form.errors %}
+      <div style="color: red;">
+        <strong>기본 정보 오류:</strong>
+        {{ user_form.errors }}
+      </div>
+    {% endif %}
+    {% if plan_form.errors %}
+      <div style="color: red;">
+        <strong>독립 계획 정보 오류:</strong>
+        {{ plan_form.errors }}
+      </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ plan_form.as_p }}
+        <button type="submit">가입</button>
+    </form>
+</body>
+</html>
