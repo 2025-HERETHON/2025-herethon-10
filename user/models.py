@@ -56,11 +56,13 @@ class IndependencePlan(models.Model):
         ('경상남도', '경상남도'), ('제주특별자치도', '제주특별자치도'),
     ]
     ROOMATE_CHOICES = [('동거인 없음', '동거인 없음'), ('동거인 있음', '동거인 있음')]
-    RESIDENCE_CHOICES = [('원룸', '원룸'), ('기숙사', '기숙사'), ('쉐어하우스', '쉐어하우스')]
+    RESIDENCE_CHOICES = [('원룸', '원룸'), ('기숙사', '기숙사'), ('쉐어하우스', '쉐어하우스'), ('아직 정하지 못했어요', '아직 정하지 못했어요'),]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     area_si = models.CharField(max_length=20, choices=AREA_CHOICES, null=True, blank=True)
     area_sgg = models.CharField(max_length=50, null=True, blank=True)
+    # area_sgg 값은 시/도(area_si) 선택에 따라 프론트에서 동적 생성 필요
+    
     max_rent_budget = models.IntegerField()
     max_manage_budget = models.IntegerField()
     max_deposit_budget = models.IntegerField()
