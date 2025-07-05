@@ -42,3 +42,14 @@ class IndependencePlanForm(forms.ModelForm):
     class Meta:
         model = IndependencePlan
         exclude = ['user']
+        
+# 로그인 폼
+class LoginForm(AuthenticationForm):
+    username = forms.EmailField(
+        label="이메일",
+        widget=forms.EmailInput(attrs={'placeholder': '이메일을 입력하세요'})
+    )
+    password = forms.CharField(
+        label="비밀번호",
+        widget=forms.PasswordInput(attrs={'placeholder': '비밀번호를 입력하세요'})
+    )
