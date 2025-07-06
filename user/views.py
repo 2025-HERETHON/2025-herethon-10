@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import SignupForm, IndependencePlanForm, LoginForm
+from django.http import HttpResponse
 
 def signup_view(request):
     if request.method == 'POST':
@@ -17,12 +18,12 @@ def signup_view(request):
             plan.save()
 
             login(request, user)  # 회원가입 후 바로 로그인 처리
-            return redirect('user:login')  # 로그인 화면으로 이동 (임시)
+            return redirect('user:test_login')  # 로그인 화면으로 이동 (임시)
     else:
         user_form = SignupForm()
         plan_form = IndependencePlanForm()
 
-    return render(request, 'user/signup.html', {
+    return render(request, 'user/test_signup.html', {
         'user_form': user_form,
         'plan_form': plan_form,
     })
@@ -33,8 +34,10 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('/')  # 로그인 성공 후 이동할 경로 (임시)
+            # 다음 페이지 연결 필요 (현재 임시 상태)
+            return HttpResponse(f"로그인 성공! {user.email}")
     else:
         form = LoginForm()
 
-    return render(request, 'user/login.html', {'form': form})
+    # login.html 연결
+    return render(request, 'user/test_login.html', {'form': form})
