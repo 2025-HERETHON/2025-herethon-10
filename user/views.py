@@ -18,12 +18,12 @@ def signup_view(request):
             plan.save()
 
             login(request, user)  # 회원가입 후 바로 로그인 처리
-            return redirect('user:test_login')  # 로그인 화면으로 이동 (임시)
+            return redirect('user:login')  # 로그인 화면으로 이동 (임시)
     else:
         user_form = SignupForm()
         plan_form = IndependencePlanForm()
 
-    return render(request, 'user/test_signup.html', {
+    return render(request, 'test_signup.html', {
         'user_form': user_form,
         'plan_form': plan_form,
     })
@@ -40,4 +40,4 @@ def login_view(request):
         form = LoginForm()
 
     # login.html 연결
-    return render(request, 'user/test_login.html', {'form': form})
+    return render(request, 'test_login.html', {'form': form})
