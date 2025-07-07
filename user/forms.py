@@ -42,6 +42,8 @@ class IndependencePlanForm(forms.ModelForm):
     has_roomate = forms.ChoiceField(choices=ROOMATE_CHOICES, widget=forms.RadioSelect)
 
     # ⚠️ area_sgg(시/군/구)는 area_si(시/도)에 따라 동적으로 변경될 예정
+    area_si = forms.CharField(widget=forms.HiddenInput())  # JS에서 설정
+    area_sgg = forms.CharField(widget=forms.HiddenInput())  # JS에서 설정
     
     class Meta:
         model = IndependencePlan
