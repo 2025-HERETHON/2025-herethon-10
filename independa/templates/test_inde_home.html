@@ -1,0 +1,22 @@
+{{request.user.name}}님
+
+<h1>독립 계획 시작하기</h1>
+
+<hr>
+<p>나만의 체크리스트</p>
+<p>예산 계산기</p>
+<p>지역 인프라 미리보기</p>
+<hr>
+<div style="border:1px solid black; padding:10px; margin:10px; width:500px;">
+    <h3>나만의 체크리스트 만들기</h3>
+    <a href="{%url 'independa:contract_checklist_edit'%}"><button>나의 체크리스트 보기</button></a>
+    <a href="{%url 'independa:create_checklists'%}"><button>새로 만들기</button></a>
+</div>
+<div style="border:1px solid black; padding:10px; margin:10px; width:500px;">
+    <h3>예산 계산기</h3>
+    <button>바로가기</button>
+</div>
+<div style="border:1px solid black; padding:10px; margin:10px; width:500px;">
+    <h3>지역 인프라 미리보기</h3>
+    <button>바로가기</button>
+</div>
