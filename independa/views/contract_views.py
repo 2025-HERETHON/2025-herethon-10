@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from independa.forms import ContractChecklistForm
-from independa.models import ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference
+from independa.models import CheckAll, ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference
 from user.models import IndependencePlan
 
 #체크리스트 초기값으로 생성하는 함수
@@ -108,6 +108,12 @@ def contract_checklist_edit_view(request):
             
             independenceplan.save()
             
+            check=CheckAll.objects.get(user_id=request.user.id)
+            check_all=is_contract_checklist_complete(checklist)
+            check.contract_all=check_all
+            check.save()
+            print("체크올 : ", check_all)
+            
             return redirect('independa:contract_checklist_edit')
     else:
         form = ContractChecklistForm(instance=checklist)
@@ -133,20 +139,19 @@ def contract_checklist_edit_view(request):
         'female_only_room', 'female_parking', 'female_gym',
         'female_study_cafe', 'safe_night_street'
     ]
+    
+    check=CheckAll.objects.get(user_id=request.user.id)
 
-    check_all=is_contract_checklist_complete(checklist)
-    checklist.check_all=check_all
-
-    print(checklist.check_all)
-
-    return render(request, 'test_checklist_contract.html', {
+    context = {
         'form': form,
         'room_condition_fields': room_condition_fields,
         'women_safety_fields': women_safety_fields,
         'simple_fields': simple_fields,
         'independenceplan':independenceplan,
-        'check_all' : checklist.check_all
-    })
+        'check':check,
+    }
+
+    return render(request, 'test_checklist_contract.html', context)
 
 @require_POST
 def reset_checklist_view(request, categ):

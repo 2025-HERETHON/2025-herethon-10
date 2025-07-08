@@ -85,3 +85,11 @@ class ResidencyChecklist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+class CheckAll(models.Model):
+    checklist_group = models.ForeignKey(ChecklistGroup, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    contract_all = models.BooleanField(default=False)
+    moving_all = models.BooleanField(default=False)
+    residency_all = models.BooleanField(default=False)

@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from independa.forms import ContractChecklistForm
-from independa.models import ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference
+from independa.models import ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference, CheckAll, ResidencyChecklist
 from independa.views.contract_views import contract_checklists
 from user.models import IndependencePlan
 
@@ -32,10 +32,15 @@ def create_checklists_view(request):
     )
 
     # 5. 이사 체크리스트 생성 (기본값으로)
-    MovingChecklist.objects.create(
+    ResidencyChecklist.objects.create(
+        checklist_group=checklist_group,
+        user=user
+    )
+    
+    #6. 체크 진행도
+    CheckAll.objects.create(
         checklist_group=checklist_group,
         user=user
     )
 
     return redirect('independa:contract_checklist_edit')
-
