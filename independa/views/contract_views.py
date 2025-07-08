@@ -5,10 +5,7 @@ from independa.forms import ContractChecklistForm
 from independa.models import ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference
 from user.models import IndependencePlan
 
-@login_required
-def inde_home_view(request):
-    return render(request, 'test_inde_home.html')
-
+#체크리스트 초기값으로 생성하는 함수
 def contract_checklists(user, checklist_group):
     room_condition = RoomCondition.objects.create(
         noise=False,
@@ -56,47 +53,61 @@ def contract_checklists(user, checklist_group):
         transfer_public_utilities=False
     )
 
-
-
-@login_required
-def create_checklists_view(request):
-    user = request.user
+#체크리스트 모두 체크되어 있나 확인
+def is_contract_checklist_complete(checklist):
+    # simple_fields 체크
+    simple_fields = [
+        'contract_write',
+        'contract_copy_keep',
+        'deposit_transfer',
+        'cost_receipt_keep',
+        'move_in_report',
+        'receive_move_in_date',
+        'change_address',
+        'transfer_public_utilities',
+    ]
     
-    if ChecklistGroup.objects.filter(user_id=request.user.id).exists() :
-        return redirect('independa:contract_checklist_edit')
+    # 등기부등본 체크
+    register_fields =[
+        'owner_verified',
+        'mortgage_verified',
+        'illegal_building_verified',
+    ]
+    
 
-    # 1. 그룹 생성
-    checklist_group = ChecklistGroup.objects.create(
-        user=user
-    )
+    # deposit_insurance 단일 필드 체크
+    required_fields = simple_fields + register_fields + ['deposit_insurance']
 
-    # 2. ContractChecklist 관련 서브모델 생성
-    contract_checklists(user, checklist_group)
-
-    # 4. 입주 체크리스트 생성 (기본값으로)
-    MovingChecklist.objects.create(
-        checklist_group=checklist_group,
-        user=user
-    )
-
-    # 5. 이사 체크리스트 생성 (기본값으로)
-    MovingChecklist.objects.create(
-        checklist_group=checklist_group,
-        user=user
-    )
-
-    return redirect('independa:contract_checklist_edit')
+    # 모든 필드가 True인지 확인
+    for field in required_fields:
+        value = getattr(checklist, field, False)
+        print(f"{field}: {value}")  # 디버깅용
+        if not value:
+            return False
+    return True
 
 def contract_checklist_edit_view(request):
     checklist = ContractChecklist.objects.filter(user_id=request.user.id).first()
+    independenceplan = IndependencePlan.objects.filter(user_id=request.user.id).first()
     
     if not checklist:
         return redirect('independa:create_checklists')
 
     if request.method == 'POST':
         form = ContractChecklistForm(request.POST, instance=checklist)
+
         if form.is_valid():
             form.save()
+            area_si = request.POST.get('area_si', '').strip()
+            area_sgg = request.POST.get('area_sgg', '').strip()
+
+            if area_si:
+                independenceplan.area_si = area_si
+            if area_sgg:
+                independenceplan.area_sgg = area_sgg
+            
+            independenceplan.save()
+            
             return redirect('independa:contract_checklist_edit')
     else:
         form = ContractChecklistForm(instance=checklist)
@@ -122,15 +133,19 @@ def contract_checklist_edit_view(request):
         'female_only_room', 'female_parking', 'female_gym',
         'female_study_cafe', 'safe_night_street'
     ]
-    
-    independenceplan = IndependencePlan.objects.filter(user_id=request.user.id).first()
+
+    check_all=is_contract_checklist_complete(checklist)
+    checklist.check_all=check_all
+
+    print(checklist.check_all)
 
     return render(request, 'test_checklist_contract.html', {
         'form': form,
         'room_condition_fields': room_condition_fields,
         'women_safety_fields': women_safety_fields,
         'simple_fields': simple_fields,
-        'independenceplan':independenceplan
+        'independenceplan':independenceplan,
+        'check_all' : checklist.check_all
     })
 
 @require_POST

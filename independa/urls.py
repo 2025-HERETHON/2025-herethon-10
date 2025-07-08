@@ -1,5 +1,6 @@
 from django.urls import path
-from independa.views import inde_home_view, create_checklists_view, contract_checklist_edit_view, reset_checklist_view
+from independa.views.contract_views import contract_checklist_edit_view, reset_checklist_view
+from independa.views.checklist_views import inde_home_view, create_checklists_view
 
 app_name='independa'
 
