@@ -1,13 +1,13 @@
-from django.shortcuts import render, redirect
+# home/views.py
+from django.shortcuts import redirect, render
 
-def landing_view(request):
-    if request.user.is_authenticated:
-        return redirect('home')  # 로그인 돼 있으면 홈으로
-    return render(request, 'home/landing.html')  # 아니면 랜딩 페이지 보여줌
+def root_redirect(request):
+    # 루트 경로 (/)에 접속하면 로그인 화면으로 이동
+    return redirect('/user/login/')  # 또는 redirect('user:login') if 네임스페이스 쓴다면
 
 def home_view(request):
     if not request.user.is_authenticated:
-        return redirect('landing')  # 로그인 안 돼 있으면 랜딩으로
-    return render(request, 'home/home.html', {
+        return redirect('/user/login/')  # 로그인 안 된 사람도 로그인 화면으로 이동
+    return render(request, 'test_home.html', {
         'user': request.user,
     })
