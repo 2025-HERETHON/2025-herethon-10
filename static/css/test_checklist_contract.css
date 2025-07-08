@@ -1,3 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* height: 100vh; */
+    font-family: Arial, sans-serif;
+}
+
 .thumb-up,
 .thumb-down {
     width: 24px;
