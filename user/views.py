@@ -107,8 +107,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            # 다음 페이지 연결 필요 (현재 임시 상태)
-            return HttpResponse(f"로그인 성공! {user.email}")
+            return redirect('/home/')
     else:
         form = LoginForm()
 
