@@ -3,115 +3,116 @@
 
 <link rel="stylesheet" href="../../static/css/test_checklist_contract.css">
 
-<form method="post" style="border:1px solid black; width:1000px; padding-left:30px; padding-bottom:30px;">
-    {% csrf_token %}
+<div style="border:1px solid black; width:1000px; padding-left:30px; padding-bottom:30px;">
+    <form method="post" >
+        {% csrf_token %}
 
-    <!-- 계약 준비 섹션 -->
-    <section>
-        <h2>계약 준비</h2>
+        <!-- 계약 준비 섹션 -->
+        <section>
+            <h2>계약 준비</h2>
 
-        <h3>예산 설정</h3>
-        <div>
-        <label for="{{ form.min_rent_budget.id_for_label }}">월세</label>
-        {{ form.min_rent_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
-        <label for="{{ form.min_deposit_budget.id_for_label }}">보증금</label>
-        {{ form.min_deposit_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
-        <label for="{{ form.min_manage_budget.id_for_label }}">관리비</label>
-        {{ form.min_manage_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
-        </div>
+            <h3>예산 설정</h3>
+            <div>
+            <label for="{{ form.min_rent_budget.id_for_label }}">월세</label>
+            {{ form.min_rent_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
+            <label for="{{ form.min_deposit_budget.id_for_label }}">보증금</label>
+            {{ form.min_deposit_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
+            <label for="{{ form.min_manage_budget.id_for_label }}">관리비</label>
+            {{ form.min_manage_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
+            </div>
 
-        <h3>독립 지역 정하기</h3>
-        <div style="display:flex;">
-            <div class="center" style="border:1px solid black; width:100px; height: 50px;">{{independenceplan.area_si}}</div>&nbsp;&nbsp;
-            <div class="center" style="border:1px solid black; width:100px; height: 50px;">{{independenceplan.area_sgg}}</div>
-        </div>
-    </section><br><br>
+            <h3>독립 지역 정하기</h3>
+            <div style="display:flex;">
+                <div class="center" style="border:1px solid black; width:100px; height: 50px;">{{independenceplan.area_si}}</div>&nbsp;&nbsp;
+                <div class="center" style="border:1px solid black; width:100px; height: 50px;">{{independenceplan.area_sgg}}</div>
+            </div>
+        </section><br><br>
 
-    <!-- 계약 전: 등기부등본 확인 -->
-    <section>
-        <h2>계약 전</h2>
+        <!-- 계약 전: 등기부등본 확인 -->
+        <section>
+            <h2>계약 전</h2>
 
-        <h3>등기부등본 확인</h3>
-        <label>
-        {{ form.owner_verified }} 집주인 신원 및 소유권 확인하기
-        </label><br><br>
-        <label>
-        {{ form.mortgage_verified }} 선순위 채권(근저당) 유무 확인하기
-        </label><br><br>
-        <label>
-        {{ form.illegal_building_verified }} 위법 건축물 여부 확인하기
-        </label><br><br>
-    </section>
+            <h3>등기부등본 확인</h3>
+            <label>
+            {{ form.owner_verified }} 집주인 신원 및 소유권 확인하기
+            </label><br><br>
+            <label>
+            {{ form.mortgage_verified }} 선순위 채권(근저당) 유무 확인하기
+            </label><br><br>
+            <label>
+            {{ form.illegal_building_verified }} 위법 건축물 여부 확인하기
+            </label><br><br>
+        </section>
 
-    <!-- 주변 환경 확인 -->
-    <section >
-        <h3>주변 환경 확인하기</h3>
-        <div class="room-conditions">
-        {% for field_name in room_condition_fields %}
-        {% with field=form|get_field:field_name %}
-            <div class="condition-toggle" data-key="{{ field_name }}">
+        <!-- 주변 환경 확인 -->
+        <section >
+            <h3>주변 환경 확인하기</h3>
+            <div class="room-conditions">
+            {% for field_name in room_condition_fields %}
+            {% with field=form|get_field:field_name %}
+                <div class="condition-toggle" data-key="{{ field_name }}">
+                    <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                        {% if field.value %}checked{% endif %}>
+                    <label for="{{ field.id_for_label }}">
+                        <img src="../../static/img/boomup.png" class="thumb-up">
+                        <img src="../../static/img/boomdown.png" class="thumb-down">
+                    </label>
+                    <span>{{ field.label }}</span>
+                </div>
+            {% endwith %}
+            {% endfor %}
+
+            </div><br><br>
+            <label>
+            {{ form.deposit_insurance }} 전세 보증금 반환 보증 가입 여부 확인하기
+            </label><br><br>
+        </section>
+
+        <!-- 여성 전용 공간 -->
+        <section>
+            <h3>여성 전용 공간 확인하기</h3>
+            <div class="women-safety">
+            {% for field_name in women_safety_fields %}
+            {% with field=form|get_field:field_name %}
+                <div class="condition-toggle" data-key="{{ field_name }}">
                 <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
-                    {% if field.value %}checked{% endif %}>
+                        {% if field.value %}checked{% endif %}>
                 <label for="{{ field.id_for_label }}">
                     <img src="../../static/img/boomup.png" class="thumb-up">
                     <img src="../../static/img/boomdown.png" class="thumb-down">
                 </label>
                 <span>{{ field.label }}</span>
+                </div>
+            {% endwith %}
+            {% endfor %}
             </div>
-        {% endwith %}
-        {% endfor %}
+        </section>
 
-        </div><br><br>
-        <label>
-        {{ form.deposit_insurance }} 전세 보증금 반환 보증 가입 여부 확인하기
-        </label><br><br>
-    </section>
+        <!-- 계약서 작성 -->
+        <section>
+            <h2>계약서 작성</h2>
+            {% for field_name in simple_fields %}
+            {% with field=form|get_field:field_name %}
+                {{ field }}
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+                <br><br>
+            {% endwith %}
+            {% endfor %}
+        </section>
 
-    <!-- 여성 전용 공간 -->
-    <section>
-        <h3>여성 전용 공간 확인하기</h3>
-        <div class="women-safety">
-        {% for field_name in women_safety_fields %}
-        {% with field=form|get_field:field_name %}
-            <div class="condition-toggle" data-key="{{ field_name }}">
-            <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
-                    {% if field.value %}checked{% endif %}>
-            <label for="{{ field.id_for_label }}">
-                <img src="../../static/img/boomup.png" class="thumb-up">
-                <img src="../../static/img/boomdown.png" class="thumb-down">
-            </label>
-            <span>{{ field.label }}</span>
-            </div>
-        {% endwith %}
-        {% endfor %}
+        <div class="center" style="margin-top: 20px; margin-right: 30px; padding:0 auto;">
+            <button type="submit">저장</button><br><br>   
         </div>
-    </section>
 
-    <!-- 계약서 작성 -->
-    <section>
-        <h2>계약서 작성</h2>
-        {% for field_name in simple_fields %}
-        {% with field=form|get_field:field_name %}
-            {{ field }}
-            <label for="{{ field.id_for_label }}">
-                {{ field.label }}
-            </label>
-            <br><br>
-        {% endwith %}
-        {% endfor %}
-    </section>
-
-    <div class="center" style="margin-top: 20px; margin-right: 30px; padding:0 auto;">
-        <button type="submit">저장</button><br><br>
-        
-        
-    </div>
-
-    
-
-
-    <div>
-</form>
+        {% comment %} <a href="{% url 'independa:reset_checklist' 'contract' %}"><button>기본값으로 초기화</button></a> {% endcomment %}
+    </form>
+    <form method="post" action="{% url 'independa:reset_checklist' 'contract' %}" style="margin-top: 10px;">
+        {% csrf_token %}
+        <button type="submit" style="background:#eee; padding:8px 16px;">기본값으로 초기화</button>
+    </form>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
