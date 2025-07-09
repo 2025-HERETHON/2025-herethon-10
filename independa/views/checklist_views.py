@@ -44,3 +44,4 @@ def create_checklists_view(request):
     )
 
     return redirect('independa:contract_checklist_edit')
+
