@@ -11,17 +11,17 @@
 
     window.onload = function () {
         kakao.maps.load(function () {
-        const container = document.getElementById('map');
-        const options = {
-            center: new kakao.maps.LatLng(37.5665, 126.978),
-            level: 5
-        };
+            const container = document.getElementById('contract_map');
+            const options = {
+                center: new kakao.maps.LatLng(37.5665, 126.978),
+                level: 5
+            };  
         map = new kakao.maps.Map(container, options);
         });
     };
 
     function searchPlace() {
-        const keyword = document.getElementById('search-input').value.trim();
+        const keyword = document.getElementById('contract_search-input').value.trim();
         if (!keyword) {
         alert("검색어를 입력하세요.");
         return;
@@ -66,7 +66,7 @@
     }
 
     function displayLevel() {
-        const levelEl = document.getElementById('maplevel');
+        const levelEl = document.getElementById('contract_maplevel');
         levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
     }
 
@@ -253,15 +253,15 @@
         <div>
             <h2 style="margin-left:30px; margin-top:30px;">지도로 미리보기</h2>
             <div style="margin: 20px;">
-                <input type="text" id="search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
+                <input type="text" id="contract_search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
                 <button onclick="searchPlace()" style="padding: 8px;">검색</button>
             </div>
 
-            <div id="map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
+            <div id="contract_map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
             <p style="margin-left:30px; margin-top:30px;">
                 <button onclick="zoomIn()">지도레벨 - 1</button>
                 <button onclick="zoomOut()">지도레벨 + 1</button>
-                <span id="maplevel"></span>
+                <span id="contract_maplevel"></span>
             </p>
 
         </div>

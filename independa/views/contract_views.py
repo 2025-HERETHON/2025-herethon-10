@@ -116,6 +116,8 @@ def contract_checklist_edit_view(request):
             print("체크올 : ", check_all)
             
             return redirect('independa:contract_checklist_edit')
+        else:
+            print("폼 유효하지 않음:", form.errors)
     else:
         form = ContractChecklistForm(instance=checklist)
 
@@ -157,34 +159,4 @@ def contract_checklist_edit_view(request):
 
     return render(request, 'test_checklist_contract.html', context)
 
-@require_POST
-def reset_checklist_view(request, categ):
 
-    user = request.user
-
-    try:
-        checklist_group = ChecklistGroup.objects.get(user=user)
-    except ChecklistGroup.DoesNotExist:
-        print("ChecklistGroup 없음")
-        return redirect('independa:contract_checklist_edit')
-
-    if categ == "contract":
-        try:
-            checklist = ContractChecklist.objects.get(user=user)
-            if checklist.room_condition_id:
-                checklist.room_condition.delete()
-
-            if checklist.women_safety_preference_id:
-                checklist.women_safety_preference.delete()
-
-            checklist.delete()
-            
-        except ContractChecklist.DoesNotExist:
-            print("삭제할 ContractChecklist 없음")
-
-        contract_checklists(user, checklist_group)
-
-    else:
-        print(f"'{categ}'는 일치하지 않음")
-
-    return redirect('independa:contract_checklist_edit')

@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContractChecklist, RoomCondition, WomenSafetyPreference
+from .models import ContractChecklist, RoomCondition, WomenSafetyPreference, MovingChecklist
 
 class ContractChecklistForm(forms.ModelForm):
     # RoomCondition 필드를 직접 폼에 추가
@@ -88,4 +88,55 @@ class ContractChecklistForm(forms.ModelForm):
         if commit:
             checklist.save()
 
+        return checklist
+
+
+class MovingChecklistForm(forms.ModelForm):
+    # 이사 하루 전
+    unplug_appliances = forms.BooleanField(label="냉장고, 세탁기 미리 전원 차단하기", required=False)
+    keep_valuables_separately = forms.BooleanField(label="귀중품, 중요 서류는 따로 보관하기", required=False)
+    check_new_home_password = forms.BooleanField(label="새 집 열쇠, 도어락 비밀번호 재확인하기", required=False)
+    confirm_moving_time = forms.BooleanField(label="이사 업체와 이사 시작 확인하기", required=False)
+    finish_trash_sorting = forms.BooleanField(label="쓰레기 분리수거 및 집 정리 마무리하기", required=False)
+
+    # 이사 당일
+    check_truck_arrival_time = forms.BooleanField(label="이사 차량 도착 시간 확인하기", required=False)
+    take_photos_of_old_home = forms.BooleanField(label="기존 집 상태 사진 찍어두기 (보증금 문제 대비)", required=False)
+
+    # 새 집 점검하기
+    check_leaks = forms.BooleanField(label="누수 확인하기", required=False)
+    check_power_outlets = forms.BooleanField(label="콘센트 및 전기 확인하기", required=False)
+    check_water_supply = forms.BooleanField(label="수도 작동 확인하기", required=False)
+
+    # 설치 기사 방문 체크하기
+    check_appliance_installer = forms.BooleanField(label="가전 설치 기사", required=False)
+    check_internet_installer = forms.BooleanField(label="인터넷 설치 기사", required=False)
+
+    # 이사 후
+    complete_address_registration = forms.BooleanField(label="전입신고 완료하기 (동주민센터 또는 정부24)", required=False)
+    change_address = forms.BooleanField(label="주소 변경하기 (은행, 학교, 직장 등)", required=False)
+    check_deposit_settlement = forms.BooleanField(label="보증금 정산 확인하기", required=False)
+    check_trash_disposal_rules = forms.BooleanField(label="쓰레기 배출 규칙 확인하기", required=False)
+    check_residence_insurance = forms.BooleanField(label="거주지 화재보험, 전세보증금 보험 등 확인하기", required=False)
+
+    class Meta:
+        model = MovingChecklist
+        exclude = exclude = ['checklist_group', 'user', 'created_at']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # 초기값 설정
+        if self.instance.pk:
+            for field_name in self.fields:
+                self.fields[field_name].initial = getattr(self.instance, field_name)
+
+    def save(self, commit=True):
+        checklist = super().save(commit=False)
+
+        for field_name in self.fields:
+            setattr(checklist, field_name, self.cleaned_data.get(field_name))
+
+        if commit:
+            checklist.save()
         return checklist
