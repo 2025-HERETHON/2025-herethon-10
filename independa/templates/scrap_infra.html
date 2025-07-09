@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지역 인프라 미리보기</title>
-    <link rel="stylesheet" href="/static/css/local_infra.css">
+    <title>저장한 인프라 보기</title>
+    <link rel="stylesheet" href="/static/css/scrap_infra.css">
 </head>
 <body>
     <div id = background>
@@ -26,8 +26,8 @@
         
         <div id="banner">
             <div id="bannerBox">
-                <h1>지역 인프라 미리보기</h1>
-                <h2>내가 살게 될 동네, 미리 둘러보세요</h2>
+                <h1>저장한 인프라 보기</h1>
+                <h2>내가 찜한 동네 정보, 한눈에 모아봤어요</h2>
             </div>
         </div>
 
@@ -35,7 +35,7 @@
             <div id="box1">
                 <div id="menu1">지역 인프라 미리보기</div>
                 <div id="menu2">지도 보기</div> 
-                <a id="menu3" href="/independa/templates/scrap_infra.html">저장한 인프라 보기</a>
+                <div id="menu3">저장한 인프라 보기</div>
             </div> <!-- 메뉴 넣기 3개 -->
 
 
@@ -51,27 +51,30 @@
                 </div>
 
 
-                                
+                                                
                 <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
                 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
                 <div id="map"></div>
+               
 
-                <div id="pininfo">
-                    <div id="box7">
-                    <div id="place-info-container" class="hidden">
-                        <h3 id="place-name">장소 이름</h3>
-                        <div id="box5">
-                        <p id="place-status">영업 중</p>
-                        <p id="place-hours">10:00 ~ 22:00</p>
-                        </div>
-                        <div id="box6">
-                        <div id="detail-btn">자세히 보기</div>
-                        <img src="/static/img/chevron-right.svg">
-                        </div>
+                <!-- 지도 위에 붙는 사이드바 -->
+                <div id="sidebar" class="sidebar">
+                     <div id="sidebarbanner"><input type="text" id="sidebarsearch"><img src="/static/img/search.svg" id="searchimg"></div>
+                <div class="sidebar-content">
+                    <section id="place-info">
+                    <h2 class="place-title">GS25 태릉입구역점</h2>
+                    <div class="place-details">
+                    <span class="place-status open">영업 중</span>
+                    <span class="place-hours">24시 영업</span>
                     </div>
-                    </div>
-                    <div id="savebtn">저장</div>
                 </div>
+                </div>
+
+                <!-- 사이드바 열기 버튼 -->
+                <div id="openSidebar" class="open-button"><img width="10px" id="sidebarIcon" src="/static/img/chevron-right.svg"></div>
+
+
+
 
             </div> 
         </div>
@@ -118,6 +121,6 @@
             </div>
         </div>
     </div>
-<script src="/static/js/local_infra.js"></script>
+<script src="/static/js/scrap_infra.js"></script>
 </body>
 </html>
