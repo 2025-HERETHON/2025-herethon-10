@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>지도 보기</title>
+        <link rel="stylesheet" href="../../static/css/test_local_infra.css">
+
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{myjskey}}&libraries=services&autoload=false"></script>
+
+        <script>
+            let map;
+            let markers = [];
+            let currentInfoWindow = null;
+
+            // 지도 초기화 (초기 중심 좌표는 하드코딩 또는 Django 템플릿 변수로 넣으세요)
+            function initMap() {
+                kakao.maps.load(function () {
+                    const container = document.getElementById('local_map');
+                    const options = {
+                        center: new kakao.maps.LatLng({{ y|default:"37.5665" }}, {{ x|default:"126.9780" }}), // 기본 서울 시청 좌표 예시
+                        level: 5
+                    };
+                    map = new kakao.maps.Map(container, options);
+                });
+            }
+
+            // 마커 전부 제거 + 인포윈도우 닫기
+            function removeMarkers() {
+                markers.forEach(marker => marker.setMap(null));
+                markers = [];
+                if (currentInfoWindow) {
+                    currentInfoWindow.close();
+                    currentInfoWindow = null;
+                }
+            }
+
+            // 저장 함수
+            function savePlace(place) {
+                fetch("{% url 'independa:save_place' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCookie("csrftoken")
+                    },
+                    body: JSON.stringify({
+                        kakao_id: place.id,
+                        category_group_code: place.category_group_code,
+                        place_name: place.place_name,
+                        place_url: place.place_url,
+                        road_address_name: place.road_address_name || place.address_name,
+                        x: place.x,
+                        y: place.y
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.success){
+                        alert("저장 완료!");
+                    } else {
+                        alert(data.message || "이미 저장된 장소입니다!");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("저장 중 오류가 발생했습니다.");
+                });
+            }
+
+            // 쿠키에서 csrftoken 가져오는 함수 (Django CSRF 보호용)
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (const cookie of cookies) {
+                        const trimmed = cookie.trim();
+                        if (trimmed.startsWith(name + '=')) {
+                            cookieValue = decodeURIComponent(trimmed.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            // 마커 만들기 + 인포윈도우 연결
+            function addMarker(place) {
+                console.log("📍 마커 생성:", place);
+                const position = new kakao.maps.LatLng(place.y, place.x);
+                const marker = new kakao.maps.Marker({ map: map, position: position });
+                markers.push(marker);
+
+                const content = `
+                    <div class="place-card" style="padding:10px; min-width:200px;">
+                        <h3>${place.place_name}</h3>
+                        <p>${place.road_address_name || place.address_name}</p>
+                        <a href="${place.place_url}" target="_blank">자세히 보기 ></a><br/>
+                        <button onclick='savePlace(${JSON.stringify(place)})'>저장</button>
+                    </div>
+                `;
+
+                const infowindow = new kakao.maps.InfoWindow({ content: content });
+
+                marker.addListener('click', function () {
+                    showPlaceBox(place); // 아래 박스 띄우기
+                    map.panTo(marker.getPosition()); // 클릭 시 지도 중심 이동 (선택사항)
+                });
+
+            }
+
+        
+            let currentCenter = null; // 현재 중심 좌표 저장용
+
+            document.addEventListener('DOMContentLoaded', () => {
+                initMap();
+
+                // 카테고리 버튼들
+                const categoryButtons = document.querySelectorAll('button[id^="CS"], button[id^="FD"], button[id^="CE"]');
+                categoryButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const categoryCode = button.id;
+                        searchCategory(categoryCode);
+                    });
+                });
+
+                // 중심점 설정 버튼
+                document.getElementById("setCenterBtn").addEventListener('click', () => {
+                    if (map) {
+                        const center = map.getCenter();
+                        currentCenter = {
+                            x: center.getLng(),
+                            y: center.getLat()
+                        };
+                        alert(`📍 중심 좌표가 설정되었습니다!\nx: ${currentCenter.x}, y: ${currentCenter.y}`);
+                    }
+                });
+            });
+
+            function searchCategory(categoryGroupCode) {
+                removeMarkers();
+
+                const maxPages = 5;
+                const promises = [];
+
+                let x, y;
+
+                if (currentCenter) {
+                    // currentCenter가 {x: 숫자, y: 숫자} 형태일 때
+                    x = currentCenter.x;
+                    y = currentCenter.y;
+                } else {
+                    // map.getCenter()는 kakao.maps.LatLng 객체
+                    const center = map.getCenter();
+                    x = center.getLng();
+                    y = center.getLat();
+                }
+
+                for (let page = 1; page <= maxPages; page++) {
+                    const url = `/independa/category_search/${categoryGroupCode}/?page=${page}&x=${x}&y=${y}`;
+                    console.log("🔗 요청 URL:", url);
+                    promises.push(fetch(url).then(res => res.json()));
+                }
+
+                Promise.all(promises)
+                    .then(results => {
+                        let allPlaces = [];
+                        results.forEach(result => {
+                            if (result.places) {
+                                allPlaces = allPlaces.concat(result.places);
+                            }
+                        });
+
+                        if (allPlaces.length > 0) {
+                            allPlaces.forEach(place => addMarker(place));
+                            const first = allPlaces[0];
+                            map.setCenter(new kakao.maps.LatLng(parseFloat(first.y), parseFloat(first.x)));
+                        } else {
+                            alert("검색 결과가 없습니다.");
+                        }
+                    })
+                    .catch(err => {
+                        console.error("🚨 검색 오류:", err);
+                        alert("장소 검색 중 오류가 발생했습니다.");
+                    });
+            }
+
+
+            function showPlaceBox(place) {
+                document.getElementById("place-name").textContent = place.place_name;
+                document.getElementById("place-address").textContent = place.road_address_name || place.address_name;
+                document.getElementById("place-link").href = place.place_url;
+
+                document.getElementById("info-box").style.display = "block";
+
+                // 저장 버튼에 클릭 이벤트 등록
+                const saveBtn = document.getElementById("save-button");
+                saveBtn.onclick = function () {
+                    savePlace(place);
+                };
+            }
+
+        </script>
+    </head>
+
+    <body>
+
+    <header>
+        <h1>지도 보기</h1>
+        <div class="search-bar">
+        <input type="text" id="keyword" placeholder="장소를 검색하세요">
+        <button onclick="searchPlaces()">검색</button>
+        </div>
+    </header>
+    
+    <div class="category-buttons">
+        <button id="CS2">편의점</button>
+        <button id="FD6">음식점</button>
+        <button id="CE7">카페</button>
+        <button id="setCenterBtn">중심지점으로 설정하기</button>
+    </div>
+
+    <div id="local_map" style="border:1px solid black; width:500px; height:500px;"></div>
+
+    <div id="info-box" style="
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ccc;
+    padding: 15px;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+    ">
+        <h3 id="place-name"></h3>
+        <p id="place-address"></p>
+        <a id="place-link" href="#" target="_blank">자세히 보기 ></a>
+        <button id="save-button">저장</button>
+    </div>
+
+    </body>
+</html>

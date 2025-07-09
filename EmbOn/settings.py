@@ -149,3 +149,4 @@ from decouple import config
 CONSUMER_KEY = config('CONSUMER_KEY')
 CONSUMER_SECRET = config('CONSUMER_SECRET')
 MYJSKEY = config('MYJSKEY')
+KAKAO_RESTAPI = config('KAKAO_RESTAPI')
