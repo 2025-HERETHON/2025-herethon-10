@@ -3,6 +3,78 @@
 
 <link rel="stylesheet" href="../../static/css/test_checklist_contract.css">
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{myjskey}}&libraries=services&autoload=false"></script>
+
+<script>
+    let map;
+    let marker = null;
+    let infowindow = null;
+
+    window.onload = function () {
+        kakao.maps.load(function () {
+        const container = document.getElementById('map');
+        const options = {
+            center: new kakao.maps.LatLng(37.5665, 126.978),
+            level: 5
+        };
+        map = new kakao.maps.Map(container, options);
+        });
+    };
+
+    function searchPlace() {
+        const keyword = document.getElementById('search-input').value.trim();
+        if (!keyword) {
+        alert("검색어를 입력하세요.");
+        return;
+        }
+
+        const ps = new kakao.maps.services.Places();
+        ps.keywordSearch(keyword, function (data, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            const first = data[0];
+            const coords = new kakao.maps.LatLng(first.y, first.x);
+
+            map.setCenter(coords);
+
+            // 기존 마커 제거
+            if (marker) marker.setMap(null);
+            marker = new kakao.maps.Marker({ map, position: coords });
+
+            // 기존 인포윈도우 닫기
+            if (infowindow) infowindow.close();
+
+            // 새 인포윈도우
+            infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:5px;">${first.place_name}</div>`
+            });
+            infowindow.open(map, marker);
+        } else {
+            alert("검색 결과가 없습니다.");
+        }
+        });
+    }
+
+    function zoomIn() {
+        const level = map.getLevel();
+        map.setLevel(level - 1);
+        displayLevel();
+    }
+
+    function zoomOut() {
+        const level = map.getLevel();
+        map.setLevel(level + 1);
+        displayLevel();
+    }
+
+    function displayLevel() {
+        const levelEl = document.getElementById('maplevel');
+        levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+    }
+
+    
+</script>
+
+
 <body>
 
     <div style="border:1px solid black; width:1000px; padding-left:30px; padding-bottom:30px;">
@@ -10,7 +82,7 @@
         <h1> 이사 </h1>
         <div style="display:flex;">   
             <a href="{%url 'independa:contract_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> < </div></a>
-            <a href="{%url 'independa:moving_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> > </div></a>
+            <a href="{%url 'independa:residency_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> > </div></a>
         </div>
         <form method="post" >
             {% csrf_token %}
@@ -144,25 +216,39 @@
             </div>
         </div>
         <div style="border:1px solid black; width:660px; height:360px; margin-left:30px; margin-top:30px;display:flex;">
-                <div class="center" style="border:1px solid black; width:280px; height:280px; margin:30px;">프로필</div>
-                <div>
-                    <h3>{{request.user.name}}</h3>
-                    <p>독립할 지역 : {{independenceplan.area_si}}&nbsp;&nbsp;{{independenceplan.area_sgg}}</p>
-                    <p>최대 예산 :<br>
-                    월세 최대 {{independenceplan.max_rent_budget}}<br>
-                    보증금 최대 {{independenceplan.max_manage_budget}}<br>
-                    관리비 최대 {{independenceplan.max_deposit_budget}}<br>
-                    </p>
-                    <p>이사 예정일 : {{independenceplan.move_date}}</p>
-                    {% if independenceplan.has_roomate == "동거인 없음" %}
-                        <p>동거인 : 없음</p><br>
-                    {% else %}
-                        <p>동거인 : {{independenceplan.roomate_count}}</p><br>
-                    {% endif %}
-                    <p> 정보 수정하기 > </p>
-                </div>
+            <div class="center" style="border:1px solid black; width:280px; height:280px; margin:30px;">프로필</div>
+            <div>
+                <h3>{{request.user.name}}</h3>
+                <p>독립할 지역 : {{independenceplan.area_si}}&nbsp;&nbsp;{{independenceplan.area_sgg}}</p>
+                <p>최대 예산 :<br>
+                월세 최대 {{independenceplan.max_rent_budget}}<br>
+                보증금 최대 {{independenceplan.max_manage_budget}}<br>
+                관리비 최대 {{independenceplan.max_deposit_budget}}<br>
+                </p>
+                <p>이사 예정일 : {{independenceplan.move_date}}</p>
+                {% if independenceplan.has_roomate == "동거인 없음" %}
+                    <p>동거인 : 없음</p><br>
+                {% else %}
+                    <p>동거인 : {{independenceplan.roomate_count}}</p><br>
+                {% endif %}
+                <p> 정보 수정하기 > </p>
             </div>
+        </div><br><br><br>
+        <div>
+            <h2 style="margin-left:30px; margin-top:30px;">지도로 미리보기</h2>
+            <div style="margin: 20px;">
+                <input type="text" id="search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
+                <button onclick="searchPlace()" style="padding: 8px;">검색</button>
+            </div>
+
+            <div id="map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
+            <p style="margin-left:30px; margin-top:30px;">
+                <button onclick="zoomIn()">지도레벨 - 1</button>
+                <button onclick="zoomOut()">지도레벨 + 1</button>
+                <span id="maplevel"></span>
+            </p>
         </div>
+    </div>
 </body>
 
 <script>

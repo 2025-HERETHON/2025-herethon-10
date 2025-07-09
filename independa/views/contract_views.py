@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.conf import settings
 from independa.forms import ContractChecklistForm
 from independa.models import CheckAll, ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference
 from user.models import IndependencePlan
@@ -142,6 +143,8 @@ def contract_checklist_edit_view(request):
     
     check=CheckAll.objects.get(user_id=request.user.id)
 
+    myjskey=settings.MYJSKEY
+    
     context = {
         'form': form,
         'room_condition_fields': room_condition_fields,
@@ -149,6 +152,7 @@ def contract_checklist_edit_view(request):
         'simple_fields': simple_fields,
         'independenceplan':independenceplan,
         'check':check,
+        'myjskey':myjskey
     }
 
     return render(request, 'test_checklist_contract.html', context)
