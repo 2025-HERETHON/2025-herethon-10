@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContractChecklist, RoomCondition, WomenSafetyPreference, MovingChecklist
+from .models import ContractChecklist, ResidencyChecklist, RoomCondition, WomenSafetyPreference, MovingChecklist
 
 class ContractChecklistForm(forms.ModelForm):
     # RoomCondition 필드를 직접 폼에 추가
@@ -127,6 +127,74 @@ class MovingChecklistForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # 초기값 설정
+        if self.instance.pk:
+            for field_name in self.fields:
+                self.fields[field_name].initial = getattr(self.instance, field_name)
+
+    def save(self, commit=True):
+        checklist = super().save(commit=False)
+
+        for field_name in self.fields:
+            setattr(checklist, field_name, self.cleaned_data.get(field_name))
+
+        if commit:
+            checklist.save()
+        return checklist
+
+
+# class ResidencyChecklistForm(forms.ModelForm):
+#     class Meta:
+#         model = ResidencyChecklist
+#         exclude = ['user', 'checklist_group', 'created_at']
+
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+
+#         # 필드 초기값 설정
+#         if self.instance.pk:
+#             for field in self.fields:
+#                 self.fields[field].initial = getattr(self.instance, field)
+
+#     def save(self, commit=True):
+#         checklist = super().save(commit=False)
+
+#         for field in self.fields:
+#             setattr(checklist, field, self.cleaned_data.get(field))
+
+#         if commit:
+#             checklist.save()
+#         return checklist
+
+class ResidencyChecklistForm(forms.ModelForm):
+    # 기본 점검
+    check_utilities = forms.BooleanField(label="전기, 수도, 가스 정상 작동 재확인하기", required=False)
+    check_heating = forms.BooleanField(label="냉온수, 보일러, 샤워기 점검하기", required=False)
+    set_doorlock_password = forms.BooleanField(label="도어락 비밀번호 설정 및 강화하기", required=False)
+
+    # 안전·보안 점검
+    check_fire_detector = forms.BooleanField(label="화재 감지기 및 가스차단기 확인하기", required=False)
+    check_window_locks = forms.BooleanField(label="창문, 현관문 잠금장치 점검하기", required=False)
+    locate_circuit_breaker = forms.BooleanField(label="전기차단기 위치 파악해두기", required=False)
+
+    # 생활 정착
+    check_recycling_days = forms.BooleanField(label="분리수거 요일 및 분리수거장 확인하기", required=False)
+    setup_wifi_appliances = forms.BooleanField(label="와이파이, TV, 가전 설치 마무리하기", required=False)
+    prepare_emergency_kit = forms.BooleanField(label="응급약품 구비해두기", required=False)
+
+    # 생활 필수품 보충하기
+    prepare_laundry_detergent = forms.BooleanField(label="세탁 세제 및 주방 세제", required=False)
+    prepare_kitchen_supplies = forms.BooleanField(label="키친타올 및 행주", required=False)
+    prepare_toiletries = forms.BooleanField(label="화장지 및 물티슈", required=False)
+    prepare_garbage_bags = forms.BooleanField(label="종량제봉투 (지역구 전용)", required=False)
+    prepare_drinking_water = forms.BooleanField(label="생수 또는 정수기", required=False)
+
+    class Meta:
+        model = ResidencyChecklist
+        exclude = ['user', 'checklist_group', 'created_at']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         if self.instance.pk:
             for field_name in self.fields:
                 self.fields[field_name].initial = getattr(self.instance, field_name)
