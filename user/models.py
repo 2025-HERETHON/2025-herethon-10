@@ -27,12 +27,12 @@ class User(AbstractBaseUser):
         ('프리랜서', '프리랜서'),
         ('기타', '기타'),
     ]
-    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/')
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=50)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
-    birth_date = models.DateField(blank=True, null=True)
-    job = models.CharField(max_length=20, choices=JOB_CHOICES, blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    birth_date = models.DateField()
+    job = models.CharField(max_length=20, choices=JOB_CHOICES)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

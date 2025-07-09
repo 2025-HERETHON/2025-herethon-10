@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 
 def root_redirect(request):
     # 루트 경로 (/)에 접속하면 로그인 화면으로 이동
-    return redirect('/accounts/login/')
+    return redirect('/accounts/signup/')
 
 def home_view(request):
     if not request.user.is_authenticated:

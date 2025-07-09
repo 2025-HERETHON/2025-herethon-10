@@ -82,22 +82,31 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import IndependencePlanForm
 
+from .forms import SignupForm, IndependencePlanForm
+
 @login_required
 def signup_view(request):
-    # 만약 이미 독립계획 정보가 있는 유저라면 바로 home으로 보냄
     if hasattr(request.user, 'independenceplan'):
         return redirect('/home/')
 
     if request.method == 'POST':
-        form = IndependencePlanForm(request.POST)
-        if form.is_valid():
-            plan = form.save(commit=False)
+        user_form = SignupForm(request.POST, request.FILES, instance=request.user)
+        plan_form = IndependencePlanForm(request.POST)
+
+        if user_form.is_valid() and plan_form.is_valid():
+            user_form.save()  # 사용자 정보 업데이트
+            plan = plan_form.save(commit=False)
             plan.user = request.user
             plan.save()
             return redirect('/home/')
     else:
-        form = IndependencePlanForm()
+        user_form = SignupForm(instance=request.user)
+        plan_form = IndependencePlanForm()
 
-    return render(request, 'test_signup.html', {'plan_form': form})
+    return render(request, 'test_signup.html', {
+        'user_form': user_form,      
+        'plan_form': plan_form
+    })
+
 
 
