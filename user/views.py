@@ -101,15 +101,3 @@ def signup_view(request):
         'plan_form': plan_form,
     })
 
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('/home/')
-    else:
-        form = LoginForm()
-
-    # login.html 연결
-    return render(request, 'test_login.html', {'form': form})
