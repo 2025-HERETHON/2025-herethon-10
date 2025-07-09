@@ -9,7 +9,7 @@
     let marker = null;
     let infowindow = null;
 
-    window.onload = function () {
+    {% comment %} window.onload = function () {
         kakao.maps.load(function () {
             const container = document.getElementById('contract_map');
             const options = {
@@ -18,7 +18,23 @@
             };  
         map = new kakao.maps.Map(container, options);
         });
-    };
+    }; {% endcomment %}
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // kakao 객체가 이미 로드되었는지 확인 후 load 호출
+        if (typeof kakao !== 'undefined') {
+            kakao.maps.load(function () {
+                const container = document.getElementById('contract_map');
+                const options = {
+                    center: new kakao.maps.LatLng(37.5665, 126.978),
+                    level: 5
+                };
+                map = new kakao.maps.Map(container, options);
+            });
+        } else {
+            console.error("❌ Kakao SDK 로드 실패: kakao 객체가 존재하지 않습니다.");
+        }
+    });
 
     function searchPlace() {
         const keyword = document.getElementById('contract_search-input').value.trim();
