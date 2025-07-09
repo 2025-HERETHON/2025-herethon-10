@@ -1,4 +1,4 @@
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" onsubmit="syncRegionFields()">
   {% csrf_token %}
   {{ user_form.as_p }}
   {{ plan_form.as_p }}
@@ -15,11 +15,6 @@
         <option value="">시/도를 먼저 선택하세요</option>
     </select>
   </p>
-
-  <!-- 실제 전송될 폼 필드 -->
-  {{ plan_form.area_si }}
-  {{ plan_form.area_sgg }}
-
   <button type="submit">수정하기</button>
 </form>
 
@@ -63,6 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 초기값 미리 선택
     const selectedSi = hiddenSi.value;
     const selectedSgg = hiddenSgg.value;
+
+    // 🔽 이 두 줄 추가!!
+    hiddenSi.value = selectedSi;
+    hiddenSgg.value = selectedSgg;
+
 
     // 시/도 불러오기
     fetch("{% url 'user:get_sido' %}")
@@ -133,6 +133,18 @@ document.addEventListener('DOMContentLoaded', () => {
         hiddenSgg.value = sigunguSelect.value;
     });
 });
+
+function syncRegionFields() {
+    const sidoSelect = document.getElementById('id_sido');
+    const sigunguSelect = document.getElementById('id_sigungu');
+    const hiddenSi = document.getElementById('id_area_si');
+    const hiddenSgg = document.getElementById('id_area_sgg');
+
+    hiddenSi.value = sidoSelect.value;
+    hiddenSgg.value = sigunguSelect.value;
+}
+
 </script>
+
 
 

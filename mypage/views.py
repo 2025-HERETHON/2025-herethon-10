@@ -12,7 +12,17 @@ def profile_edit(request):
 
         if user_form.is_valid() and plan_form.is_valid():
             user_form.save()
-            plan_form.save()
+            plan = plan_form.save(commit=False)
+
+        # 지역 정보 수동 반영
+            area_si = request.POST.get('area_si', '').strip()
+            area_sgg = request.POST.get('area_sgg', '').strip()
+            if area_si:
+                plan.area_si = area_si
+            if area_sgg:
+                plan.area_sgg = area_sgg
+
+            plan.save()
             return redirect('mypage:profile_edit')
 
     else:
