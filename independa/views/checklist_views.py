@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from independa.forms import ContractChecklistForm
 from independa.models import ChecklistGroup, ContractChecklist, MovingChecklist, RoomCondition, WomenSafetyPreference, CheckAll, ResidencyChecklist
 from independa.views.contract_views import contract_checklists
+from independa.views.residency_views import is_residency_checklist_complete, residency_checklists
 from user.models import IndependencePlan
 from independa.views.moving_veiws import moving_checklists
 
@@ -27,16 +28,10 @@ def create_checklists_view(request):
     contract_checklists(user, checklist_group)
 
     # 4. 입주 체크리스트 생성 (기본값으로)
-    MovingChecklist.objects.create(
-        checklist_group=checklist_group,
-        user=user
-    )
+    moving_checklists(user, checklist_group)
 
     # 5. 이사 체크리스트 생성 (기본값으로)
-    ResidencyChecklist.objects.create(
-        checklist_group=checklist_group,
-        user=user
-    )
+    residency_checklists(user, checklist_group)
     
     #6. 체크 진행도
     CheckAll.objects.create(
@@ -68,6 +63,10 @@ def reset_checklist_view(request, categ):
 
             checklist.delete()
             
+            check=CheckAll.objects.get(user_id=request.user.id)
+            check.contract_all=0
+            check.save()
+            
         except ContractChecklist.DoesNotExist:
             print("삭제할 ContractChecklist 없음")
 
@@ -79,6 +78,9 @@ def reset_checklist_view(request, categ):
         try:
             checklist = MovingChecklist.objects.get(user=user)
             checklist.delete()
+            check=CheckAll.objects.get(user_id=request.user.id)
+            check.moving_all=0
+            check.save()
             
         except MovingChecklist.DoesNotExist:
             print("삭제할 MovingChecklist 없음")
@@ -87,6 +89,21 @@ def reset_checklist_view(request, categ):
         
         return redirect('independa:moving_checklist_edit')
         
+    elif categ == "residency":
+        try:
+            checklist = ResidencyChecklist.objects.get(user=user)
+            checklist.delete()
+            check=CheckAll.objects.get(user_id=request.user.id)
+            check.residency_all=0
+            check.save()
+            
+        except ResidencyChecklist.DoesNotExist:
+            print("삭제할 ResidencyChecklist 없음")
+
+        residency_checklists(user, checklist_group)
+        
+        return redirect('independa:residency_checklist_edit')
+    
     else:
         print(f"'{categ}'는 일치하지 않음")
 

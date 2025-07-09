@@ -12,7 +12,7 @@
 
     window.onload = function () {
         kakao.maps.load(function () {
-        const container = document.getElementById('map');
+        const container = document.getElementById('residency_map');
         const options = {
             center: new kakao.maps.LatLng(37.5665, 126.978),
             level: 5
@@ -22,7 +22,7 @@
     };
 
     function searchPlace() {
-        const keyword = document.getElementById('search-input').value.trim();
+        const keyword = document.getElementById('residency_search-input').value.trim();
         if (!keyword) {
         alert("검색어를 입력하세요.");
         return;
@@ -67,7 +67,7 @@
     }
 
     function displayLevel() {
-        const levelEl = document.getElementById('maplevel');
+        const levelEl = document.getElementById('residency_maplevel');
         levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
     }
 
@@ -86,109 +86,81 @@
         <form method="post" >
             {% csrf_token %}
 
-            <!-- 계약 준비 섹션 -->
+            <!-- ✅ 기본 점검 -->
             <section>
-                <h2>계약 준비</h2>
+                <h2>기본 점검</h2>
+                <div class="checklist-group">
+                {{ form.check_utilities }}
+                <label for="{{ form.check_utilities.id_for_label }}">전기, 수도, 가스 정상 작동 재확인하기</label><br><br>
 
-                <h3>예산 설정</h3>
-                <div>
-                <label for="{{ form.min_rent_budget.id_for_label }}">월세</label>
-                {{ form.min_rent_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
-                <label for="{{ form.min_deposit_budget.id_for_label }}">보증금</label>
-                {{ form.min_deposit_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
-                <label for="{{ form.min_manage_budget.id_for_label }}">관리비</label>
-                {{ form.min_manage_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
-                </div>
+                {{ form.check_heating }}
+                <label for="{{ form.check_heating.id_for_label }}">냉온수, 보일러, 샤워기 점검하기</label><br><br>
 
-                <h3>독립 지역 정하기</h3>
-                
-            </section><br><br>
-
-            <!-- 계약 전: 등기부등본 확인 -->
-            <section>
-                <h2>계약 전</h2>
-
-                <h3>등기부등본 확인</h3>
-                <label>
-                {{ form.owner_verified }} 집주인 신원 및 소유권 확인하기
-                </label><br><br>
-                <label>
-                {{ form.mortgage_verified }} 선순위 채권(근저당) 유무 확인하기
-                </label><br><br>
-                <label>
-                {{ form.illegal_building_verified }} 위법 건축물 여부 확인하기
-                </label><br><br>
-            </section>
-
-            <!-- 주변 환경 확인 -->
-            <section >
-                <h3>주변 환경 확인하기</h3>
-                <div class="room-conditions">
-                {% for field_name in room_condition_fields %}
-                {% with field=form|get_field:field_name %}
-                    <div class="condition-toggle" data-key="{{ field_name }}">
-                        <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
-                            {% if field.value %}checked{% endif %}>
-                        <label for="{{ field.id_for_label }}">
-                            <img src="../../static/img/boomup.png" class="thumb-up">
-                            <img src="../../static/img/boomdown.png" class="thumb-down">
-                        </label>
-                        <span>{{ field.label }}</span>
-                    </div>
-                {% endwith %}
-                {% endfor %}
-
-                </div><br><br>
-                <label>
-                {{ form.deposit_insurance }} 전세 보증금 반환 보증 가입 여부 확인하기
-                </label><br><br>
-            </section>
-
-            <!-- 여성 전용 공간 -->
-            <section>
-                <h3>여성 전용 공간 확인하기</h3>
-                <div class="women-safety">
-                {% for field_name in women_safety_fields %}
-                {% with field=form|get_field:field_name %}
-                    <div class="condition-toggle" data-key="{{ field_name }}">
-                    <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
-                            {% if field.value %}checked{% endif %}>
-                    <label for="{{ field.id_for_label }}">
-                        <img src="../../static/img/boomup.png" class="thumb-up">
-                        <img src="../../static/img/boomdown.png" class="thumb-down">
-                    </label>
-                    <span>{{ field.label }}</span>
-                    </div>
-                {% endwith %}
-                {% endfor %}
+                {{ form.set_doorlock_password }}
+                <label for="{{ form.set_doorlock_password.id_for_label }}">도어락 비밀번호 설정 및 강화하기</label><br><br>
                 </div>
             </section>
 
-            <!-- 계약서 작성 -->
+            <!-- ✅ 안전 보안 점검 -->
             <section>
-                <h2>계약서 작성</h2>
-                {% for field_name in simple_fields %}
-                {% with field=form|get_field:field_name %}
-                    {{ field }}
-                    <label for="{{ field.id_for_label }}">
-                        {{ field.label }}
-                    </label>
-                    <br><br>
-                {% endwith %}
-                {% endfor %}
+                <h2>안전 · 보안 점검</h2>
+                <div class="checklist-group">
+                {{ form.check_fire_detector }}
+                <label for="{{ form.check_fire_detector.id_for_label }}">화재 감지기 및 가스차단기 확인하기</label><br><br>
+
+                {{ form.check_window_locks }}
+                <label for="{{ form.check_window_locks.id_for_label }}">창문, 현관문 잠금장치 점검하기</label><br><br>
+
+                {{ form.locate_circuit_breaker }}
+                <label for="{{ form.locate_circuit_breaker.id_for_label }}">전기차단기 (두꺼비집) 위치 파악해두기</label><br><br>
+                </div>
             </section>
 
-            <div class="center" style="margin-top: 20px; margin-right: 30px; padding:0 auto;">
-                <button type="submit">저장</button><br><br>   
+            <!-- ✅ 생활 정착 -->
+            <section>
+                <h2>생활 정착</h2>
+                <div class="checklist-group">
+                {{ form.check_recycling_days }}
+                <label for="{{ form.check_recycling_days.id_for_label }}">분리수거 요일 및 분리수거장 확인하기</label><br><br>
+
+                {{ form.setup_wifi_appliances }}
+                <label for="{{ form.setup_wifi_appliances.id_for_label }}">와이파이, TV, 가전 설치 마무리하기</label><br><br>
+
+                {{ form.prepare_emergency_kit }}
+                <label for="{{ form.prepare_emergency_kit.id_for_label }}">응급약품 구비해두기</label><br><br>
+                </div>
+            </section>
+
+            <!-- ✅ 생활 필수품 보충하기 -->
+            <section>
+                <h3>생활 필수품 보충하기</h3>
+                <div class="checklist-group">
+                {{ form.prepare_laundry_detergent }}
+                <label for="{{ form.prepare_laundry_detergent.id_for_label }}">세탁 세제 및 주방 세제</label><br><br>
+
+                {{ form.prepare_kitchen_supplies }}
+                <label for="{{ form.prepare_kitchen_supplies.id_for_label }}">키친타올 및 행주</label><br><br>
+
+                {{ form.prepare_toiletries }}
+                <label for="{{ form.prepare_toiletries.id_for_label }}">화장지 및 물티슈</label><br><br>
+
+                {{ form.prepare_garbage_bags }}
+                <label for="{{ form.prepare_garbage_bags.id_for_label }}">종량제봉투 (지역구 전용)</label><br><br>
+
+                {{ form.prepare_drinking_water }}
+                <label for="{{ form.prepare_drinking_water.id_for_label }}">생수 또는 정수기</label><br><br>
+                </div>
+            </section>
+
+            <div class="center" style="margin-top: 20px; text-align:center;">
+                <button type="submit">저장</button><br><br>
             </div>
-
-            {% comment %} <a href="{% url 'independa:reset_checklist' 'contract' %}"><button>기본값으로 초기화</button></a> {% endcomment %}
         </form>
         
-        {%if check.contract_all %}
-            <div>모두 완료했습니다! 이제 이사 준비를 해볼까요?</div>
+        {% if check.residency_all %}
+            <div>모두 완료했습니다! 슈니 님의 새 출발을 응원합니다!</div>
         {%endif%}
-        <form method="post" action="{% url 'independa:reset_checklist' 'contract' %}" style="margin-top: 10px;">
+        <form method="post" action="{% url 'independa:reset_checklist' 'residency' %}" style="margin-top: 10px;">
             {% csrf_token %}
             <button type="submit" style="background:#eee; padding:8px 16px;">기본값으로 초기화</button>
         </form>
@@ -236,15 +208,15 @@
         <div>
             <h2 style="margin-left:30px; margin-top:30px;">지도로 미리보기</h2>
             <div style="margin: 20px;">
-                <input type="text" id="search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
+                <input type="text" id="residency_search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
                 <button onclick="searchPlace()" style="padding: 8px;">검색</button>
             </div>
 
-            <div id="map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
+            <div id="residency_map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
             <p style="margin-left:30px; margin-top:30px;">
                 <button onclick="zoomIn()">지도레벨 - 1</button>
                 <button onclick="zoomOut()">지도레벨 + 1</button>
-                <span id="maplevel"></span>
+                <span id="residency_maplevel"></span>
             </p>
         </div>
     </div>
