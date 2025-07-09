@@ -8,6 +8,11 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
+
+from django.shortcuts import render, redirect
+
+
+
 #서비스아이디, 보안키로 어세스토큰 받아오기
 def get_token():
 
@@ -78,13 +83,8 @@ def get_sigungu(request):
     # print(f"시/군/구 데이터 for sido_code={sido_code}: ", data)
     return JsonResponse(data)
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from .forms import IndependencePlanForm
 
-from .forms import SignupForm, IndependencePlanForm
-
-@login_required
+@login_required(login_url='/accounts/login/')
 def signup_view(request):
     if hasattr(request.user, 'independenceplan'):
         return redirect('/home/')
