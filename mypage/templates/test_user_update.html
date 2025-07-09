@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보 수정</title>
+</head>
+<body>
+    <h1>회원 정보 수정</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>기본 정보</legend>
+            {{ user_form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>독립 계획 정보</legend>
+            {{ plan_form.as_p }}
+        </fieldset>
+
+        <button type="submit">수정 완료</button>
+    </form>
+</body>
+</html>

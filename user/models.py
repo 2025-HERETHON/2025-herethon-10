@@ -27,7 +27,7 @@ class User(AbstractBaseUser):
         ('프리랜서', '프리랜서'),
         ('기타', '기타'),
     ]
-
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=50)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)

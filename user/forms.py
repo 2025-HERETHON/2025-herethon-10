@@ -16,6 +16,8 @@ MOVE_DATE_CHOICES = [
 
 # 기본 정보 입력 폼
 class SignupForm(forms.ModelForm):
+    profile_image = forms.ImageField(required=False)
+    
     password = forms.CharField(widget=forms.PasswordInput)
     
     birth_date = forms.DateField(
