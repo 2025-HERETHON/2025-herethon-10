@@ -90,8 +90,7 @@ def signup_view(request):
             plan.user = user
             plan.save()
 
-            login(request, user)  # 회원가입 후 바로 로그인 처리
-            return redirect('user:login')  # 로그인 화면으로 이동 (임시)
+            return redirect('/home/')
     else:
         user_form = SignupForm()
         plan_form = IndependencePlanForm()

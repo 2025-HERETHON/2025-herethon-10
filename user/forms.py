@@ -18,8 +18,6 @@ MOVE_DATE_CHOICES = [
 class SignupForm(forms.ModelForm):
     profile_image = forms.ImageField(required=False)
     
-    password = forms.CharField(widget=forms.PasswordInput)
-    
     birth_date = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'})
     )
