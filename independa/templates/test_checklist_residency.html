@@ -2,6 +2,7 @@
 
 
 <link rel="stylesheet" href="../../static/css/test_checklist_contract.css">
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{myjskey}}&libraries=services&autoload=false"></script>
 
 <script>
@@ -73,12 +74,15 @@
     
 </script>
 
+
 <body>
 
-    <div style="border:1px solid black; width:1000px; height:2850px; padding-left:30px; padding-bottom:30px;">
+    <div style="border:1px solid black; width:1000px; padding-left:30px; padding-bottom:30px;">
         
-        <h1> 계약 </h1>
-        <a href="{%url 'independa:moving_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> > </div></a>
+        <h1> 입주 </h1>
+        <div style="display:flex;">   
+            <a href="{%url 'independa:moving_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> < </div></a>
+        </div>
         <form method="post" >
             {% csrf_token %}
 
@@ -97,28 +101,7 @@
                 </div>
 
                 <h3>독립 지역 정하기</h3>
-                <div style="display:flex;">
-                    <!-- 시/도 선택 -->
-                    <div class="center" style="border:1px solid black; width:300px; height: 50px;">
-                        {% comment %} <label for="id_sido">시/도:</label> {% endcomment %}
-                        <select id="id_sido" name="area_si">
-                            <!-- JS가 옵션 동적으로 채움 -->
-                        </select>
-                    </div>&nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <!-- 시/군/구 선택 -->
-                    <div class="center" style="border:1px solid black; width:300px; height: 50px;">
-                        {% comment %} <label for="id_sigungu">시/군/구:</label> {% endcomment %}
-                        <select id="id_sigungu" name="area_sgg" disabled>
-                            <!-- JS가 옵션 동적으로 채움 -->
-                        </select>
-                    </div>
-
-                    <!-- 실제 제출용 hidden 필드 -->
-                    <input type="hidden" name="area_si" id="hidden_area_si">
-                    <input type="hidden" name="area_sgg" id="hidden_area_sgg">
-                </div>
-
+                
             </section><br><br>
 
             <!-- 계약 전: 등기부등본 확인 -->
@@ -263,22 +246,11 @@
                 <button onclick="zoomOut()">지도레벨 + 1</button>
                 <span id="maplevel"></span>
             </p>
-
         </div>
     </div>
 </body>
 
-
-
-
 <script>
-
-    const defaultSido = "{{ independenceplan.area_si|default_if_none:''|escapejs }}";
-    const defaultSigungu = "{{ independenceplan.area_sgg|default_if_none:''|escapejs }}";
-
-    console.log("✅ 시/도 기본값:", defaultSido);
-    console.log("✅ 시/군/구 기본값:", defaultSigungu);
-    
 document.addEventListener("DOMContentLoaded", function () {
     const toggles = document.querySelectorAll(".condition-toggle");
 
@@ -311,97 +283,5 @@ document.addEventListener("DOMContentLoaded", function () {
         thumbDown.style.display = "inline";
         }
     }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const sidoSelect = document.getElementById('id_sido');
-    const sigunguSelect = document.getElementById('id_sigungu');
-    const hiddenSi = document.getElementById('hidden_area_si');
-    const hiddenSgg = document.getElementById('hidden_area_sgg');
-
-    const defaultSido = "{{ independenceplan.area_si|escapejs }}";
-    const defaultSigungu = "{{ independenceplan.area_sgg|escapejs }}";
-
-    // 1. 시/도 로딩
-    fetch("{% url 'user:get_sido' %}")
-        .then(res => res.json())
-        .then(data => {
-            if (data.result) {
-                data.result.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.addr_name;
-                    option.dataset.code = item.cd;
-                    option.textContent = item.addr_name;
-
-                    if (item.addr_name === defaultSido) {
-                        option.selected = true;
-                        hiddenSi.value = item.addr_name;
-                    }
-
-                    sidoSelect.appendChild(option);
-                });
-
-                // 2. 선택된 시/도에 따라 시군구 불러오기
-                const selected = sidoSelect.selectedOptions[0];
-                const sidoCode = selected?.dataset.code;
-
-                if (sidoCode) {
-                    fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.result) {
-                                sigunguSelect.disabled = false;
-                                data.result.forEach(item => {
-                                    const option = document.createElement('option');
-                                    option.value = item.addr_name;
-                                    option.dataset.code = item.cd;
-                                    option.textContent = item.addr_name;
-
-                                    if (item.addr_name === defaultSigungu) {
-                                        option.selected = true;
-                                        hiddenSgg.value = item.addr_name;
-                                    }
-
-                                    sigunguSelect.appendChild(option);
-                                });
-                            }
-                        });
-                }
-            }
-        });
-
-    // 3. 시/도 선택 시 동적 갱신
-    sidoSelect.addEventListener('change', () => {
-        const selected = sidoSelect.selectedOptions[0];
-        const sidoCode = selected.dataset.code;
-        const sidoName = selected.value;
-        hiddenSi.value = sidoName;
-
-        sigunguSelect.innerHTML = '';
-        sigunguSelect.disabled = true;
-        hiddenSgg.value = '';
-
-        if (!sidoCode) return;
-
-        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.result) {
-                    sigunguSelect.disabled = false;
-                    data.result.forEach(item => {
-                        const option = document.createElement('option');
-                        option.value = item.addr_name;
-                        option.dataset.code = item.cd;
-                        option.textContent = item.addr_name;
-                        sigunguSelect.appendChild(option);
-                    });
-                }
-            });
-    });
-
-    // 4. 시군구 선택 시 hidden 필드 값 반영
-    sigunguSelect.addEventListener('change', () => {
-        hiddenSgg.value = sigunguSelect.value;
-    });
 });
 </script>
