@@ -122,13 +122,13 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',  # ★ allauth
 ]
 
-LOGIN_REDIRECT_URL = '/user/signup/'  # 로그인 후 추가 정보 입력 페이지
+LOGIN_REDIRECT_URL = '/user/signup/'  
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-SOCIALACCOUNT_AUTO_SIGNUP = False  # 소셜 로그인만으로 자동 가입 안 되게
+SOCIALACCOUNT_AUTO_SIGNUP = True 
 
 SOCIALACCOUNT_PROVIDERS = {
     'kakao': {

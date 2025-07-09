@@ -30,9 +30,9 @@ class User(AbstractBaseUser):
     profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=50)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    birth_date = models.DateField()
-    job = models.CharField(max_length=20, choices=JOB_CHOICES)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    job = models.CharField(max_length=20, choices=JOB_CHOICES, blank=True, null=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

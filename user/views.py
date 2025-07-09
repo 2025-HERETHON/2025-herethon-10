@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import SignupForm, IndependencePlanForm, LoginForm
+from .forms import SignupForm, IndependencePlanForm
 from django.http import HttpResponse
 import requests
 import copy
 from django.http import JsonResponse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 #서비스아이디, 보안키로 어세스토큰 받아오기
 def get_token():
@@ -66,6 +67,7 @@ def get_sido(request):
     data = call_sgis_api({})
     return JsonResponse(data)
 
+
 # 시/군/구 가져오기
 def get_sigungu(request):
     sido_code = request.GET.get('sido_code')
@@ -76,27 +78,26 @@ def get_sigungu(request):
     # print(f"시/군/구 데이터 for sido_code={sido_code}: ", data)
     return JsonResponse(data)
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .forms import IndependencePlanForm
+
+@login_required
 def signup_view(request):
+    # 만약 이미 독립계획 정보가 있는 유저라면 바로 home으로 보냄
+    if hasattr(request.user, 'independenceplan'):
+        return redirect('/home/')
+
     if request.method == 'POST':
-        user_form = SignupForm(request.POST, request.FILES)
-        plan_form = IndependencePlanForm(request.POST)
-
-        if user_form.is_valid() and plan_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user_form.cleaned_data['password'])  # 비밀번호 해시화
-            user.save()
-
-            plan = plan_form.save(commit=False)
-            plan.user = user
+        form = IndependencePlanForm(request.POST)
+        if form.is_valid():
+            plan = form.save(commit=False)
+            plan.user = request.user
             plan.save()
-
             return redirect('/home/')
     else:
-        user_form = SignupForm()
-        plan_form = IndependencePlanForm()
+        form = IndependencePlanForm()
 
-    return render(request, 'test_signup.html', {
-        'user_form': user_form,
-        'plan_form': plan_form,
-    })
+    return render(request, 'test_signup.html', {'plan_form': form})
+
 
