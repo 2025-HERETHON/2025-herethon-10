@@ -148,3 +148,17 @@ class CheckAll(models.Model):
     contract_all = models.BooleanField(default=False)
     moving_all = models.BooleanField(default=False)
     residency_all = models.BooleanField(default=False)
+    
+    
+class SavedPlace(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    kakao_id = models.CharField(max_length=50)
+    category_group_code = models.CharField(max_length=10)
+    place_name = models.CharField(max_length=255)
+    place_url = models.URLField()
+    road_address_name = models.CharField(max_length=255)
+    x = models.CharField(max_length=30)
+    y = models.CharField(max_length=30)
+
+    class Meta:
+        unique_together = ('user', 'kakao_id')  # 중복 저장 방지
