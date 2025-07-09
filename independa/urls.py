@@ -1,6 +1,6 @@
 from django.urls import path
-from independa.views.contract_views import contract_checklist_edit_view, reset_checklist_view
-from independa.views.checklist_views import inde_home_view, create_checklists_view
+from independa.views.contract_views import contract_checklist_edit_view
+from independa.views.checklist_views import inde_home_view, create_checklists_view, reset_checklist_view
 from independa.views.moving_veiws import moving_checklist_edit_view
 from independa.views.residency_views import residency_checklist_edit_view
 
