@@ -78,7 +78,7 @@ def get_sigungu(request):
 
 def signup_view(request):
     if request.method == 'POST':
-        user_form = SignupForm(request.POST)
+        user_form = SignupForm(request.POST, request.FILES)
         plan_form = IndependencePlanForm(request.POST)
 
         if user_form.is_valid() and plan_form.is_valid():
