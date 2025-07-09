@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홈</title>
-    <link rel="stylesheet" href="/static/css/home.css">
+    <title>독립계획 시작하기(기본화면)</title>
+    <link rel="stylesheet" href="/static/css/inde_home.css">
 </head>
 <body>
     <div id = background>
         <div id="header">
             <div id="headerBox">
-                <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
+                 <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
                 <div id="selectBox">
                     <a href="/home/templates/home.html" id="home">홈</a> 
-                    <a href="/independa/templates/inde_home.html" id="plan">독립계획 시작하기</a> 
+                    <a href="/" id="plan">독립계획 시작하기</a> 
                     <a href="/" id="life">생활 시작하기</a> 
                     <a href="/" id="community">커뮤니티</a>
                     <a href="/" id="mypage">마이페이지</a>
@@ -26,12 +26,61 @@
         
         <div id="banner">
             <div id="bannerBox">
-                <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+                <h1>독립계획 시작하기</h1>
                 <h2>Lorem ipsum dolor sit amet consectetur.</h2>
             </div>
         </div>
 
-        <div id="container"></div>
+        <div id="container">
+            <div id="box">
+                <div id="box1">
+                <!-- 메뉴 -->
+                <div id="start">독립계획 시작하기</div>
+                <a class="menutext" href="/independa/templates/">나만의 체크리스트</a>
+                <a class="menutext" href="/independa/templates/budget_cal.html">예산 계산기</a>
+                <a class="menutext" href="/independa/templates/local_infra.html">지역 인프라 미리보기</a>
+                </div>
+
+
+                <div id="box2">
+                <!-- 당신의 첫 독립을 위해 -->
+                <div id="top">당신의 첫 독립을 위해</div>
+
+                <div class="optitle">나만의 체크리스트 만들기</div>
+                <div class="opcontent">Welcome to Burger Bliss, 
+                    where we take your cravings to a whole new level! 
+                    Our mouthwatering burgers are made 
+                    from 100% beef and are served on freshly baked buns.</div>
+                <div id="box4">
+                    <div id="btn1">나의 체크리스트 보기</div>
+                    <div id="btn2">새로 만들기</div>
+                </div>
+
+                <div class="optitle">예산 계산기</div>
+                <div class="opcontent">elcome to Burger Bliss, 
+                    where we take your cravings to a whole new level! 
+                    Our mouthwatering burgers are made 
+                    from 100% beef and are served on freshly baked buns</div>
+                    <a id="btn3" href="/independa/templates/budget_cal.html">바로가기</a>
+
+
+                <div class="optitle">지역 인프라 미리보기</div>
+                <div class="opcontent">elcome to Burger Bliss, 
+                    where we take your cravings to a whole new level! 
+                    Our mouthwatering burgers are made 
+                    from 100% beef and are served on freshly baked buns</div>
+                <a id="btn4" href="/independa/templates/local_infra.html">바로가기</a>
+
+                </div>
+
+                <div id="box3">
+                <!-- 이미지 3개 -->
+                 <img src="" alt="이미지1" class="img">
+                 <img src="" alt="이미지2" class="img">
+                 <img src="" alt="이미지3" class="img">
+                </div>
+            </div>
+        </div>
 
         <div id="footer">
             <div id="footerContainer">
@@ -66,9 +115,7 @@
                             <div class="item"  id="leave">회원탈퇴</div>
                         </div>
                     </div>
-                     <div id="logoBox">
-                           <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
-                    </div>
+                    <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
 
                     <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
                 </div>
@@ -77,5 +124,5 @@
     </div>
 
 </body>
-<script src="/static/js/home.js"></script>
+<script src="/static/js/inde_home.js"></script>
 </html>

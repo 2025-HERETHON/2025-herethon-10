@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>홈</title>
-    <link rel="stylesheet" href="/static/css/home.css">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
     <div id = background>
@@ -31,7 +31,30 @@
             </div>
         </div>
 
-        <div id="container"></div>
+
+        <div id="container">
+            <div id="loginContainer"> 
+                <div id="logintext">로그인</div>
+
+                <div id="emailbox">
+                <div id="emailtext">이메일</div>
+                <input id="emailinput" type="text" placeholder="example@logo.com" /></div>
+
+                <div id="keybox">
+                <div id="keytext">비밀번호</div>
+                <input id="keyinput" type="text" placeholder="example1234*" /></div>
+
+                <div id="keyfindbox">
+                <div id="keyfind">비밀번호 찾기</div><img src="/static/img/keyfind.svg"></div>
+
+                <div id="loginbtnbox">
+                <a href="/user/templates/signup.html" id="loginbtn">
+                <img src="/static/img/kakaologo.svg" id="kakaologo" alt="카카오 로고">
+                카카오로 시작하기
+                </a></div>
+                
+            </div>
+        </div>
 
         <div id="footer">
             <div id="footerContainer">
@@ -66,7 +89,7 @@
                             <div class="item"  id="leave">회원탈퇴</div>
                         </div>
                     </div>
-                     <div id="logoBox">
+                      <div id="logoBox">
                            <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
                     </div>
 
@@ -76,6 +99,10 @@
         </div>
     </div>
 
+
+
+
+
 </body>
-<script src="/static/js/home.js"></script>
+<script src="/static/js/login.js"></script>
 </html>
