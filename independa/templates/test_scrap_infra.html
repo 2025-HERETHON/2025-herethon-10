@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>저장한 인프라 보기</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Pretendard', sans-serif;
+            background: #f9f9fb;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header h1 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            width: 400px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-bar button {
+            padding: 10px 16px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .category-buttons {
+            padding: 12px 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .category-buttons button {
+            background-color: #f1f3f5;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 400px;
+            background-color: white;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar .search-input {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar .search-input input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .place-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .place-info p {
+            margin: 0;
+            font-size: 13px;
+            color: #00a650;
+        }
+
+        .place-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .place-actions button {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        #scrap_map {
+            flex: 1;
+            min-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>| 저장한 인프라 보기</h1>
+    <div class="search-bar">
+        <input type="text" id="keyword" placeholder="장소를 검색하세요" />
+        <button onclick="searchPlaces()">검색</button>
+    </div>
+</header>
+
+<div class="category-buttons">
+    <button>편의점</button>
+    <button>마트(대형마트, 다이소)</button>
+    <button>올리브영</button>
+    <button>약국</button>
+    <button>병원</button>
+    <button>카페</button>
+    <button>패스트푸드</button>
+    <button>여성전용시설</button>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <div class="search-input">
+            <input type="text" id="searchInput" placeholder="장소명, 주소로 검색" />
+            <button onclick="searchSavedPlaces()">검색</button>
+        </div>
+        <div id="saved-place-list">
+            <!-- JS로 동적 생성 -->
+        </div>
+    </div>
+    <div id="scrap_map" style="width:100%; height:100%;"></div>
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{myjskey}}&libraries=services&autoload=false"></script>
+<script>
+    const savedPlaces = {{ saved_place|default:"[]"|safe }};
+
+    let map;
+    let markers = [];
+    let defaultImage;
+    let highlightImage;
+    let highlightedIndex = null;
+
+    function initMap() {
+        const container = document.getElementById('scrap_map');
+        const options = {
+            center: new kakao.maps.LatLng({{ y|default:"37.5665" }}, {{ x|default:"126.9780" }}),
+            level: 5
+        };
+        map = new kakao.maps.Map(container, options);
+    }
+
+    function addMarker(place) {
+        const position = new kakao.maps.LatLng(parseFloat(place.y), parseFloat(place.x));
+        const marker = new kakao.maps.Marker({
+            map: map,
+            position: position,
+            image: defaultImage
+        });
+        markers.push(marker);
+    }
+
+    function highlightMarker(index) {
+        // 이전 강조 마커 기본 이미지로 복귀
+        if (highlightedIndex !== null && markers[highlightedIndex]) {
+            markers[highlightedIndex].setImage(defaultImage);
+        }
+
+        // 새로 강조할 마커 이미지로 변경
+        markers[index].setImage(highlightImage);
+        highlightedIndex = index;
+    }
+
+    function panToMarker(index) {
+        const place = savedPlaces[index];
+        const position = new kakao.maps.LatLng(parseFloat(place.y), parseFloat(place.x));
+        map.panTo(position);
+    }
+
+    function panToMarkerByPlace(y, x) {
+        const position = new kakao.maps.LatLng(parseFloat(y), parseFloat(x));
+        map.panTo(position);
+    }
+
+    function renderSavedPlacesList() {
+        const list = document.getElementById("saved-place-list");
+        list.innerHTML = "";
+
+        if (!savedPlaces || savedPlaces.length === 0) {
+            list.innerHTML = "<p style='padding: 16px;'>저장된 장소가 없습니다.</p>";
+            return;
+        }
+
+        savedPlaces.forEach((place, index) => {
+            const item = document.createElement("div");
+            item.className = "place-item";
+            item.style.cursor = "pointer";
+            item.innerHTML = `
+                <div class="place-info">
+                    <h4>${place.place_name}</h4>
+                    <p><button class="delete-btn">삭제하기</button></p>
+                </div>
+                <div class="place-actions">
+                    <a href="${place.place_url}" target="_blank">자세히 보기</a>
+                    <button>지도에서 보기</button>
+                </div>
+            `;
+
+            // 클릭 시 지도 이동 및 강조
+            item.addEventListener('click', () => {
+                panToMarker(index);
+                highlightMarker(index);
+            });
+
+            // 지도에서 보기 버튼 클릭 시
+            const viewBtn = item.querySelector('.place-actions button');
+            viewBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                panToMarker(index);
+                highlightMarker(index);
+            });
+
+            // 삭제 버튼 클릭 시
+            const deleteBtn = item.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                deletePlace(place.id);  // place.id 필요
+            });
+
+            list.appendChild(item);
+        });
+    }
+
+    function searchSavedPlaces() {
+        const keyword = document.getElementById("searchInput").value.trim().toLowerCase();
+        const list = document.getElementById("saved-place-list");
+        list.innerHTML = "";
+
+        if (!keyword) {
+            renderSavedPlacesList();
+            return;
+        }
+
+        const filtered = savedPlaces.filter(place => {
+            return (place.place_name && place.place_name.toLowerCase().includes(keyword)) ||
+                (place.road_address_name && place.road_address_name.toLowerCase().includes(keyword));
+        });
+
+        if (filtered.length === 0) {
+            list.innerHTML = "<p style='padding: 16px;'>검색 결과가 없습니다.</p>";
+            return;
+        }
+
+        filtered.forEach((place) => {
+            const item = document.createElement("div");
+            item.className = "place-item";
+            item.style.cursor = "pointer";
+            item.innerHTML = `
+                <div class="place-info">
+                    <h4>${place.place_name}</h4>
+                    <p><button class="delete-btn">삭제하기</button></p>
+                </div>
+                <div class="place-actions">
+                    <a href="${place.place_url}" target="_blank">자세히 보기</a>
+                    <button>지도에서 보기</button>
+                </div>
+            `;
+
+            item.addEventListener('click', () => {
+                panToMarkerByPlace(place.y, place.x);
+
+                // savedPlaces 배열에서 인덱스 찾아 강조
+                const idx = savedPlaces.findIndex(p => p.id === place.id);
+                if (idx !== -1) {
+                    highlightMarker(idx);
+                }
+            });
+            
+
+            const btn = item.querySelector('button');
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                panToMarkerByPlace(place.y, place.x);
+                const idx = savedPlaces.findIndex(p => p.id === place.id);
+                if (idx !== -1) {
+                    highlightMarker(idx);
+                }
+            });
+
+            // 삭제 버튼 클릭 시
+            const deleteBtn = item.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                deletePlace(place.id);  // place.id 필요
+            });
+
+            list.appendChild(item);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        kakao.maps.load(function () {
+            const defaultImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png';
+            const highlightImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+
+            defaultImage = new kakao.maps.MarkerImage(defaultImageSrc, new kakao.maps.Size(24, 35));
+            highlightImage = new kakao.maps.MarkerImage(highlightImageSrc, new kakao.maps.Size(24, 35));
+
+            initMap();
+            savedPlaces.forEach(place => addMarker(place));
+            renderSavedPlacesList();
+        });
+    });
+
+    function deletePlace(placeId) {
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+        fetch(`/independa/delete_place/${placeId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),  // CSRF 토큰 필요
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("삭제되었습니다.");
+                // 삭제 후 UI 갱신
+                const index = savedPlaces.findIndex(p => p.id === placeId);
+                if (index !== -1) {
+                    markers[index].setMap(null); // 지도에서 마커 제거
+                    savedPlaces.splice(index, 1); // 배열에서 삭제
+                    renderSavedPlacesList(); // 리스트 재렌더
+                }
+            } else {
+                alert("삭제 실패");
+            }
+        });
+    }
+
+    // CSRF 토큰 가져오기
+    function getCSRFToken() {
+        const cookie = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='));
+        return cookie ? cookie.split('=')[1] : '';
+    }
+
+</script>
+
+</body>
+</html>
