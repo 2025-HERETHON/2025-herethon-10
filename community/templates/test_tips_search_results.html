@@ -1,0 +1,16 @@
+{%for post in tips_posts%}
+    {{post.get_post_type_display}} - <a href={%url 'community:detail' post.id %}>{{post.title}}</a><br><br>
+{%endfor%}
+
+<!-- 페이지네이션 영역 -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?searchbar={{ search_query }}&page={{ page_obj.previous_page_number }}">이전</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?searchbar={{ search_query }}&page={{ page_obj.next_page_number }}">다음</a>
+    {% endif %}
+</div>

@@ -1,0 +1,51 @@
+<p>{{post.get_post_type_display}}</p>
+<h2>제목 : {{ post.title }}</h2><br>
+<p>작성자 : {{ post.user.name }}</p>
+<p>작성시각 : {{ post.created_at }}</p>
+<p>수정시각 : {{ post.updated_at }}</p>
+<form method="POST" action="{% url 'community:post_likes' post.id %}">
+    {% csrf_token %}
+    {% if is_liked %}
+        <input type="submit" value="좋아요 취소">
+    {% else %}
+        <input type="submit" value="좋아요">
+    {% endif %}
+    
+</form>
+<p>총 좋아요 수: <strong>{{ post.like_set.all.count }}개</strong></p>
+{% comment %} <p>DEBUG: 좋아요 수 = {{ post.like_set.count }}</p> {% endcomment %}
+
+<p>내용 : {{ post.content }}</p><br><br>
+        
+{%for img in images%}
+<img src="{{img.image.url}}" style="width:200px;border:2px solid black">&nbsp;&nbsp;
+{%endfor%}
+<br><br><br>
+
+{%if post.user == request.user %}
+    <br><hr>
+    <a href="{% url 'community:post_update' post_id=post.id %}"><button>글 수정</button></a>&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'community:post_delete' post_id=post.id %}"><button>글 삭제</button></a><br><hr>
+{%endif%}
+<br>
+<a href="{% url 'community:items' %}"><button>글 목록</button></a>
+<br><br><br>
+
+<form method="POST" action={%url 'community:comment' post.id %}>
+    {% csrf_token %}
+    <input type="text" name="comments" placeholder="댓글 입력..." >
+    <button type="submit" class="btn btn-info">댓글 작성</button>
+</form><br><br>
+
+{% for comment in post.comments.all %}
+    <div>
+        <p>{{ comment.user.name }} | {{ comment.created_at }}</p>
+        <p>{{ comment.content }}</p>
+
+        {% if comment.user == request.user %}
+            <a href="{% url 'community:comment_edit' comment.id %}">✏️ 수정</a>
+            <a href="{% url 'community:comment_delete' comment.id %}">🗑️ 삭제</a>
+        {% endif %}
+    </div>
+{% endfor %}
+

@@ -7,7 +7,7 @@ import copy
 from django.http import JsonResponse
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import logout
 
 from django.shortcuts import render, redirect
 
@@ -84,7 +84,6 @@ def get_sigungu(request):
     return JsonResponse(data)
 
 
-@login_required(login_url='/accounts/login/')
 def signup_view(request):
     if hasattr(request.user, 'independenceplan'):
         return redirect('/home/')
@@ -108,5 +107,20 @@ def signup_view(request):
         'plan_form': plan_form
     })
 
+def logout_view(request):
+    logout(request)  # 세션에서 사용자 정보 삭제
+    return redirect('home:home')
 
-
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('community:main')  # 로그인 후 이동할 페이지
+        else:
+            return render(request, 'test_login.html', {'error': '이메일 또는 비밀번호가 틀렸습니다.'})
+    
+    return render(request, 'test_login.html')

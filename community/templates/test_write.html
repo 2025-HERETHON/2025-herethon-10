@@ -1,0 +1,133 @@
+
+<form method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{post_form.as_p}}
+    <input type='file' name="image" multiple accept="image/*">
+    <button type="submit">저장</button>
+</form>
+
+{% comment %} <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sidoSelect = document.getElementById('c_id_sido');
+    const sigunguSelect = document.getElementById('c_id_sigungu');
+
+    const hiddenSi = document.getElementById('c_hidden_area_si');
+    const hiddenSgg = document.getElementById('c_hidden_area_sgg');
+
+    // 시/도 불러오기
+    fetch("{% url 'user:get_sido' %}")
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) {
+                data.result.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.addr_name;
+                    option.dataset.code = item.cd;
+                    option.textContent = item.addr_name;
+                    sidoSelect.appendChild(option);
+                });
+            }
+        });
+
+    // 시/도 선택 시 시/군/구 로딩
+    sidoSelect.addEventListener('change', () => {
+        const sidoCode = sidoSelect.selectedOptions[0].dataset.code;
+        const sidoName = sidoSelect.value;
+        
+        hiddenSi.value = sidoName;
+
+        sigunguSelect.innerHTML = '';
+        sigunguSelect.disabled = true;
+
+        if (!sidoCode) return;
+
+        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) {
+                    sigunguSelect.disabled = false;
+                    data.result.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.addr_name;
+                        option.dataset.code = item.cd;
+                        option.textContent = item.addr_name;
+                        sigunguSelect.appendChild(option);
+                    });
+                }
+            });
+    });
+
+    // 시/군/구 선택 시 숨겨진 input에 값 설정
+    sigunguSelect.addEventListener('change', () => {
+        hiddenSgg.value = sigunguSelect.value;
+        console.log("✅ 최종 시군구 선택:", hiddenSgg.value);
+    });
+});
+</script> {% endcomment %}
+
+{% comment %} <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sidoSelect = document.getElementById('c_id_sido');
+        const sigunguSelect = document.getElementById('c_id_sigungu');
+
+        const hiddenSi = document.getElementById('c_hidden_area_si');
+        const hiddenSgg = document.getElementById('c_hidden_area_sgg');
+
+        // ✅ 시/도 불러오기
+        fetch("{% url 'user:get_sido' %}")
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) {
+                    data.result.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.addr_name;
+                        option.dataset.code = item.cd;
+                        option.textContent = item.addr_name;
+                        sidoSelect.appendChild(option);
+                    });
+                }
+            });
+
+        // ✅ 시/도 선택 시 → 시/군/구 불러오기
+        sidoSelect.addEventListener('change', () => {
+            const sidoCode = sidoSelect.selectedOptions[0].dataset.code;
+            const sidoName = sidoSelect.value;
+
+            hiddenSi.value = sidoName;
+            console.log("✅ 숨겨진 시/도 값:", hiddenSi.value);
+
+            sigunguSelect.innerHTML = '<option disabled selected>시/군/구 선택</option>';
+            sigunguSelect.disabled = true;
+
+            if (!sidoCode) return;
+
+            fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.result) {
+                        sigunguSelect.disabled = false;
+                        data.result.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.addr_name;
+                            option.dataset.code = item.cd;
+                            option.textContent = item.addr_name;
+                            sigunguSelect.appendChild(option);
+                        });
+                    }
+                });
+        });
+
+        // ✅ 시/군/구 선택 시 → hidden input 업데이트
+        sigunguSelect.addEventListener('change', () => {
+            hiddenSgg.value = sigunguSelect.value;
+            console.log("✅ 숨겨진 시/군/구 값:", hiddenSgg.value);
+        });
+
+        // 🚨 디버깅용 - 강제로 값 넣어서 저장되는지 테스트
+        // setTimeout(() => {
+        //     hiddenSi.value = "서울특별시";
+        //     hiddenSgg.value = "성북구";
+        //     console.log("🧪 강제로 시/군/구 값 넣어봄");
+        // }, 1000);
+    });
+</script> {% endcomment %}
