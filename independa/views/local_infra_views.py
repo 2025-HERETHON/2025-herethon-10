@@ -101,3 +101,47 @@ def category_search_map(request, category_group_code):
     places = data.get('documents', [])
 
     return JsonResponse({'places': places})
+
+# 검색어로 출력
+import requests
+import json
+
+def keyword_search_map(request):
+    query = request.GET.get('query', '')
+    page = int(request.GET.get('page', '1'))
+    x = request.GET.get('x')
+    y = request.GET.get('y')
+
+    if not query:
+        return JsonResponse({'places': []})
+
+    REST_API_KEY = settings.KAKAO_RESTAPI
+    headers = {"Authorization": f"KakaoAK {REST_API_KEY}"}
+
+    params = {
+        'query': query,
+        'page': page,
+        'x': x,
+        'y': y,
+        'radius': 2000,
+        'size': 15,
+        'sort': 'distance',
+    }
+
+    response = requests.get("https://dapi.kakao.com/v2/local/search/keyword.json", headers=headers, params=params)
+    data = response.json()
+
+    places = []
+    for doc in data.get('documents', []):
+        places.append({
+            'id': doc['id'],
+            'category_group_code': doc.get('category_group_code', ''),
+            'place_name': doc['place_name'],
+            'place_url': doc['place_url'],
+            'road_address_name': doc['road_address_name'],
+            'address_name': doc['address_name'],
+            'x': doc['x'],
+            'y': doc['y'],
+        })
+
+    return JsonResponse({'places': places})
