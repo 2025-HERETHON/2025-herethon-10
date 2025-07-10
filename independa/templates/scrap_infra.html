@@ -1,126 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>저장한 인프라 보기</title>
-    <link rel="stylesheet" href="/static/css/scrap_infra.css">
-</head>
-<body>
-    <div id = background>
-        <div id="header">
-            <div id="headerBox">
-                 <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div> 
-                <div id="selectBox">
-                    <a href="/home/templates/home.html" id="home">홈</a> 
-                    <a href="/independa/templates/inde_home.html" id="plan">독립계획 시작하기</a> 
-                    <a href="/" id="life">생활 시작하기</a> 
-                    <a href="/" id="community">커뮤니티</a>
-                    <a href="/" id="mypage">마이페이지</a>
-                    <div id="divider"></div>
-                    <a href="/user/templates/login.html" id="signinup">로그인/회원가입</a>
+{% extends 'base.html' %}
+{% load static %}
 
-                </div>
-            </div>
-        </div>
-        
-        <div id="banner">
-            <div id="bannerBox">
-                <h1>저장한 인프라 보기</h1>
-                <h2>내가 찜한 동네 정보, 한눈에 모아봤어요</h2>
-            </div>
-        </div>
+{% block title %}저장한 인프라 보기{% endblock %}
 
-        <div id="container">
-            <div id="box1">
-                <div id="menu1">지역 인프라 미리보기</div>
-                <div id="menu2">지도 보기</div> 
-                <div id="menu3">저장한 인프라 보기</div>
-            </div> <!-- 메뉴 넣기 3개 -->
+{% block banner %}
+<div id="banner">
+    <div id="bannerBox">
+        <h1>저장한 인프라 보기</h1>
+        <h2>내가 찜한 동네 정보, 한눈에 모아봤어요</h2>
+    </div>
+</div>
+{% endblock %}
 
+{% block main_content %}
+<div id="box1">
+    <div id="menu1">지역 인프라 미리보기</div>
+    <div id="menu2">지도 보기</div> 
+    <div id="menu3">저장한 인프라 보기</div>
+</div>
 
-            <div id="box2">
-                <div id="box4">
-                <div id="box3"><div id="divider2"></div><div id= "titletext">지도 보기</div>
-                <input type="text" id="searchinput"> <div id="searchbtn">검색</div> </div></div>
-
-                <div id="filterbar">
-                    <div id="btn1">편의점</div><div id="btn2">마트(대형마트, 다이소)</div><div id="btn3">올리브영</div>
-                    <div id="btn4">약국</div><div id="btn5">병원</div><div id="btn6">카페</div>
-                    <div id="btn7">패스트푸드</div><div id="btn8">여성전용시설</div>
-                </div>
-
-
-                                                
-                <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
-                <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
-                <div id="map"></div>
-               
-
-                <!-- 지도 위에 붙는 사이드바 -->
-                <div id="sidebar" class="sidebar">
-                     <div id="sidebarbanner"><input type="text" id="sidebarsearch"><img src="/static/img/search.svg" id="searchimg"></div>
-                <div class="sidebar-content">
-                    <section id="place-info">
-                    <h2 class="place-title">GS25 태릉입구역점</h2>
-                    <div class="place-details">
-                    <span class="place-status open">영업 중</span>
-                    <span class="place-hours">24시 영업</span>
-                    </div>
-                </div>
-                </div>
-
-                <!-- 사이드바 열기 버튼 -->
-                <div id="openSidebar" class="open-button"><img width="10px" id="sidebarIcon" src="/static/img/chevron-right.svg"></div>
-
-
-
-
-            </div> 
-        </div>
-
-        <div id="footer">
-            <div id="footerContainer">
-                <div id="menuContainer">
-                    <div id="menu">
-                        <div class="menuBox">
-                            <div class="title" id="planStart">독립계획 시작하기</div>
-                            <div class="item" id="checkList">나만의 체크리스트</div>
-                            <div class="item"  id="calculator">예산 계산기</div>
-                            <div class="item"  id="infra">주변 인프라 미리보기</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title"  class="title" id="lifeStart">생활 시작하기</div>
-                            <div class="item"  id="guide">생활 행정 가이드</div>
-                            <div class="item"  id="info">공공지원 정보</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title" id="commu">커뮤니티</div>
-                            <div class="item" id="tem">구비템 공유 게시판</div>
-                            <div class="item" id="tip">입주민 실전팁 게시판</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title" id="myPage">마이페이지</div>
-                            <div class="item" id="myList">내 체크리스트</div>
-                            <div class="item" id="saved">저장한 콘텐츠 모아보기</div>
-                            <div class="item" id="history">월별 지출 히스토리</div>
-                            <div class="item"  id="edit">정보수정</div>
-                            <div class="item"  id="logout">로그아웃</div>
-                            <div class="item"  id="leave">회원탈퇴</div>
-                        </div>
-                    </div>
-                    <div id="logoBox">
-                           <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
-                    </div>
-
-                    <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
-                </div>
-            </div>
+<div id="box2">
+    <div id="box4">
+        <div id="box3">
+            <div id="divider2"></div>
+            <div id="titletext">지도 보기</div>
         </div>
     </div>
-<script src="/static/js/scrap_infra.js"></script>
-</body>
-</html>
+
+    <div id="filterbar">
+        <div id="btn1">편의점</div>
+        <div id="btn2">마트(대형마트, 다이소)</div>
+        <div id="btn3">올리브영</div>
+        <div id="btn4">약국</div>
+        <div id="btn5">병원</div>
+        <div id="btn6">카페</div>
+        <div id="btn7">패스트푸드</div>
+        <div id="btn8">여성전용시설</div>
+    </div>
+
+    <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
+    <div id="map"></div>
+
+    <!-- 지도 위에 붙는 사이드바 -->
+    <div id="sidebar" class="sidebar">
+        <div id="sidebarbanner">
+            <input type="text" id="sidebarsearch" />
+            <img src="{% static 'img/search.svg' %}" id="searchimg" alt="검색 아이콘" />
+        </div>
+        <div class="sidebar-content">
+            <section id="place-info">
+                <h2 class="place-title">GS25 태릉입구역점</h2>
+                <div class="place-details"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 사이드바 열기 버튼 -->
+    <div id="openSidebar" class="open-button">
+        <img width="10" id="sidebarIcon" src="{% static 'img/chevron-right.svg' %}" alt="사이드바 열기 아이콘" />
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/scrap_infra.js' %}"></script>
+{% endblock %}

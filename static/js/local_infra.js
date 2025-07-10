@@ -29,13 +29,11 @@ window.onload = function () {
 const places = [
   {
     name: '카페 이디야',
-    status: '영업 중',
-    hours: '09:00 ~ 21:00'
+
   },
   {
     name: '스타벅스 강남점',
-    status: '영업 종료',
-    hours: '07:00 ~ 20:00'
+   /*영업 중과 시간 없앴습니다.*/
   }
 ];
 
