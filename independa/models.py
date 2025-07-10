@@ -111,10 +111,35 @@ class MovingChecklist(models.Model):
 
 #입주 체크리스트
 class ResidencyChecklist(models.Model):
-    checklist_group = models.ForeignKey(ChecklistGroup, on_delete=models.CASCADE)
+    checklist_group = models.ForeignKey('ChecklistGroup', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    # 기본 점검
+    check_utilities = models.BooleanField(default=False, verbose_name="전기, 수도, 가스 정상 작동 재확인하기")
+    check_heating = models.BooleanField(default=False, verbose_name="냉온수, 보일러, 샤워기 점검하기")
+    set_doorlock_password = models.BooleanField(default=False, verbose_name="도어락 비밀번호 설정 및 강화하기")
+
+    # 안전·보안 점검
+    check_fire_detector = models.BooleanField(default=False, verbose_name="화재 감지기 및 가스차단기 확인하기")
+    check_window_locks = models.BooleanField(default=False, verbose_name="창문, 현관문 잠금장치 점검하기")
+    locate_circuit_breaker = models.BooleanField(default=False, verbose_name="전기차단기 위치 파악해두기")
+
+    # 생활 정착
+    check_recycling_days = models.BooleanField(default=False, verbose_name="분리수거 요일 및 분리수거장 확인하기")
+    setup_wifi_appliances = models.BooleanField(default=False, verbose_name="와이파이, TV, 가전 설치 마무리하기")
+    prepare_emergency_kit = models.BooleanField(default=False, verbose_name="응급약품 구비해두기")
+
+    # 생활 필수품 보충하기
+    prepare_laundry_detergent = models.BooleanField(default=False, verbose_name="세탁 세제 및 주방 세제")
+    prepare_kitchen_supplies = models.BooleanField(default=False, verbose_name="키친타올 및 행주")
+    prepare_toiletries = models.BooleanField(default=False, verbose_name="화장지 및 물티슈")
+    prepare_garbage_bags = models.BooleanField(default=False, verbose_name="종량제봉투 (지역구 전용)")
+    prepare_drinking_water = models.BooleanField(default=False, verbose_name="생수 또는 정수기")
+
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Residency Checklist"
 
 class CheckAll(models.Model):
     checklist_group = models.ForeignKey(ChecklistGroup, on_delete=models.CASCADE)
@@ -123,3 +148,17 @@ class CheckAll(models.Model):
     contract_all = models.BooleanField(default=False)
     moving_all = models.BooleanField(default=False)
     residency_all = models.BooleanField(default=False)
+    
+    
+class SavedPlace(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    kakao_id = models.CharField(max_length=50)
+    category_group_code = models.CharField(max_length=10)
+    place_name = models.CharField(max_length=255)
+    place_url = models.URLField()
+    road_address_name = models.CharField(max_length=255)
+    x = models.CharField(max_length=30)
+    y = models.CharField(max_length=30)
+
+    class Meta:
+        unique_together = ('user', 'kakao_id')  # 중복 저장 방지

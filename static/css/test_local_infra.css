@@ -1,0 +1,62 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+}   
+header {
+    background-color: #dbead8;
+    padding: 10px 20px;
+}
+header h1 {
+    display: inline-block;
+    margin: 0;
+    font-size: 18px;
+    color: #2d5e32;
+}
+.search-bar {
+    display: inline-block;
+    margin-left: 20px;
+}
+.category-buttons {
+    background-color: white;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.category-buttons button {
+    margin-right: 10px;
+}
+#map {
+    width: 100%;
+    height: 500px;
+}
+.map-info {
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+}
+.store-name {
+    font-weight: bold;
+    font-size: 16px;
+}
+.footer {
+    margin-top: 40px;
+    background-color: #f9f9f9;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+.footer .menu {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+.mypage {
+    color: #fff;
+    background-color: #4cb04f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
