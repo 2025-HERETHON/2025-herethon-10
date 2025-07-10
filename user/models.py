@@ -31,7 +31,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=50)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True)
     job = models.CharField(max_length=20, choices=JOB_CHOICES)
 
     is_active = models.BooleanField(default=True)

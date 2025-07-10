@@ -1,0 +1,35 @@
+<a href={%url 'community:items'%}><button>구비 게시판</button></a>&nbsp;&nbsp;&nbsp;
+<a href={%url 'community:tips'%}><button>팁 게시판</button></a><br><br>
+<hr>
+<br>
+<form method="GET" action="{%url 'community:tips_search'%}">
+    {%csrf_token%}
+    <input type="text" name="searchbar" style="width:300px;" placeholder="검색어를 입력하세요.">
+    <button type="submit">검색</button>
+</form>
+<br>
+<hr>
+<br>
+
+<a href={%url 'community:write'%}><button>글 작성</button></a><br><br>
+
+{% for post in tips_posts %}
+    {{ post.get_post_type_display }} - 
+    <a href="{% url 'community:detail' post.id %}">{{ post.title }}</a><br>
+    
+    댓글: {{ post.comment_count }}개 / 좋아요: {{ post.like_set.count }}개
+    <br><br>
+{% endfor %}
+
+<!-- 페이지네이션 영역 -->
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?searchbar={{ search_query }}&page={{ page_obj.previous_page_number }}">이전</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?searchbar={{ search_query }}&page={{ page_obj.next_page_number }}">다음</a>
+    {% endif %}
+</div>
