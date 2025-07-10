@@ -4,7 +4,7 @@ from .forms import UserUpdateForm, IndependencePlanUpdateForm
 
 def profile_edit(request):
     user = request.user
-    plan = IndependencePlan.objects.get(user=user)
+    plan = IndependencePlan.objects.filter(user=user).order_by('-id').first()
 
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, request.FILES, instance=user)
