@@ -65,15 +65,33 @@
                                         <div id="toggleContent1">
                                             <div class="toggleContent1Box">
                                                 <div class="toggleContent1Title">월세</div>
-                                                <div class="toggleContent1Content">50 ~ 60 만원</div>
+                                                <div class="toggleContent1Content">
+                                                    <p>최소</p>
+                                                    <input type="text" placeholder="000" id="monthMin"/>
+                                                    <p>만원 ~ 최대</p>
+                                                    <input type="text" placeholder="000" id="monthMax"/>
+                                                    <p>만원</p>
+                                                </div>
                                             </div>
                                             <div class="toggleContent1Box">
                                                 <div class="toggleContent1Title">보증금</div>
-                                                <div class="toggleContent1Content">100 ~ 200 만원</div>
+                                                <div class="toggleContent1Content">
+                                                    <p>최소</p>
+                                                    <input type="text" placeholder="000" id="depositMin"/>
+                                                    <p>만원 ~ 최대</p>
+                                                    <input type="text" placeholder="000" id="depositMax"/>
+                                                    <p>만원</p>
+                                                </div>
                                             </div>
                                             <div class="toggleContent1Box">
                                                 <div class="toggleContent1Title">관리비</div>
-                                                <div class="toggleContent1Content">10 ~ 20 만원</div>
+                                                <div class="toggleContent1Content">
+                                                    <p>최소</p>
+                                                    <input type="text" placeholder="000" id="manageMin"/>
+                                                    <p>만원 ~ 최대</p>
+                                                    <input type="text" placeholder="000" id="manageMax"/>
+                                                    <p>만원</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -88,9 +106,25 @@
                                                     <p>서울특별시</p>
                                                     <img src="../img/minichevron-down.png" class="dropdownIcon"/>
                                                 </div>
+                                                <div class="inputRegionDropdown">
+                                                    <div class="dropdownContent1">시/도</div>
+                                                    <div class="dropdownContent2">서울특별시</div>
+                                                    <div class="dropdownContent2">세종</div>
+                                                    <div class="dropdownContent2">강원</div>
+                                                    <div class="dropdownContent2">인천</div>
+                                                    <div class="dropdownContent2">경기</div>
+                                                </div>
                                                 <div class="inputRegion">
                                                     <p>노원구</p>
                                                     <img src="../img/minichevron-down.png" class="dropdownIcon"/>
+                                                </div>
+                                                <div class="inputRegionDropdown">
+                                                    <div class="dropdownContent1">시/군/구</div>
+                                                    <div class="dropdownContent2">서울 전체</div>
+                                                    <div class="dropdownContent2">강남구</div>
+                                                    <div class="dropdownContent2">강동구</div>
+                                                    <div class="dropdownContent2">강북구</div>
+                                                    <div class="dropdownContent2">강서구</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -707,7 +741,7 @@
                                 </div>
                             </div>
                             <div id="map"></div>
-                            <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=795626faf39cbde200f02d427d70c7f6"></script>
+                            <!-- <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=795626faf39cbde200f02d427d70c7f6"></script>
                             <script>
                                 var container = document.getElementById('map');
                                 var options = {
@@ -716,7 +750,7 @@
                                 };
 
                                 var map = new kakao.maps.Map(container, options);
-                            </script>
+                            </script> -->
                         </div>
                     </article>
                 </div>
