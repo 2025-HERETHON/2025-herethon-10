@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+    <div id = background>
+        <div id="header">
+            <div id="headerBox">
+                <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
+                <div id="selectBox">
+                    <a href="/home/templates/home.html" id="home">홈</a> 
+                    <a href="/independa/templates/inde_home.html" id="plan">독립계획 시작하기</a> 
+                    <a href="/" id="life">생활 시작하기</a> 
+                    <a href="/" id="community">커뮤니티</a>
+                    <a href="/" id="mypage">마이페이지</a>
+                    <div id="divider"></div>
+                    <a href="/user/templates/login.html" id="signinup">로그인/회원가입</a>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="banner">
+            <div id="bannerBox">
+                <h1>로그인 / 회원가입</h1>
+                <h2>독립 체크리스트부터, 생활 행정가이드까지 엠브온이 당신의 새출발을 도와드릴게요</h2>
+            </div>
+        </div>
+
+
+        <div id="container">
+            <div id="loginContainer"> 
+                <div id="logintext">로그인</div>
+
+                <div id="emailbox">
+                <div id="emailtext">이메일</div>
+                <input id="emailinput" type="text" placeholder="example@logo.com" /></div>
+
+                <div id="keybox">
+                <div id="keytext">비밀번호</div>
+                <input id="keyinput" type="text" placeholder="example1234*" /></div>
+
+                <div id="keyfindbox">
+                <div id="keyfind">비밀번호 찾기</div><img src="/static/img/keyfind.svg"></div>
+
+                <div id="loginbtnbox">
+                <a href="/user/templates/signup.html" id="loginbtn">
+                <img src="/static/img/kakaologo.svg" id="kakaologo" alt="카카오 로고">
+                카카오로 시작하기
+                </a></div>
+                
+            </div>
+        </div>
+
+        <div id="footer">
+            <div id="footerContainer">
+                <div id="menuContainer">
+                    <div id="menu">
+                        <div class="menuBox">
+                            <div class="title" id="planStart">독립계획 시작하기</div>
+                            <div class="item" id="checkList">나만의 체크리스트</div>
+                            <div class="item"  id="calculator">예산 계산기</div>
+                            <div class="item"  id="infra">주변 인프라 미리보기</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title"  class="title" id="lifeStart">생활 시작하기</div>
+                            <div class="item"  id="guide">생활 행정 가이드</div>
+                            <div class="item"  id="info">공공지원 정보</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title" id="commu">커뮤니티</div>
+                            <div class="item" id="tem">구비템 공유 게시판</div>
+                            <div class="item" id="tip">입주민 실전팁 게시판</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title" id="myPage">마이페이지</div>
+                            <div class="item" id="myList">내 체크리스트</div>
+                            <div class="item" id="saved">저장한 콘텐츠 모아보기</div>
+                            <div class="item" id="history">월별 지출 히스토리</div>
+                            <div class="item"  id="edit">정보수정</div>
+                            <div class="item"  id="logout">로그아웃</div>
+                            <div class="item"  id="leave">회원탈퇴</div>
+                        </div>
+                    </div>
+                      <div id="logoBox">
+                           <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
+                    </div>
+
+                    <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+<script src="/static/js/login.js"></script>
+</html>
