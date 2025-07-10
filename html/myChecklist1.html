@@ -1,28 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나만의 체크리스트</title>
-    <link rel="stylesheet" href="../css/myChecklist.css">
-</head>
-<body>
-    <div id = background>
-        <div id="header">
-            <div id="headerBox">
-                <img src="../img/logo.png" id=logo /> 
-                <div id="selectBox">
-                    <div id="home">홈</div> 
-                    <div id="plan">독립계획 시작하기</div> 
-                    <div id="life">생활 시작하기</div> 
-                    <div id="community">커뮤니티</div>
-                    <div id="mypage">마이페이지</div>
-                    <div id="divider"></div>
-                    <div id="signinup">로그인/회원가입</div>
-                </div>
-            </div>
-        </div>
-        
+{% load static %}
+{% extends "base.html" %}
+
+{% block title %}나만의 체크리스트{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/myChecklist.css' %}">
+{% endblock %}
+
         <div id="banner">
             <div id="bannerBox">
                 <h1>나만의 체크리스트</h1>
@@ -51,7 +35,7 @@
                                 <div id="checklistHeaderBox">
                                     <p style="width: 24px;"> </p>
                                     <p>계약</p>
-                                    <img src="../img/chevron-right.png" class="nextPage"/>
+                                    <img src="{% static 'img/chevron-right.png' %}" class="nextPage"/>
                                 </div>
                             </div>
                             <div id="checklistContentBox">
@@ -61,7 +45,7 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">예산 설정하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent1">
                                                 <div class="toggleContent1Box">
@@ -99,13 +83,13 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">독립 지역 정하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent2">
                                                 <div id="inputRegionBox">
                                                     <div class="inputRegion">
                                                         <p>서울특별시</p>
-                                                        <img src="../img/minichevron-down.png" class="dropdownIcon"/>
+                                                        <img src="{% static 'img/minichevron-down.png' %}" class="dropdownIcon"/>
                                                     </div>
                                                     <div class="inputRegionDropdown">
                                                         <div class="dropdownContent1">시/도</div>
@@ -117,7 +101,7 @@
                                                     </div>
                                                     <div class="inputRegion">
                                                         <p>노원구</p>
-                                                        <img src="../img/minichevron-down.png" class="dropdownIcon"/>
+                                                        <img src="{% static 'img/minichevron-down.png' %}" class="dropdownIcon"/>
                                                     </div>
                                                     <div class="inputRegionDropdown">
                                                         <div class="dropdownContent1">시/군/구</div>
@@ -145,7 +129,7 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">등기부등본 확인하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent3">
                                                 <!-- 주의 여기 위에 togglecontent3부분이 사라지면서 숫자가 하나씩 당겨졌어요! 여기 단락은 그래서 상위는 3인데 하위내용 태그는 4에요!  -->
@@ -171,49 +155,49 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">주변 환경 확인하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent4">
                                                 <div id="goodBadCheckboxBox1">
                                                     <div class="goodBadCheckboxBoxMini">
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">주변 소음</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">주변 인프라</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">주변 안전도</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">누수 없음</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">곰팡이 없음</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">화장실 물빠짐</p>
@@ -222,42 +206,42 @@
                                                     <div class="goodBadCheckboxBoxMini">
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">창문 및 방화문 작동</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">도배 및 장판 상태</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">수도 상태</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">보일러 상태</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">채광</p>
                                                         </div>
                                                         <div class="goodBadCheckbox">
                                                             <div class="goodBadFakeCheckbox">
-                                                                <img src="../img/good.png" class="good">
+                                                                <img src="{% static 'img/good.png' %}" class="good">
                                                             </div>
                                                             <input type="checkbox" class="goodBadRealCheckbox"/>
                                                             <p class="goodBadCheckboxContent">기본 옵션</p>
@@ -274,41 +258,41 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">여성 전용 공간 확인하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent5">
                                                 <div id="goodBadCheckboxBox2">
                                                     <div class="goodBadCheckbox">
                                                         <div class="goodBadFakeCheckbox">
-                                                            <img src="../img/good.png" class="good">
+                                                            <img src="{% static 'img/good.png' %}" class="good">
                                                         </div>
                                                         <input type="checkbox" class="goodBadRealCheckbox"/>
                                                         <p class="goodBadCheckboxContent">여성 전용 원룸 또는 여성 전용 층을 원해요</p>
                                                     </div>
                                                     <div class="goodBadCheckbox">
                                                         <div class="goodBadFakeCheckbox">
-                                                            <img src="../img/good.png" class="good">
+                                                            <img src="{% static 'img/good.png' %}" class="good">
                                                         </div>
                                                         <input type="checkbox" class="goodBadRealCheckbox"/>
                                                         <p class="goodBadCheckboxContent">여성 전용 주차장을 원해요</p>
                                                     </div>
                                                     <div class="goodBadCheckbox">
                                                         <div class="goodBadFakeCheckbox">
-                                                            <img src="../img/good.png" class="good">
+                                                            <img src="{% static 'img/good.png' %}" class="good">
                                                         </div>
                                                         <input type="checkbox" class="goodBadRealCheckbox"/>
                                                         <p class="goodBadCheckboxContent">여성 전용 헬스 시설을 원해요</p>
                                                     </div>
                                                     <div class="goodBadCheckbox">
                                                         <div class="goodBadFakeCheckbox">
-                                                            <img src="../img/good.png" class="good">
+                                                            <img src="{% static 'img/good.png' %}" class="good">
                                                         </div>
                                                         <input type="checkbox" class="goodBadRealCheckbox"/>
                                                         <p class="goodBadCheckboxContent">여성 전용 스터디카페를 원해요</p>
                                                     </div>
                                                     <div class="goodBadCheckbox">
                                                         <div class="goodBadFakeCheckbox">
-                                                            <img src="../img/good.png" class="good">
+                                                            <img src="{% static 'img/good.png' %}" class="good">
                                                         </div>
                                                         <input type="checkbox" class="goodBadRealCheckbox"/>
                                                         <p class="goodBadCheckboxContent">주변에 여성 안심 귀갓길이 있으면 좋겠어요</p>
@@ -373,7 +357,7 @@
                                 <div id="deleteBox">
                                     <div id="delete">
                                         <p>체크리스트 삭제하기</p>
-                                        <img src="../img/chevron-rightdelete.png"/>
+                                        <img src="{% static 'img/chevron-rightdelete.png' %}"/>
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +369,7 @@
                                 <div id="checklistHeaderBox">
                                     <img src="../img/chevron-left.png" class="previousPage"/>
                                     <p>이사</p>
-                                    <img src="../img/chevron-right.png" class="nextPage"/>
+                                    <img src="{% static 'img/chevron-right.png' %}" class="nextPage"/>
                                 </div>
                             </div>
                             <div id="checklistContentBox">
@@ -435,7 +419,7 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">새 집 점검하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent6">
                                                 <div class="toggleContent6Content">
@@ -460,7 +444,7 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">설치 기사 방문 체크하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent7">
                                                 <div class="toggleContent7Content">
@@ -519,7 +503,7 @@
                                 <div id="deleteBox">
                                     <div id="delete">
                                         <p>체크리스트 삭제하기</p>
-                                        <img src="../img/chevron-rightdelete.png"/>
+                                        <img src="{% static 'img/chevron-rightdelete.png' %}"/>
                                     </div>
                                 </div>
                             </div>
@@ -529,7 +513,7 @@
                         <article id="checklist3">
                             <div id="checklistHeader">
                                 <div id="checklistHeaderBox">
-                                    <img src="../img/chevron-left.png" class="previousPage"/>
+                                    <img src="{% static 'img/chevron-left.png' %}" class="previousPage"/>
                                     <p>입주</p>
                                     <p style="width: 24px;"> </p>
                                 </div>
@@ -596,7 +580,7 @@
                                         <div class="toggle">
                                             <div class="toggleBox">
                                                 <p class="toggleTitle">생활 필수품 보충하기</p>
-                                                <img src="../img/chevron-right.png" class="toggleIcon"/>
+                                                <img src="{% static 'img/chevron-right.png' %}" class="toggleIcon"/>
                                             </div>
                                             <div id="toggleContent8">
                                                 <div class="toggleContent8Content">
@@ -640,7 +624,7 @@
                                 <div id="deleteBox">
                                     <div id="delete">
                                         <p>체크리스트 삭제하기</p>
-                                        <img src="../img/chevron-rightdelete.png"/>
+                                        <img src="{% static 'img/chevron-rightdelete.png' %}"/>
                                     </div>
                                 </div>
                             </div>
@@ -737,12 +721,12 @@
                                 <div id="mapHeader">
                                     <p id="mapHeaderTitle">지도로 미리보기</p>
                                     <div id="mapSearch">
-                                        <img src="../img/search.png" id="searchIcon"/>
+                                        <img src="{% static 'img/search.png' %}" id="searchIcon"/>
                                         <input type="text" id="search"/>
                                     </div>
                                 </div>
                                 <div id="map"></div>
-                                <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3a4e39a670d528705d107067693d2ef8"></script>
+                                <script src="{% static 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=3a4e39a670d528705d107067693d2ef8' %}"></script>
                                 <script>
                                     var container = document.getElementById('map');
                                     var options = {
@@ -759,50 +743,6 @@
             </section>
         </div>
 
-        <div id="footer">
-            <div id="footerContainer">
-                <div id="menuContainer">
-                    <div id="menu">
-                        <div class="menuBox">
-                            <div class="title" id="planStart">독립계획 시작하기</div>
-                            <div class="item" id="checkList">나만의 체크리스트</div>
-                            <div class="item"  id="calculator">예산 계산기</div>
-                            <div class="item"  id="infra">주변 인프라 미리보기</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title"  class="title" id="lifeStart">생활 시작하기</div>
-                            <div class="item"  id="guide">생활 행정 가이드</div>
-                            <div class="item"  id="info">공공지원 정보</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title" id="commu">커뮤니티</div>
-                            <div class="item" id="tem">구비템 공유 게시판</div>
-                            <div class="item" id="tip">입주민 실전팁 게시판</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title" id="myPage">마이페이지</div>
-                            <div class="item" id="myList">내 체크리스트</div>
-                            <div class="item" id="saved">저장한 콘텐츠 모아보기</div>
-                            <div class="item" id="history">월별 지출 히스토리</div>
-                            <div class="item"  id="edit">정보수정</div>
-                            <div class="item"  id="logout">로그아웃</div>
-                            <div class="item"  id="leave">회원탈퇴</div>
-                        </div>
-                    </div>
-                    <div id="logoBox">
-                            <img src="../img/logo.png" id=footerLogo /> 
-                    </div>
-
-                    <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
-                </div>
-            </div>
-        </div>
-
-        
-    </div>
-</body>
-<script src="../js/myChecklist.js"></script>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/myChecklist.js' %}"></script>
+{% endblock %}
