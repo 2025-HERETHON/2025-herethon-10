@@ -179,9 +179,8 @@ body {
 #container{
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     width: 100vw;
-    height: auto; /*header->banner->container->footer*/
+    height: auto;/*header->banner->container->footer*/
 
 }
 
@@ -311,8 +310,8 @@ aside{
 
 section{
     width: 55.4167vw; /* 1064px*/
-    padding: 0px 64px 99px 112px;
-    
+    padding: 0px 64px 200px 112px;
+    margin-top: 39px;
 }
 
 /* 사이드 메뉴 부분 시작 */
@@ -323,7 +322,7 @@ section{
 
 #sideMenuContentBox{
     display: flex;
-    width: 154px;
+    width: 188px;
     flex-direction: column;
     gap:30px;
 }
@@ -331,377 +330,264 @@ section{
 #sideMenuTitle{
     color: #AAA;
     margin: 0 0 30px 0;
+    letter-spacing: -0.48px;
 }
 
 #sideMenuContentStyle1{
     margin: 0 0 0 20px;
     font-size: 18px;
-    font-weight: bold
+    font-weight: bold;
+    letter-spacing: -0.54px;
 }
 
 #sideMenuContentStyle2{
     margin: 0 0 0 20px;
     font-size: 18px;
     color: #57769E;
+    letter-spacing: -0.54px;
 }
 
 /* 사이드 메뉴 부분 끝 */
 
-#sectionTitle{
-    font-size: 30px;
-    color: #486284;
-    border-left: 3px solid #486284;
-    font-weight: bold;
-    line-height: 32px;
-    margin: 40px 0 0 0;
-    padding-left: 16px;
-    letter-spacing: 0.5px
-}
-
-#articleBox{
+#myPageBox{
     display: flex;
-    margin-top: 36px;
-    gap: 89px;
-}
-
-#checklist1{
-    display: flex;
-    width: 420px;
-    height: auto; /*1419px*/
-    padding-bottom: 30px;
-    gap: 25px;
     flex-direction: column;
-    align-items: center;
-    border-radius: 24px;
-    background: #FFF;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    gap: 64px;
 }
 
-#checklistHeader{
-    width: 420px;
-    padding: 20px 0px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 24px 24px 0px 0px;
-    background-color: #CED7E4;
-}
-
-#checklistHeaderBox{
-    height: 24px;
+#basicInfo{
     display: flex;
-    padding: 0px 20px;
-    justify-content: space-between;
+    width: 1042px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.infoTitle{
+    display: flex;
+    padding: 10px 0;
     align-items: center;
-    z-index: 1;
-}
-
-#checklistHeaderBox p {
-    font-weight: bold;
-    font-size: 20px;
-    color: #1F2A38;
-}
-
-.contractTitle{
-    font-size: 21px;
-    color: #231F20;
-    font-weight: bold;
-    width: 372px;
-    height: 25px;
+    align-self: stretch;
     background-color: #F9F9FA;
-    border-left: 2px solid #231F20 ;
-    padding-left: 12px;
-    display: flex;
-    align-items: center;
-    margin: 0 0 23px 0;
 }
 
-.contractContent{
+.infoTitle p{
+    border-left: 3px solid #3B506B;
+    color: #3B506B;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 26px; /* 108.333% */
+    letter-spacing: 0.5px;
+    padding-left: 13px;
+    margin: 0;
+}
+
+#basicInfoContent{
+    display: flex;
+    align-items: flex-start;
+    gap: 122px;
+    align-self: stretch;
+}
+
+#userImg{
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    background-color: lightgrey;
+}
+
+#userInfoBox{
+    display: flex;
+    width: 480px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 23px;
+}
+
+.infoBox{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 6px;
     align-self: stretch;
-    margin-bottom: 40px;
+    font-size: 18px;
+    line-height: 26px; /* 144.444% */
+    letter-spacing: -0.18px;
 }
 
-.toggleBox{
+.userInfoTitle{
+    font-weight: bold;
+    font-size: 16px;
+    color: #1F2A38;
+    letter-spacing: -0.16px;
+    margin: 0;
+}
+
+.userInfoContent{
     display: flex;
-    width: 362px;
-    height: 30px;
+    align-items: center;
+    gap: 23px;
+}
+
+.userInfoContent2{
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center
+    width: 480px;
 }
 
-.toggleTitle{
-    font-weight: bold;
-    font-size: 14px;
-    color: #1F2A38;
-    margin: 0;
-}
-
-.toggleIcon{    
-    font-weight: bold;
-    color: #1F2A38;
-    margin: 0;
-}
-
-#toggleContent1,
-#toggleContent2,
-#toggleContent3,
-#toggleContent4,
-#toggleContent5,
-#toggleContent6{
-    display: none;
-    margin: 10px 0 0 0;
-}
-
-.toggleContent1Box{
+.inputBox{
     display: flex;
-    width: 321px;
-    margin: 0 0 8px 41px;
-    gap: 12px;
-}
-
-.toggleContent1Title{
-    display: flex;
-    height: 26px;
-    padding: 3px 7px;
-    justify-content: center;
+    padding: 12px 16px;
     align-items: center;
-    font-size: 14px;
-    font-weight: 400;
-    color: #1F2A38;
-    border-radius: 10px;
-    background-color: #CED7E4;
-}
-
-.toggleContent1Content{
-    font-size: 14px;
-    font-weight: 400;
-    color: #1F2A38;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#inputRegionBox{
-
-}
-
-.contractContent,
-.toggleContent4Content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
     align-self: stretch;
-}
-
-.contractWriteBox,
-.toggleContent4Box{
-    display: flex;
-    width: 362px;
-    align-items: center;
-    gap: 12px;
-}
-
-.fakeCheckBox{
-    width: 24px;
-    height: 24px;
-    border: 2px solid #CCCCCC;
     border-radius: 8px;
+    border: 1px solid #C2C2C2;
+    font-size: 18px;
+    color: #1F2A38;
+    line-height: 26px; /* 144.444% */
+    letter-spacing: -0.18px;
 }
 
-.fakeCheckBox.checked{
-    width: 24px;
-    height: 24px;
-    border: 2px solid #03C75A;
-    border-radius: 8px;
-    color: #03C75A;
+.checkboxBox{
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-weight: bold;
+    gap: 10px;
 }
 
-.contractWriteCheckbox,
-.toggleContent4Checkbox{
+.fakeCheckbox{
+    width: 28px;
+    height: 28px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #C2C2C2;
+}
+
+.fakeCheckbox.checked{
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background-color: #3B506B;
+}
+
+.realCheckbox{
     display: none;
 }
 
 .checkboxContent{
     margin: 0;
-    font-size: 14px;
+    line-height: 26px; /* 162.5% */
+    letter-spacing: -0.16px;
     color: #1F2A38;
 }
 
-#progressInfoMap{
+#planInfo{
     display: flex;
-    width: 555px;
+    width: 1042px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#planInfoContent{
+    display: flex;
+    width: 480px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 59px;
+    gap: 23px;
 }
 
-#checklistProgress{
+.dropdownBox{
     display: flex;
-    height: 173px;
-    width: 550px;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
-    border-radius: 24px;
-}
-
-#checklistProgressHeader{
-    display: flex;
-    height: 40px;
-    width: 550px;
-    padding: 0px 20px;
+    padding: 12px 16px;
     align-items: center;
-    gap: 10px;
-    border-radius: 24px 24px 0px 0px;
-    background-color: #CED7E4;
-    z-index: 1;
-    font-weight: bold;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    color: #1F2A38;
-}
-
-#profileCard{
-    display: flex;
-    height: 256px;
-    padding: 40px;
-    align-items: flex-start;
     align-self: stretch;
-    border-radius: 24px;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.20);
-    background-color: #FFF;
-    gap: 44px;
+    border-radius: 8px;
+    border: 1px solid #C2C2C2;
+    justify-content: space-between;
 }
 
-#profileImg{
+.dropdownBox2{
     display: flex;
-    width: 160px;
-    height: 160px;
+    width: 202px;
+    padding: 12px 16px;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid #C2C2C2;
+    justify-content: space-between;
+    background-color: #F9F9FA;
+}
+
+.dropdownBox p,
+.dropdownBox2 p{
+    margin: 0;
+    font-size: 18px;
+    color: #1F2A38;
+    line-height: 26px; /* 144.444% */
+    letter-spacing: -0.18px;
+}
+
+.dropdownButton{
+
+}
+
+#modifyButton{
+    display: flex;
+    height: 38px;
+    width: 95px;
+    padding: 8px 22px;
     justify-content: center;
     align-items: center;
-    border-radius: 80px;
-    background-color: lightgray;
-}
-
-#profilecontent{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    align-self: stretch;
-}
-
-#profileName{
-    font-size: 24px;
-    color: #1F2A38;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    margin: 0;
-}
-
-#profileInfo{
-    display: flex;
-    width: 266px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-}
-
-.profileInfoBox{
-    display: flex;
-    padding-bottom: 4px;
-    align-items: center;
-    justify-content: space-between;
-    align-self: stretch;
-    border-bottom: 1px solid #DBDBDB;
-}
-
-#region,
-#budget,
-#date,
-#mate{
-    margin: 0;
+    background-color: #3B506B;
+    color: #FFF;
     font-size: 14px;
-    color: #757575;
-    line-height: 25px;
-    font-weight: 400;
+    line-height: 150%; /* 21px */
+    letter-spacing: -0.42px;
+    border-radius: 4px;
+    border: 0;
 }
 
-#userRegion,
-#userBudget,
-#userDate,
-#userMate{
-    width: 120px;
-    margin: 0;
-    font-size: 14px;
-    color: #2D3D52;
-    line-height: 25px;
-    font-weight: 400;
-}
-
-#modify{
+#buttonBox{
+    width: 1064px;
+    height: 38px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 266px;
+    justify-content: center;
+    align-items: center;
 }
 
-#modify p{
-    font-size: 10px;
-    line-height: 25px;
-    letter-spacing: 0.5px;
-    color: #757575;
-    margin: 0;
+.budgetBox{
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-#mapView{
+.budgetBox p{
+    color: #424242;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 26px; /* 185.714% */
+    letter-spacing: -0.14px;
+}
+
+.budget{
+    display: flex;
+    width: 28px;
+    padding: 12px 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid #c2c2c2;
+    font-size: 16px;
+    color: #424242;
+    line-height: 26px; /* 162.5% */
+    letter-spacing: -0.16px;
+}
+
+.miniInfoBox{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 36px;
-    align-self: stretch;
+    gap: 8px;
 }
-
-#mapHeader{
-    height: 40px;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-#mapHeaderTitle{
-    width: 220px;
-    font-size: 30px;
-    color: #486284;
-    border-left: 3px solid #486284;
-    font-weight: bold;
-    line-height: 32px;
-    padding-left: 16px;
-    letter-spacing: 0.5px;
-    margin: 0;
-}
-
-#mapSearch{
-    display: flex;
-    padding: 7px 8px;
-    align-items: center;
-    border: 1px solid #486284;
-    border-radius: 6px;
-    width: 264px;
-    height: 26px;
-}
-
-#map{
-    background-color: lightgray;
-    width: 550px;
-    height: 580px;
-    border-radius: 24px;
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
-}
-
