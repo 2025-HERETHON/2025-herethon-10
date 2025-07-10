@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예산 계산기</title>
+    <link rel="stylesheet" href="/static/css/budget_cal.css">
+</head>
+<body>
+    <div id = background>
+        <div id="header">
+            <div id="headerBox">
+                <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div> 
+                <div id="selectBox">
+                    <a href="/home/templates/home.html" id="home">홈</a> 
+                    <a href="/" id="plan">독립계획 시작하기</a> 
+                    <a href="/" id="life">생활 시작하기</a> 
+                    <a href="/" id="community">커뮤니티</a>
+                    <a href="/" id="mypage">마이페이지</a>
+                    <div id="divider"></div>
+                    <a href="/user/templates/login.html" id="signinup">로그인/회원가입</a>
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="banner">
+            <div id="bannerBox">
+                <h1>예산 계산기</h1>
+                <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            </div>
+        </div>
+
+        <div id="container">
+            <div id="Box">
+            <div id="box1">
+                <div id="menu1">예산 계산기</div>
+                <div id="menu2">예산 계산하기</div>
+                <div id="menu3">계산 히스토리</div>
+            </div>
+
+            <div id="box2"> 
+                <div id="row"><div class="divider2"></div><div class="menutext">초기비용</div></div>
+                <div class="charge">중개 수수료</div>
+                <input type="text" id="inputcharge1">
+                <div class="explain">노원구 원룸의 평균 중개 수수료는 00만원이에요.</div>
+
+                <div class="charge">가구 및 가전 구매 비용</div>
+                <input type="text" id="inputcharge2">
+                <div class="explain">원룸 거주하는 20대의 평균 가구 및 가전 구매비는 000만원이에요.</div>
+
+                <div class="charge">이사 비용</div>
+                <input type="text" id="inputcharge3">
+                <div class="explain">노원구 이사 업체의 평균 이사 비용은 00만원이에요.</div>
+
+                <div id="row"><div class="divider2"></div><div class="menutext">변동비</div></div>
+                <div class="charge">식비</div>
+                <input type="text" id="inputcharge4">
+                <div class="explain">서울시에 거주하는 20대 여성의 월 평균 식비는 00만원이에요.</div>
+
+                <div class="charge">쇼핑비</div>
+                <input type="text" id="inputcharge5">
+                <div class="explain">서울시에 거주하는 20대 여성의 월 평균 쇼핑 비용은 00만원이에요.</div>
+  
+                <div class="charge">취미 비용</div>
+                <input type="text" id="inputcharge6">
+                <div class="explain">서울시에 거주하는 20대의 월 평균 취미 비용은 00만원이에요.</div>
+            </div>
+
+           
+
+            <div id="box3">
+                 <div id="row"><div class="divider2"></div><div class="menutext">고정비</div></div>
+                 <div class="charge">월세</div>
+                <input type="text" id="inputcharge7">
+                <div class="explain">노원구 원룸의 평균 월세는 00만원이에요.</div>
+
+                <div class="charge">관리비</div>
+                <input type="text" id="inputcharge8">
+                <div class="explain">노원구 원룸의 월 평균 관리비는 00만원이에요.</div>
+
+                <div class="charge">통신비</div>
+                <input type="text" id="inputcharge9">
+                <div class="explain">서울시에 거주하는 20대의 월 평균 통신비는 00만원이에요.</div>
+
+                <div class="charge">교통비</div>
+                <input type="text" id="inputcharge10">
+                <div class="explain">서울시에 거주하는 20대의 월 평균 교통비는 00만원이에요.</div>
+
+                <div id="row"><div class="divider2"></div><div class="menutext">수입</div></div>
+                 <div class="charge">아르바이트</div>
+                <input type="text" id="inputcharge11">
+                <div class="explain">서울시에 거주하는 20대 여성의 알바 월급은 00만원이에요.</div>
+
+                <div class="charge">용돈(생활비)</div>
+                <input type="text" id="inputcharge12">
+                <div class="explain">서울시에 거주하는 20대 여성의 월 평균 용돈(생활비)은 00만원이에요.</div>
+            </div>
+            </div>
+
+            
+            
+            <div id="bud">계산하기</div>
+            <div id="box4">
+            <div id="divider2" style="display: none;"></div>
+            <div id="menutext" style="display: none;">계산 분석 및 결과</div>
+            </div>
+
+            <div id="calbudbox">
+
+            <div id="calbox">
+            <div class="result-line" id="result1"></div>
+            <div id="explanation1"></div>
+
+            <div class="result-line" id="result2"></div>
+            <div id="explanation2"></div>
+
+            <div class="result-line" id="result3"></div>
+            <div id="explanation3"></div>
+
+            <div class="result-line" id="result4"></div>
+            <div id="explanation4"></div>
+            </div>
+
+            <div id="budbox" style="text-align: center; display: none;">
+                <img id="statusImage" src="" alt="" style="width: 200px; display: none; margin: 0 auto; display: block;" />
+                <h2 id="mainMessage"></h2>
+                <p id="subMessage"></p>
+            </div>
+
+
+            </div>
+
+
+        </div>
+
+        <div id="footer">
+            <div id="footerContainer">
+                <div id="menuContainer">
+                    <div id="menu">
+                        <div class="menuBox">
+                            <div class="title" id="planStart">독립계획 시작하기</div>
+                            <div class="item" id="checkList">나만의 체크리스트</div>
+                            <div class="item"  id="calculator">예산 계산기</div>
+                            <div class="item"  id="infra">주변 인프라 미리보기</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title"  class="title" id="lifeStart">생활 시작하기</div>
+                            <div class="item"  id="guide">생활 행정 가이드</div>
+                            <div class="item"  id="info">공공지원 정보</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title" id="commu">커뮤니티</div>
+                            <div class="item" id="tem">구비템 공유 게시판</div>
+                            <div class="item" id="tip">입주민 실전팁 게시판</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title" id="myPage">마이페이지</div>
+                            <div class="item" id="myList">내 체크리스트</div>
+                            <div class="item" id="saved">저장한 콘텐츠 모아보기</div>
+                            <div class="item" id="history">월별 지출 히스토리</div>
+                            <div class="item"  id="edit">정보수정</div>
+                            <div class="item"  id="logout">로그아웃</div>
+                            <div class="item"  id="leave">회원탈퇴</div>
+                        </div>
+                    </div>
+                    <div id="logoBox">
+                           <div id=logobox><img src="/static/img/Anchor.svg"><div id="logo">Emb,on</div></div>
+                    </div>
+
+                    <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="/static/js/budget_cal.js"></script>
+</html>

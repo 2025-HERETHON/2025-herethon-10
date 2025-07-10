@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+    <h2>회원가입 테스트</h2>
+
+    <!--  회원가입 실패 시 오류 메시지 출력 -->
+    {% if user_form.errors %}
+      <div style="color: red;">
+        <strong>기본 정보 오류:</strong>
+        {{ user_form.errors }}
+      </div>
+    {% endif %}
+    {% if plan_form.errors %}
+      <div style="color: red;">
+        <strong>독립 계획 정보 오류:</strong>
+        {{ plan_form.errors }}
+      </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ plan_form.as_p }}
+        <p>
+          <label for="id_sido">시/도:</label>
+          <select id="id_sido">
+              <option value="">선택하세요</option>
+          </select>
+        </p>
+        <p>
+          <label for="id_sigungu">시/군/구:</label>
+          <select id="id_sigungu" disabled>
+              <option value="">시/도를 먼저 선택하세요</option>
+          </select>
+        </p>
+
+        <!-- 실제 제출되는 폼 필드 (폼에서 HiddenInput으로 선언됨) -->
+        <input type="hidden" name="area_si" id="hidden_area_si">
+        <input type="hidden" name="area_sgg" id="hidden_area_sgg">
+        <button type="submit">가입</button>
+    </form>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sidoSelect = document.getElementById('id_sido');
+    const sigunguSelect = document.getElementById('id_sigungu');
+
+    const hiddenSi = document.getElementById('hidden_area_si');
+    const hiddenSgg = document.getElementById('hidden_area_sgg');
+
+    // 시/도 불러오기
+    fetch("{% url 'user:get_sido' %}")
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) {
+                data.result.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.addr_name;
+                    option.dataset.code = item.cd;
+                    option.textContent = item.addr_name;
+                    sidoSelect.appendChild(option);
+                });
+            }
+        });
+
+    // 시/도 선택 시 시/군/구 로딩
+    sidoSelect.addEventListener('change', () => {
+        const sidoCode = sidoSelect.selectedOptions[0].dataset.code;
+        const sidoName = sidoSelect.value;
+        hiddenSi.value = sidoName;
+
+        sigunguSelect.innerHTML = '';
+        sigunguSelect.disabled = true;
+
+        if (!sidoCode) return;
+
+        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) {
+                    sigunguSelect.disabled = false;
+                    data.result.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.addr_name;
+                        option.dataset.code = item.cd;
+                        option.textContent = item.addr_name;
+                        sigunguSelect.appendChild(option);
+                    });
+                }
+            });
+    });
+
+    // 시/군/구 선택 시 숨겨진 input에 값 설정
+    sigunguSelect.addEventListener('change', () => {
+        hiddenSgg.value = sigunguSelect.value;
+    });
+});
+</script>

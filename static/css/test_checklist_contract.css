@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* height: 100vh; */
+    font-family: Arial, sans-serif;
+}
+
+.thumb-up,
+.thumb-down {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.room-conditions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* 2열 */
+    gap: 16px;  /* 요소 사이 간격 */
+    width: 900px;
+    border: 1px solid black;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.women-safety {
+    display: flex;
+    flex-direction: column;  /* 세로 정렬 */
+    gap: 16px;
+    width: 600px;  /* ✅ 원하는 가로 길이 지정 */
+
+}
+
+.condition-toggle {
+    height: 100px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.condition-toggle input[type="checkbox"] {
+  display: none;  /* 체크박스를 숨김 */
+}
+
+.center{
+    display: flex; 
+    justify-content: center; 
+    text-align:center; 
+    align-items: center;
+}

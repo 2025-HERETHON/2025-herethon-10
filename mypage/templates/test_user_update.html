@@ -1,0 +1,150 @@
+<form method="POST" enctype="multipart/form-data" onsubmit="syncRegionFields()">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ plan_form.as_p }}
+
+  <p>
+    <label for="id_sido">시/도:</label>
+    <select id="id_sido">
+        <option value="">선택하세요</option>
+    </select>
+  </p>
+  <p>
+    <label for="id_sigungu">시/군/구:</label>
+    <select id="id_sigungu" disabled>
+        <option value="">시/도를 먼저 선택하세요</option>
+    </select>
+  </p>
+  <button type="submit">수정하기</button>
+</form>
+
+<hr>
+<h3>현재 저장된 정보</h3>
+<ul>
+  <li><strong>이메일:</strong> {{ user_form.instance.email }}</li>
+  <li><strong>이름:</strong> {{ user_form.instance.name }}</li>
+  <li><strong>성별:</strong> {{ user_form.instance.gender }}</li>
+  <li><strong>생년월일:</strong> {{ user_form.instance.birth_date }}</li>
+  <li><strong>직업:</strong> {{ user_form.instance.job }}</li>
+  <li><strong>프로필 이미지:</strong>
+    {% if user_form.instance.profile_image %}
+      <br><img src="{{ user_form.instance.profile_image.url }}" alt="프로필 이미지" width="100">
+    {% else %}
+      없음
+    {% endif %}
+  </li>
+  <li><strong>이사 예정일:</strong> {{ plan_form.instance.move_date }}</li>
+  <li><strong>시/도:</strong> {{ plan_form.instance.area_si }}</li>
+  <li><strong>시/군/구:</strong> {{ plan_form.instance.area_sgg }}</li>
+  <li><strong>예산 - 월세:</strong> {{ plan_form.instance.max_rent_budget}} 원</li>
+  <li><strong>예산 - 관리비:</strong> {{ plan_form.instance.max_manage_budget}} 원</li>
+  <li><strong>예산 - 보증금:</strong> {{ plan_form.instance.max_deposit_budget}} 원</li>
+  <li><strong>동거인 여부:</strong> {{ plan_form.instance.has_roomate }}</li>
+  <li><strong>동거인 수:</strong> {{ plan_form.instance.roomate_count }}</li>
+  <li><strong>거주 형태:</strong> {{ plan_form.instance.residence_type }}</li>
+</ul>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sidoSelect = document.getElementById('id_sido');
+    const sigunguSelect = document.getElementById('id_sigungu');
+
+    const hiddenSi = document.getElementById('id_area_si');
+    const hiddenSgg = document.getElementById('id_area_sgg');
+
+
+    // 초기값 미리 선택
+    const selectedSi = hiddenSi.value;
+    const selectedSgg = hiddenSgg.value;
+
+    // 🔽 이 두 줄 추가!!
+    hiddenSi.value = selectedSi;
+    hiddenSgg.value = selectedSgg;
+
+
+    // 시/도 불러오기
+    fetch("{% url 'user:get_sido' %}")
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) {
+                data.result.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.addr_name;
+                    option.dataset.code = item.cd;
+                    option.textContent = item.addr_name;
+                    if (item.addr_name === selectedSi) option.selected = true;
+                    sidoSelect.appendChild(option);
+                });
+
+                // 시/군/구 자동 로딩
+                if (selectedSi) {
+                    const selectedOption = Array.from(sidoSelect.options).find(o => o.value === selectedSi);
+                    if (selectedOption) {
+                        const sidoCode = selectedOption.dataset.code;
+                        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.result) {
+                                    sigunguSelect.disabled = false;
+                                    data.result.forEach(item => {
+                                        const option = document.createElement('option');
+                                        option.value = item.addr_name;
+                                        option.dataset.code = item.cd;
+                                        option.textContent = item.addr_name;
+                                        if (item.addr_name === selectedSgg) option.selected = true;
+                                        sigunguSelect.appendChild(option);
+                                    });
+                                }
+                            });
+                    }
+                }
+            }
+        });
+
+    sidoSelect.addEventListener('change', () => {
+        const sidoCode = sidoSelect.selectedOptions[0].dataset.code;
+        const sidoName = sidoSelect.value;
+        hiddenSi.value = sidoName;
+
+        sigunguSelect.innerHTML = '';
+        sigunguSelect.disabled = true;
+
+        if (!sidoCode) return;
+
+        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) {
+                    sigunguSelect.disabled = false;
+                    data.result.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.addr_name;
+                        option.dataset.code = item.cd;
+                        option.textContent = item.addr_name;
+                        sigunguSelect.appendChild(option);
+                    });
+                }
+            });
+    });
+
+    sigunguSelect.addEventListener('change', () => {
+        hiddenSgg.value = sigunguSelect.value;
+    });
+});
+
+function syncRegionFields() {
+    const sidoSelect = document.getElementById('id_sido');
+    const sigunguSelect = document.getElementById('id_sigungu');
+    const hiddenSi = document.getElementById('id_area_si');
+    const hiddenSgg = document.getElementById('id_area_sgg');
+
+    hiddenSi.value = sidoSelect.value;
+    hiddenSgg.value = sigunguSelect.value;
+}
+
+</script>
+
+
+

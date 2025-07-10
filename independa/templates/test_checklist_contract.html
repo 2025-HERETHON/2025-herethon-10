@@ -1,0 +1,423 @@
+{% load form_filters %}
+
+
+<link rel="stylesheet" href="../../static/css/test_checklist_contract.css">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{myjskey}}&libraries=services&autoload=false"></script>
+
+<script>
+    let map;
+    let marker = null;
+    let infowindow = null;
+
+    {% comment %} window.onload = function () {
+        kakao.maps.load(function () {
+            const container = document.getElementById('contract_map');
+            const options = {
+                center: new kakao.maps.LatLng(37.5665, 126.978),
+                level: 5
+            };  
+        map = new kakao.maps.Map(container, options);
+        });
+    }; {% endcomment %}
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // kakao 객체가 이미 로드되었는지 확인 후 load 호출
+        if (typeof kakao !== 'undefined') {
+            kakao.maps.load(function () {
+                const container = document.getElementById('contract_map');
+                const options = {
+                    center: new kakao.maps.LatLng(37.5665, 126.978),
+                    level: 5
+                };
+                map = new kakao.maps.Map(container, options);
+            });
+        } else {
+            console.error("❌ Kakao SDK 로드 실패: kakao 객체가 존재하지 않습니다.");
+        }
+    });
+
+    function searchPlace() {
+        const keyword = document.getElementById('contract_search-input').value.trim();
+        if (!keyword) {
+        alert("검색어를 입력하세요.");
+        return;
+        }
+
+        const ps = new kakao.maps.services.Places();
+        ps.keywordSearch(keyword, function (data, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            const first = data[0];
+            const coords = new kakao.maps.LatLng(first.y, first.x);
+
+            map.setCenter(coords);
+
+            // 기존 마커 제거
+            if (marker) marker.setMap(null);
+            marker = new kakao.maps.Marker({ map, position: coords });
+
+            // 기존 인포윈도우 닫기
+            if (infowindow) infowindow.close();
+
+            // 새 인포윈도우
+            infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:5px;">${first.place_name}</div>`
+            });
+            infowindow.open(map, marker);
+        } else {
+            alert("검색 결과가 없습니다.");
+        }
+        });
+    }
+
+    function zoomIn() {
+        const level = map.getLevel();
+        map.setLevel(level - 1);
+        displayLevel();
+    }
+
+    function zoomOut() {
+        const level = map.getLevel();
+        map.setLevel(level + 1);
+        displayLevel();
+    }
+
+    function displayLevel() {
+        const levelEl = document.getElementById('contract_maplevel');
+        levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+    }
+
+    
+</script>
+
+<body>
+
+    <div style="border:1px solid black; width:1000px; height:2850px; padding-left:30px; padding-bottom:30px;">
+        
+        <h1> 계약 </h1>
+        <a href="{%url 'independa:moving_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> > </div></a>
+        <form method="post" >
+            {% csrf_token %}
+
+            <!-- 계약 준비 섹션 -->
+            <section>
+                <h2>계약 준비</h2>
+
+                <h3>예산 설정</h3>
+                <div>
+                <label for="{{ form.min_rent_budget.id_for_label }}">월세</label>
+                {{ form.min_rent_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
+                <label for="{{ form.min_deposit_budget.id_for_label }}">보증금</label>
+                {{ form.min_deposit_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
+                <label for="{{ form.min_manage_budget.id_for_label }}">관리비</label>
+                {{ form.min_manage_budget }} ~ {{independenceplan.max_rent_budget}} 만원<br><br>
+                </div>
+
+                <h3>독립 지역 정하기</h3>
+                <div style="display:flex;">
+                    <!-- 시/도 선택 -->
+                    <div class="center" style="border:1px solid black; width:300px; height: 50px;">
+                        {% comment %} <label for="id_sido">시/도:</label> {% endcomment %}
+                        <select id="id_sido" name="area_si">
+                            <!-- JS가 옵션 동적으로 채움 -->
+                        </select>
+                    </div>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <!-- 시/군/구 선택 -->
+                    <div class="center" style="border:1px solid black; width:300px; height: 50px;">
+                        {% comment %} <label for="id_sigungu">시/군/구:</label> {% endcomment %}
+                        <select id="id_sigungu" name="area_sgg" disabled>
+                            <!-- JS가 옵션 동적으로 채움 -->
+                        </select>
+                    </div>
+
+                    <!-- 실제 제출용 hidden 필드 -->
+                    <input type="hidden" name="area_si" id="hidden_area_si">
+                    <input type="hidden" name="area_sgg" id="hidden_area_sgg">
+                </div>
+
+            </section><br><br>
+
+            <!-- 계약 전: 등기부등본 확인 -->
+            <section>
+                <h2>계약 전</h2>
+
+                <h3>등기부등본 확인</h3>
+                <label>
+                {{ form.owner_verified }} 집주인 신원 및 소유권 확인하기
+                </label><br><br>
+                <label>
+                {{ form.mortgage_verified }} 선순위 채권(근저당) 유무 확인하기
+                </label><br><br>
+                <label>
+                {{ form.illegal_building_verified }} 위법 건축물 여부 확인하기
+                </label><br><br>
+            </section>
+
+            <!-- 주변 환경 확인 -->
+            <section >
+                <h3>주변 환경 확인하기</h3>
+                <div class="room-conditions">
+                {% for field_name in room_condition_fields %}
+                {% with field=form|get_field:field_name %}
+                    <div class="condition-toggle" data-key="{{ field_name }}">
+                        <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                            {% if field.value %}checked{% endif %}>
+                        <label for="{{ field.id_for_label }}">
+                            <img src="../../static/img/boomup.png" class="thumb-up">
+                            <img src="../../static/img/boomdown.png" class="thumb-down">
+                        </label>
+                        <span>{{ field.label }}</span>
+                    </div>
+                {% endwith %}
+                {% endfor %}
+
+                </div><br><br>
+                <label>
+                {{ form.deposit_insurance }} 전세 보증금 반환 보증 가입 여부 확인하기
+                </label><br><br>
+            </section>
+
+            <!-- 여성 전용 공간 -->
+            <section>
+                <h3>여성 전용 공간 확인하기</h3>
+                <div class="women-safety">
+                {% for field_name in women_safety_fields %}
+                {% with field=form|get_field:field_name %}
+                    <div class="condition-toggle" data-key="{{ field_name }}">
+                    <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                            {% if field.value %}checked{% endif %}>
+                    <label for="{{ field.id_for_label }}">
+                        <img src="../../static/img/boomup.png" class="thumb-up">
+                        <img src="../../static/img/boomdown.png" class="thumb-down">
+                    </label>
+                    <span>{{ field.label }}</span>
+                    </div>
+                {% endwith %}
+                {% endfor %}
+                </div>
+            </section>
+
+            <!-- 계약서 작성 -->
+            <section>
+                <h2>계약서 작성</h2>
+                {% for field_name in simple_fields %}
+                {% with field=form|get_field:field_name %}
+                    {{ field }}
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+                    <br><br>
+                {% endwith %}
+                {% endfor %}
+            </section>
+
+            <div class="center" style="margin-top: 20px; margin-right: 30px; padding:0 auto;">
+                <button type="submit">저장</button><br><br>   
+            </div>
+
+            {% comment %} <a href="{% url 'independa:reset_checklist' 'contract' %}"><button>기본값으로 초기화</button></a> {% endcomment %}
+        </form>
+        
+        {%if check.contract_all %}
+            <div>모두 완료했습니다! 이제 이사 준비를 해볼까요?</div>
+        {%endif%}
+        <form method="post" action="{% url 'independa:reset_checklist' 'contract' %}" style="margin-top: 10px;">
+            {% csrf_token %}
+            <button type="submit" style="background:#eee; padding:8px 16px;">기본값으로 초기화</button>
+        </form>
+    </div>
+    <div>
+        <div style="border:1px solid black; width:500px; height:300px; margin-left:30px;">
+            <h2> 체크리스트 진행률 <h2>
+            <div>
+                {%if check.contract_all %}
+                <p> 계약 완료 -> </p>
+                {%else%}
+                <p>1. 계약 -> </p>
+                {%endif%}
+                {%if check.moving_all %}
+                <p> 이사 완료 -> </p>
+                {%else%}
+                <p>2. 이사 -> </p>
+                {%endif%}
+                {%if check.residency_all %}
+                <p> 입주 완료 </p>
+                {%else%}
+                <p>3. 입주 </p>
+                {%endif%}
+            </div>
+        </div>
+        <div style="border:1px solid black; width:660px; height:360px; margin-left:30px; margin-top:30px;display:flex;">
+            <div class="center" style="border:1px solid black; width:280px; height:280px; margin:30px;">프로필</div>
+            <div>
+                <h3>{{request.user.name}}</h3>
+                <p>독립할 지역 : {{independenceplan.area_si}}&nbsp;&nbsp;{{independenceplan.area_sgg}}</p>
+                <p>최대 예산 :<br>
+                월세 최대 {{independenceplan.max_rent_budget}}<br>
+                보증금 최대 {{independenceplan.max_manage_budget}}<br>
+                관리비 최대 {{independenceplan.max_deposit_budget}}<br>
+                </p>
+                <p>이사 예정일 : {{independenceplan.move_date}}</p>
+                {% if independenceplan.has_roomate == "동거인 없음" %}
+                    <p>동거인 : 없음</p><br>
+                {% else %}
+                    <p>동거인 : {{independenceplan.roomate_count}}</p><br>
+                {% endif %}
+                <p> 정보 수정하기 > </p>
+            </div>
+        </div><br><br><br>
+        <div>
+            <h2 style="margin-left:30px; margin-top:30px;">지도로 미리보기</h2>
+            <div style="margin: 20px;">
+                <input type="text" id="contract_search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
+                <button onclick="searchPlace()" style="padding: 8px;">검색</button>
+            </div>
+
+            <div id="contract_map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
+            <p style="margin-left:30px; margin-top:30px;">
+                <button onclick="zoomIn()">지도레벨 - 1</button>
+                <button onclick="zoomOut()">지도레벨 + 1</button>
+                <span id="contract_maplevel"></span>
+            </p>
+
+        </div>
+    </div>
+</body>
+
+
+
+
+<script>
+
+    const defaultSido = "{{ independenceplan.area_si|default_if_none:''|escapejs }}";
+    const defaultSigungu = "{{ independenceplan.area_sgg|default_if_none:''|escapejs }}";
+
+    console.log("✅ 시/도 기본값:", defaultSido);
+    console.log("✅ 시/군/구 기본값:", defaultSigungu);
+    
+document.addEventListener("DOMContentLoaded", function () {
+    const toggles = document.querySelectorAll(".condition-toggle");
+
+    toggles.forEach((toggle) => {
+        const checkbox = toggle.querySelector("input[type='checkbox']");
+        const thumbUp = toggle.querySelector(".thumb-up");
+        const thumbDown = toggle.querySelector(".thumb-down");
+
+        updateThumb(checkbox.checked, thumbUp, thumbDown);
+
+        toggle.addEventListener("click", function (e) {
+        // INPUT이나 LABEL, IMG 등 클릭 시 체크박스 토글 안 되는 문제 방지
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL' && e.target.tagName !== 'IMG') {
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event("change"));
+            }
+        });
+
+        checkbox.addEventListener("change", function () {
+        updateThumb(checkbox.checked, thumbUp, thumbDown);
+        });
+    });
+
+    function updateThumb(isChecked, thumbUp, thumbDown) {
+        if (isChecked) {
+        thumbUp.style.display = "inline";
+        thumbDown.style.display = "none";
+        } else {
+        thumbUp.style.display = "none";
+        thumbDown.style.display = "inline";
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sidoSelect = document.getElementById('id_sido');
+    const sigunguSelect = document.getElementById('id_sigungu');
+    const hiddenSi = document.getElementById('hidden_area_si');
+    const hiddenSgg = document.getElementById('hidden_area_sgg');
+
+    const defaultSido = "{{ independenceplan.area_si|escapejs }}";
+    const defaultSigungu = "{{ independenceplan.area_sgg|escapejs }}";
+
+    // 1. 시/도 로딩
+    fetch("{% url 'user:get_sido' %}")
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) {
+                data.result.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.addr_name;
+                    option.dataset.code = item.cd;
+                    option.textContent = item.addr_name;
+
+                    if (item.addr_name === defaultSido) {
+                        option.selected = true;
+                        hiddenSi.value = item.addr_name;
+                    }
+
+                    sidoSelect.appendChild(option);
+                });
+
+                // 2. 선택된 시/도에 따라 시군구 불러오기
+                const selected = sidoSelect.selectedOptions[0];
+                const sidoCode = selected?.dataset.code;
+
+                if (sidoCode) {
+                    fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.result) {
+                                sigunguSelect.disabled = false;
+                                data.result.forEach(item => {
+                                    const option = document.createElement('option');
+                                    option.value = item.addr_name;
+                                    option.dataset.code = item.cd;
+                                    option.textContent = item.addr_name;
+
+                                    if (item.addr_name === defaultSigungu) {
+                                        option.selected = true;
+                                        hiddenSgg.value = item.addr_name;
+                                    }
+
+                                    sigunguSelect.appendChild(option);
+                                });
+                            }
+                        });
+                }
+            }
+        });
+
+    // 3. 시/도 선택 시 동적 갱신
+    sidoSelect.addEventListener('change', () => {
+        const selected = sidoSelect.selectedOptions[0];
+        const sidoCode = selected.dataset.code;
+        const sidoName = selected.value;
+        hiddenSi.value = sidoName;
+
+        sigunguSelect.innerHTML = '';
+        sigunguSelect.disabled = true;
+        hiddenSgg.value = '';
+
+        if (!sidoCode) return;
+
+        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) {
+                    sigunguSelect.disabled = false;
+                    data.result.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.addr_name;
+                        option.dataset.code = item.cd;
+                        option.textContent = item.addr_name;
+                        sigunguSelect.appendChild(option);
+                    });
+                }
+            });
+    });
+
+    // 4. 시군구 선택 시 hidden 필드 값 반영
+    sigunguSelect.addEventListener('change', () => {
+        hiddenSgg.value = sigunguSelect.value;
+    });
+});
+</script>

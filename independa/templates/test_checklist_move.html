@@ -1,0 +1,243 @@
+{% load form_filters %}
+
+
+<link rel="stylesheet" href="../../static/css/test_checklist_contract.css">
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{myjskey}}&libraries=services&autoload=false"></script>
+
+<script>
+    let map;
+    let marker = null;
+    let infowindow = null;
+
+    window.onload = function () {
+        kakao.maps.load(function () {
+        const container = document.getElementById('moving_map');
+        const options = {
+            center: new kakao.maps.LatLng(37.5665, 126.978),
+            level: 5
+        };
+        map = new kakao.maps.Map(container, options);
+        });
+    };
+
+    function searchPlace() {
+        const keyword = document.getElementById('moving_search-input').value.trim();
+        if (!keyword) {
+        alert("검색어를 입력하세요.");
+        return;
+        }
+
+        const ps = new kakao.maps.services.Places();
+        ps.keywordSearch(keyword, function (data, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            const first = data[0];
+            const coords = new kakao.maps.LatLng(first.y, first.x);
+
+            map.setCenter(coords);
+
+            // 기존 마커 제거
+            if (marker) marker.setMap(null);
+            marker = new kakao.maps.Marker({ map, position: coords });
+
+            // 기존 인포윈도우 닫기
+            if (infowindow) infowindow.close();
+
+            // 새 인포윈도우
+            infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:5px;">${first.place_name}</div>`
+            });
+            infowindow.open(map, marker);
+        } else {
+            alert("검색 결과가 없습니다.");
+        }
+        });
+    }
+
+    function zoomIn() {
+        const level = map.getLevel();
+        map.setLevel(level - 1);
+        displayLevel();
+    }
+
+    function zoomOut() {
+        const level = map.getLevel();
+        map.setLevel(level + 1);
+        displayLevel();
+    }
+
+    function displayLevel() {
+        const levelEl = document.getElementById('moving_maplevel');
+        levelEl.innerHTML = '현재 지도 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+    }
+
+    
+</script>
+
+
+<body>
+
+    <div style="border:1px solid black; width:1000px; padding-left:30px; padding-bottom:30px;">
+        
+        <h1> 이사 </h1>
+        <div style="display:flex;">   
+            <a href="{%url 'independa:contract_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> < </div></a>
+            <a href="{%url 'independa:residency_checklist_edit'%}"><div class="center" style="border:1px solid black; width:50px; height:50px;"> > </div></a>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- ✅ 이사 하루 전 -->
+            <section>
+                <h2>이사 하루 전</h2>
+                <div class="checklist-group">
+                    {{ form.unplug_appliances }} <label for="{{ form.unplug_appliances.id_for_label }}">냉장고, 세탁기 미리 전원 차단하기</label><br><br>
+                    {{ form.keep_valuables_separately }} <label for="{{ form.keep_valuables_separately.id_for_label }}">귀중품, 중요 서류는 따로 보관하기</label><br><br>
+                    {{ form.check_new_home_password }} <label for="{{ form.check_new_home_password.id_for_label }}">새 집 열쇠, 도어락 비밀번호 재확인하기</label><br><br>
+                    {{ form.confirm_moving_time }} <label for="{{ form.confirm_moving_time.id_for_label }}">이사 업체와 이사 시작 확인하기</label><br><br>
+                    {{ form.finish_trash_sorting }} <label for="{{ form.finish_trash_sorting.id_for_label }}">쓰레기 분리수거 및 집 정리 마무리하기</label><br><br>
+                </div>
+            </section>
+
+            <!-- ✅ 이사 당일 -->
+            <section>
+                <h2>이사 당일</h2>
+                <div class="checklist-group">
+                    {{ form.check_truck_arrival_time }} <label for="{{ form.check_truck_arrival_time.id_for_label }}">이사 차량 도착 시간 확인하기</label><br><br>
+                    {{ form.take_photos_of_old_home }} <label for="{{ form.take_photos_of_old_home.id_for_label }}">기존 집 상태 사진 찍어두기 (보증금 문제 대비)</label><br><br>
+                </div>
+
+                <!-- ✅ 새 집 점검하기 -->
+                <h3>새 집 점검하기</h3>
+                <div class="checklist-group">
+                    {{ form.check_leaks }} <label for="{{ form.check_leaks.id_for_label }}">누수 확인하기</label><br><br>
+                    {{ form.check_power_outlets }} <label for="{{ form.check_power_outlets.id_for_label }}">콘센트 및 전기 확인하기</label><br><br>
+                    {{ form.check_water_supply }} <label for="{{ form.check_water_supply.id_for_label }}">수도 작동 확인하기</label><br><br>
+                </div>
+
+                <!-- ✅ 설치 기사 방문 체크하기 -->
+                <h3>설치 기사 방문 체크하기</h3>
+                <div class="checklist-group">
+                    {{ form.check_appliance_installer }} <label for="{{ form.check_appliance_installer.id_for_label }}">가전 설치 기사</label><br><br>
+                    {{ form.check_internet_installer }} <label for="{{ form.check_internet_installer.id_for_label }}">인터넷 설치 기사</label><br><br>
+                </div>
+            </section>
+
+            <!-- ✅ 이사 후 -->
+            <section>
+                <h2>이사 후</h2>
+                <div class="checklist-group">
+                    {{ form.complete_address_registration }} <label for="{{ form.complete_address_registration.id_for_label }}">전입신고 완료하기 (동주민센터 또는 정부24)</label><br><br>
+                    {{ form.change_address }} <label for="{{ form.change_address.id_for_label }}">주소 변경하기 (은행, 학교, 직장 등)</label><br><br>
+                    {{ form.check_deposit_settlement }} <label for="{{ form.check_deposit_settlement.id_for_label }}">보증금 정산 확인하기</label><br><br>
+                    {{ form.check_trash_disposal_rules }} <label for="{{ form.check_trash_disposal_rules.id_for_label }}">쓰레기 배출 규칙 확인하기</label><br><br>
+                    {{ form.check_residence_insurance }} <label for="{{ form.check_residence_insurance.id_for_label }}">거주지 화재보험, 전세보증금 보험 등 확인하기</label><br><br>
+                </div>
+            </section>
+
+            <div class="center" style="margin-top: 20px; margin-right: 30px; padding:0 auto;">
+                <button type="submit">저장</button>
+            </div>
+        </form>
+        
+        {%if check.moving_all %}
+            <div>모두 완료했습니다! 이제 입주 준비를 해볼까요?</div>
+        {%endif%}
+
+        <form method="post" action="{% url 'independa:reset_checklist' 'moving' %}" style="margin-top: 10px;">
+            {% csrf_token %}
+            <button type="submit" style="background:#eee; padding:8px 16px;">기본값으로 초기화</button>
+        </form>
+    </div>
+    <div>
+        <div style="border:1px solid black; width:500px; height:300px; margin-left:30px;">
+            <h2> 체크리스트 진행률 <h2>
+            <div>
+                {%if check.contract_all %}
+                <p> 계약 완료 -> </p>
+                {%else%}
+                <p>1. 계약 -> </p>
+                {%endif%}
+                {%if check.moving_all %}
+                <p> 이사 완료 -> </p>
+                {%else%}
+                <p>2. 이사 -> </p>
+                {%endif%}
+                {%if check.residency_all %}
+                <p> 입주 완료 </p>
+                {%else%}
+                <p>3. 입주 </p>
+                {%endif%}
+            </div>
+        </div>
+        <div style="border:1px solid black; width:660px; height:360px; margin-left:30px; margin-top:30px;display:flex;">
+            <div class="center" style="border:1px solid black; width:280px; height:280px; margin:30px;">프로필</div>
+            <div>
+                <h3>{{request.user.name}}</h3>
+                <p>독립할 지역 : {{independenceplan.area_si}}&nbsp;&nbsp;{{independenceplan.area_sgg}}</p>
+                <p>최대 예산 :<br>
+                월세 최대 {{independenceplan.max_rent_budget}}<br>
+                보증금 최대 {{independenceplan.max_manage_budget}}<br>
+                관리비 최대 {{independenceplan.max_deposit_budget}}<br>
+                </p>
+                <p>이사 예정일 : {{independenceplan.move_date}}</p>
+                {% if independenceplan.has_roomate == "동거인 없음" %}
+                    <p>동거인 : 없음</p><br>
+                {% else %}
+                    <p>동거인 : {{independenceplan.roomate_count}}</p><br>
+                {% endif %}
+                <p> 정보 수정하기 > </p>
+            </div>
+        </div><br><br><br>
+        <div>
+            <h2 style="margin-left:30px; margin-top:30px;">지도로 미리보기</h2>
+            <div style="margin: 20px;">
+                <input type="text" id="moving_search-input" placeholder="예: 성북구" style="padding: 8px; width: 200px;">
+                <button onclick="searchPlace()" style="padding: 8px;">검색</button>
+            </div>
+
+            <div id="moving_map" style="border:1px solid black; width:1000px; height:1000px; margin-left:30px; margin-top:30px;"></div>
+            <p style="margin-left:30px; margin-top:30px;">
+                <button onclick="zoomIn()">지도레벨 - 1</button>
+                <button onclick="zoomOut()">지도레벨 + 1</button>
+                <span id="moving_maplevel"></span>
+            </p>
+        </div>
+    </div>
+</body>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggles = document.querySelectorAll(".condition-toggle");
+
+    toggles.forEach((toggle) => {
+        const checkbox = toggle.querySelector("input[type='checkbox']");
+        const thumbUp = toggle.querySelector(".thumb-up");
+        const thumbDown = toggle.querySelector(".thumb-down");
+
+        updateThumb(checkbox.checked, thumbUp, thumbDown);
+
+        toggle.addEventListener("click", function (e) {
+        // INPUT이나 LABEL, IMG 등 클릭 시 체크박스 토글 안 되는 문제 방지
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL' && e.target.tagName !== 'IMG') {
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event("change"));
+            }
+        });
+
+        checkbox.addEventListener("change", function () {
+        updateThumb(checkbox.checked, thumbUp, thumbDown);
+        });
+    });
+
+    function updateThumb(isChecked, thumbUp, thumbDown) {
+        if (isChecked) {
+        thumbUp.style.display = "inline";
+        thumbDown.style.display = "none";
+        } else {
+        thumbUp.style.display = "none";
+        thumbDown.style.display = "inline";
+        }
+    }
+});
+</script>
