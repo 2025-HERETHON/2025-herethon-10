@@ -146,16 +146,17 @@
     </div>
 </header>
 
-<div class="category-buttons">
-    <button>편의점</button>
-    <button>마트(대형마트, 다이소)</button>
-    <button>올리브영</button>
-    <button>약국</button>
-    <button>병원</button>
-    <button>카페</button>
-    <button>패스트푸드</button>
-    <button>여성전용시설</button>
+<div class="category-buttons-scrap">
+    <button onclick="filterByCategory('CS2')">편의점</button>
+    <button onclick="filterByCategory('MT1')">마트</button>
+    <button onclick="filterByCategory('PM9')">올리브영</button>
+    <button onclick="filterByCategory('PM3')">약국</button>
+    <button onclick="filterByCategory('HP8')">병원</button>
+    <button onclick="filterByCategory('CE7')">카페</button>
+    <button onclick="filterByCategory('FD6')">패스트푸드</button>
+    <button onclick="filterByCategory('SW8')">여성전용시설</button>
 </div>
+
 
 <div class="container">
     <div class="sidebar">
@@ -380,6 +381,34 @@
     function getCSRFToken() {
         const cookie = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='));
         return cookie ? cookie.split('=')[1] : '';
+    }
+
+    function filterByCategory(categoryCode) {
+        fetch(`/independa/filter_saved_places/?category=${categoryCode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.places && data.places.length > 0) {
+                    // 기존 마커 제거
+                    markers.forEach(marker => marker.setMap(null));
+                    markers = [];
+
+                    // 새 마커 추가
+                    data.places.forEach(place => addMarker(place));
+
+                    // 저장된 데이터로 UI 갱신
+                    savedPlaces.length = 0;
+                    data.places.forEach(p => savedPlaces.push(p));
+                    renderSavedPlacesList();
+                } else {
+                    alert("해당 카테고리에 저장된 장소가 없습니다.");
+                    savedPlaces.length = 0;
+                    renderSavedPlacesList();
+                }
+            })
+            .catch(err => {
+                console.error("🚨 카테고리 필터링 오류:", err);
+                alert("장소 필터링 중 오류가 발생했습니다.");
+            });
     }
 
 </script>

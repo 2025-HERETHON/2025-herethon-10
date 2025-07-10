@@ -56,3 +56,14 @@ def delete_place_view(request, place_id):
         return JsonResponse({'success': True})
     except SavedPlace.DoesNotExist:
         return JsonResponse({'success': False, 'error': '존재하지 않는 장소'}, status=404)
+    
+    
+def filter_saved_places_view(request):
+    user = request.user
+    category = request.GET.get("category")
+    
+    places = SavedPlace.objects.filter(user=user, category_group_code=category).values(
+        "id", "place_name", "place_url", "road_address_name", "x", "y", "category_group_code"
+    )
+
+    return JsonResponse({"places": list(places)})
