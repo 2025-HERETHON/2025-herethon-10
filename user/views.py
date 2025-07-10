@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from .forms import SignupForm, IndependencePlanForm, LoginForm
+from .forms import SignupForm, IndependencePlanForm
 from django.http import HttpResponse
 import requests
 import copy
 from django.http import JsonResponse
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
+
+from django.shortcuts import render, redirect
+
+
 
 #서비스아이디, 보안키로 어세스토큰 받아오기
 def get_token():
@@ -66,6 +72,7 @@ def get_sido(request):
     data = call_sgis_api({})
     return JsonResponse(data)
 
+
 # 시/군/구 가져오기
 def get_sigungu(request):
     sido_code = request.GET.get('sido_code')
@@ -76,40 +83,30 @@ def get_sigungu(request):
     # print(f"시/군/구 데이터 for sido_code={sido_code}: ", data)
     return JsonResponse(data)
 
+
+@login_required(login_url='/accounts/login/')
 def signup_view(request):
+    if hasattr(request.user, 'independenceplan'):
+        return redirect('/home/')
+
     if request.method == 'POST':
-        user_form = SignupForm(request.POST, request.FILES)
+        user_form = SignupForm(request.POST, request.FILES, instance=request.user)
         plan_form = IndependencePlanForm(request.POST)
 
         if user_form.is_valid() and plan_form.is_valid():
-            user = user_form.save(commit=False)
-            user.set_password(user_form.cleaned_data['password'])  # 비밀번호 해시화
-            user.save()
-
+            user_form.save()  # 사용자 정보 업데이트
             plan = plan_form.save(commit=False)
-            plan.user = user
+            plan.user = request.user
             plan.save()
-
-            login(request, user)  # 회원가입 후 바로 로그인 처리
-            return redirect('user:login')  # 로그인 화면으로 이동 (임시)
+            return redirect('/home/')
     else:
-        user_form = SignupForm()
+        user_form = SignupForm(instance=request.user)
         plan_form = IndependencePlanForm()
 
     return render(request, 'test_signup.html', {
-        'user_form': user_form,
-        'plan_form': plan_form,
+        'user_form': user_form,      
+        'plan_form': plan_form
     })
 
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('/home/')
-    else:
-        form = LoginForm()
 
-    # login.html 연결
-    return render(request, 'test_login.html', {'form': form})
+

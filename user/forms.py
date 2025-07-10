@@ -18,8 +18,6 @@ MOVE_DATE_CHOICES = [
 class SignupForm(forms.ModelForm):
     profile_image = forms.ImageField(required=False)
     
-    password = forms.CharField(widget=forms.PasswordInput)
-    
     birth_date = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'})
     )
@@ -51,13 +49,3 @@ class IndependencePlanForm(forms.ModelForm):
         model = IndependencePlan
         exclude = ['user']
         
-# 로그인 폼
-class LoginForm(AuthenticationForm):
-    username = forms.EmailField(
-        label="이메일",
-        widget=forms.EmailInput(attrs={'placeholder': '이메일을 입력하세요'})
-    )
-    password = forms.CharField(
-        label="비밀번호",
-        widget=forms.PasswordInput(attrs={'placeholder': '비밀번호를 입력하세요'})
-    )
