@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+    <link rel="stylesheet" href="../css/write.css">
+</head>
+<body>
+    <div id = background>
+        <div id="header">
+            <div id="headerBox">
+                <img src="../img/logo.png" id=logo /> 
+                <div id="selectBox">
+                    <div id="home">홈</div> 
+                    <div id="plan">독립계획 시작하기</div> 
+                    <div id="life">생활 시작하기</div> 
+                    <div id="community">커뮤니티</div>
+                    <div id="mypage">마이페이지</div>
+                    <div id="divider"></div>
+                    <div id="signinup">로그인/회원가입</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="banner">
+            <div id="bannerBox">
+                <h1>글쓰기</h1>
+                <h2>질문부터 정보 공유까지, 사람들과 자유롭게 의견을 나눠보세요</h2>
+            </div>
+        </div>
+
+        <div id="container">
+            <aside>
+                <div id="sideMenu">
+                    <p id="sideMenuTitle">커뮤니티</p>
+                    <div id="sideMenuContentBox">
+                        <p id="sideMenuContentStyle2">구비템 공유 게시판</p>
+                        <p id="sideMenuContentStyle2">입주민 실전팁 게시판</p>
+                        <p id="sideMenuContentStyle1">글쓰기</p>
+                    </div>
+                </div>
+            </aside>
+            <section>
+                <div id="writeHeader">
+                    <div id="regionPickBox">
+                        <p class="pickTitle">지역 선택</p>
+                        <div class="pickContent1">
+                            <div class="inputRegion">
+                                <p>시/도</p>
+                                <img src="../img/minichevron-down.png"/>
+                            </div>
+                            <div class="inputRegionDropdown1">
+                                <div class="dropdownContent1">서울특별시</div>
+                                <div class="dropdownContent2">세종</div>
+                                <div class="dropdownContent2">강원</div>
+                                <div class="dropdownContent2">인천</div>
+                                <div class="dropdownContent3">경기</div>
+                            </div>
+                            <div class="inputRegion">
+                                <p>시/군/구</p>
+                                <img src="../img/minichevron-down.png"/>
+                            </div>
+                            <div class="inputRegionDropdown2">
+                                <div class="dropdownContent1">서울 전체</div>
+                                <div class="dropdownContent2">강남구</div>
+                                <div class="dropdownContent2">강동구</div>
+                                <div class="dropdownContent2">강북구</div>
+                                <div class="dropdownContent3">강서구</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="communityPickBox">
+                        <p class="pickTitle">게시판 선택</p>
+                        <div class="pickContent2">
+                            <div class="checkboxBox" data-group="community">
+                                <div class="checkbox">
+                                    <div class="fakeCheckbox checked"></div>
+                                    <input type="checkbox" class="realCheckbox"/>
+                                </div>
+                                <p class="checkboxContent">구비템 공유 게시판</p>
+                            </div>
+                            <div class="checkboxBox" data-group="community">
+                                <div class="checkbox">
+                                    <div class="fakeCheckbox"></div>
+                                    <input type="checkbox" class="realCheckbox"/>
+                                </div>
+                                <p class="checkboxContent">입주민 실전팁 게시판</p>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="button" id="uploadButton" value="등록"/>
+                </div>
+                <div id="inputBox">
+                    <input id="inputTitle" type="text" placeholder="제목을 입력해주세요"/>
+                    <textarea id="inputContent" placeholder="내용을 입력해주세요"></textarea>
+                </div>
+                <div id="writeBottomBox">
+                    <div class="checkboxBox" data-group="post">
+                        <div class="checkbox">
+                            <div class="fakeCheckbox checked"></div>
+                            <input type="checkbox" class="realCheckbox"/>
+                        </div>
+                        <p class="checkboxContent">질문해요</p>
+                    </div>
+                    <div class="checkboxBox" data-group="post">
+                        <div class="checkbox">
+                            <div class="fakeCheckbox"></div>
+                            <input type="checkbox" class="realCheckbox"/>
+                        </div>
+                        <p class="checkboxContent">공유해요</p>
+                    </div>
+                </div>
+                <div id="writeLastBox">
+                    <div id="imgUpload">
+                        <img src="../img/link-2.png" id="imgUploadIcon" />
+                        <p>이미지 업로드</p>
+                    </div>
+                    <p id="delete">삭제</p>
+                </div>
+                <img id="imgSample"/>
+            </section>
+        </div>
+
+        <div id="footer">
+            <div id="footerContainer">
+                <div id="menuContainer">
+                    <div id="menu">
+                        <div class="menuBox">
+                            <div class="title" id="planStart">독립계획 시작하기</div>
+                            <div class="item" id="checkList">나만의 체크리스트</div>
+                            <div class="item"  id="calculator">예산 계산기</div>
+                            <div class="item"  id="infra">주변 인프라 미리보기</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title"  class="title" id="lifeStart">생활 시작하기</div>
+                            <div class="item"  id="guide">생활 행정 가이드</div>
+                            <div class="item"  id="info">공공지원 정보</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title" id="commu">커뮤니티</div>
+                            <div class="item" id="tem">구비템 공유 게시판</div>
+                            <div class="item" id="tip">입주민 실전팁 게시판</div>
+                        </div>
+
+                        <div class="menuBox">
+                            <div class="title" id="myPage">마이페이지</div>
+                            <div class="item" id="myList">내 체크리스트</div>
+                            <div class="item" id="saved">저장한 콘텐츠 모아보기</div>
+                            <div class="item" id="history">월별 지출 히스토리</div>
+                            <div class="item"  id="edit">정보수정</div>
+                            <div class="item"  id="logout">로그아웃</div>
+                            <div class="item"  id="leave">회원탈퇴</div>
+                        </div>
+                    </div>
+                    <div id="logoBox">
+                            <img src="../img/logo.png" id=footerLogo /> 
+                    </div>
+
+                    <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+<script src="../js/write.js"></script>
+</html>

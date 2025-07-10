@@ -1,0 +1,608 @@
+body {
+  display: flex;
+  justify-content: center;       
+  height: 100vh;            
+  margin: 0; 
+
+  /*기본 값 적용*/                 
+}
+
+#background{
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #FFFFFF;
+}
+
+#header{
+    display: flex;
+    width: 100vw;
+    height: 113px;
+
+
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid var(--navy-scale-navy-60, #3B506B);
+    background: var(--gray-scale-gray-0, #FFF);
+
+}
+
+#headerBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 73.96vw; /*1920기준 1420*/
+    height: 57px;
+
+}
+
+#logo{
+    
+}
+
+#selectBox{
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+    width: 670px;
+    height: 38px;
+}
+
+#home{
+    color: var(--navy-scale-navy-80, #1F2A38);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+
+}
+
+#plan{
+    color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+}
+
+#life{
+       color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+}
+
+#community{
+       color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+
+}
+
+#mypage{
+   color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+}
+
+#divider{
+    width: 1px;
+    height: 21px;
+    opacity: 0.8;
+    background: #3B506B;
+}
+
+#signinup{
+    display: flex;
+    height: 38px;
+    padding: 1px 22px;/*8->1로 줄임(글자 깨짐)*/
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    background: var(--navy-scale-navy-60, #3B506B);
+
+    color: var(--gray-scale-gray-0, #FFF);
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 21px */
+    letter-spacing: -0.42px;
+}
+
+#banner{
+    width: 100vw;
+    height: 150px;
+
+    display: flex;
+    justify-content: center;
+    background: var(--gray-scale-gray-10, #F5F5F5);
+}
+
+#bannerBox{
+     width: 73.96vw; /*1920기준 1420*/
+     height: 150px;
+
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+
+     h1{
+        color: var(--navy-scale-navy-80, #1F2A38);
+        font-family: Inter;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 45px */
+        letter-spacing: -0.9px;
+     }
+
+     h2{
+      color: var(--navy-scale-navy-80, #1F2A38);
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+        letter-spacing: -0.48px;
+     }
+
+        h1, h2 {
+    margin: 0;
+    }
+
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: auto; /*header->banner->container->footer*/
+
+}
+
+#loginContainer{
+ 
+}
+
+#footer{
+    width: 100vw;
+    height: 450px;
+   
+
+    border-top: 1px solid var(--navy-scale-navy-60, #3B506B);
+    background: var(--gray-scale-gray-0, #FFF);
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#footerContainer{
+
+    width: 83.33vw; /*1920이 100vw일 때 1600*/
+    height: 300px;
+
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    margin-top: 50px;
+    margin-bottom: 100px;
+
+}
+
+#menuContainer{
+    display: flex;
+    flex-direction: column; /*세로 정렬 위한 컨테이너*/
+    align-items: center;
+}
+
+#menu{
+ 
+    width: 54.43vw; /*1920이 100vw일 때 1045px*/
+    height: 254px;
+    
+    display: flex;
+    gap: 165px; 
+       
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.menuBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+ 
+    width: 300px; /*안 깨지게 일단 크게*/
+
+    gap: 3px;
+
+}
+
+.menuBox .title {
+    color: var(--navy-scale-navy-70, #2D3D52);
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 175% */
+    
+    margin-bottom: 15px;
+
+    white-space: nowrap; /*글자 한 줄로*/
+}
+
+.menuBox .item {
+    color: var(--navy-scale-navy-70, #2D3D52);
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    opacity: 0.5;
+
+    display: flex;
+    height: 30px; /*적절한 길이 부여*/
+
+    white-space: nowrap; /*글자 한 줄로*/
+
+}
+
+#logoBox{
+    width: 83.33vw;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+#footerLogo{
+ /*로고 이미지 크기 조정*/
+}
+
+#copyright{
+    color: var(--navy-scale-navy-70, #2D3D52);
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px; /* 162.5% */
+
+    margin-top: 20px;
+}
+
+aside{
+    width: 200px;
+    height: auto;
+}
+
+section{
+    width: 1016px;
+    height: auto;
+    padding: 0px 64px 36px 112px;
+    margin-top: 39px;
+}
+
+/* 사이드 메뉴 부분 시작 */
+
+#sideMenu{
+    margin-top: 40px;
+}
+
+#sideMenuContentBox{
+    display: flex;
+    width: 184px;
+    flex-direction: column;
+    gap:30px;
+}
+
+#sideMenuTitle{
+    color: #AAA;
+    margin: 0 0 30px 0;
+    letter-spacing: -0.48px;
+}
+
+#sideMenuContentStyle1{
+    margin: 0 0 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: -0.54px;
+}
+
+#sideMenuContentStyle2{
+    margin: 0 0 0 20px;
+    font-size: 18px;
+    color: #57769E;
+    letter-spacing: -0.54px;
+}
+
+/* 사이드 메뉴 부분 끝 */
+
+.checkboxBox{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fakeCheckbox{
+    width: 28px;
+    height: 28px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #C2C2C2;
+}
+
+.fakeCheckbox.checked{
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background-color: #3B506B;
+}
+
+.realCheckbox{
+    display: none;
+}
+
+.checkboxContent{
+    margin: 0;
+    line-height: 26px; /* 162.5% */
+    letter-spacing: -0.16px;
+    color: #1F2A38;
+}
+
+#writeHeader{
+    display: flex;
+    width: 1016px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#regionPickBox,
+#communityPickBox{
+    display: flex;
+    width: 372px;
+    padding-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.pickTitle{
+    display: flex;
+    height: 30px;
+    align-items: center;
+    color: #1F2A38;
+    font-size: 16px;
+    line-height: 19.833px; /* 123.958% */
+    font-weight: bold;
+    margin: 0;
+}
+
+.pickContent1{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pickContent2{
+    display: flex;
+    align-items: center;
+    gap: 23px;
+}
+
+.inputRegion{
+    display: flex;
+    width: 136px; 
+    padding: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border: 1px solid #8F8F8F;
+}
+
+.inputRegion p,
+.dropdownContent1,
+.dropdownContent2,
+.dropdownContent3{
+    font-size: 12px;
+    color: #1F2A38;
+    line-height: 20px;
+    letter-spacing: -0.12px;
+    margin: 0;
+}
+
+.inputRegionDropdown1{
+display: none;
+top: 410px;
+position: absolute;
+width: 152px;
+flex-direction: column;
+align-items: flex-start;
+}
+
+.inputRegionDropdown2{
+display: none;
+top: 410px;
+left: 750px;
+position: absolute;
+width: 152px;
+flex-direction: column;
+align-items: flex-start;
+}
+
+.dropdownContent1{
+display: flex;
+padding: 12px 16px;
+width: 136px; 
+align-items: center;
+border-radius: 8px 8px 0 0;
+border: 1px solid #8F8F8F;
+background-color: #FFF;
+}
+
+.dropdownContent2{
+display: flex;
+padding: 12px 16px;
+width: 136px; 
+align-items: center;
+border-right: 1px solid #8F8F8F;
+border-bottom: 1px solid #8F8F8F;
+border-left: 1px solid #8F8F8F;
+background-color: #FFF;
+}
+
+.dropdownContent3{
+display: flex;
+padding: 12px 16px;
+width: 136px; 
+align-items: center;
+border-radius: 0 0 8px 8px;
+border-right: 1px solid #8F8F8F;
+border-bottom: 1px solid #8F8F8F;
+border-left: 1px solid #8F8F8F;
+background-color: #FFF;
+}
+
+#uploadButton{
+    display: flex;
+    padding: 12px 22px;
+    justify-content: center;
+    align-items: center;
+    background-color: #3B506B;
+    color: #FFF;
+    font-size: 20px;
+    line-height: 150%; /* 30px */
+    letter-spacing: -0.6px;
+    border-radius: 4px;
+    border: 0;
+}
+
+#inputBox{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#inputTitle{
+    display: flex;
+    width: 968px;
+    height: 29px;
+    padding: 12px 24px;
+    align-items: center;
+    background-color: #F9F9FA;
+    border-radius: 12px;
+    border: 0;
+    resize: none;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#inputContent{
+    display: flex;
+    width: 976px;
+    height: 381px;
+    padding: 20px;
+    align-items: flex-start;
+    background-color: #F9F9FA;
+    border-radius: 12px;
+    border: 0;
+    outline: none;
+    resize: none;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color: #C2C2C2;
+}
+
+input:focus {
+    outline: none;
+}
+
+#writeBottomBox{
+    display: flex;
+    width: 976px;
+    height: 53px;
+    padding: 12px 24px;
+    align-items: center;
+    gap: 23px;
+    border-bottom: 1px solid #C2C2C2
+}
+
+#writeLastBox{
+    display: flex;
+    width: 976px;
+    height: 53px;
+    padding: 12px 24px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#imgUpload{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#imgUploadIcon{
+    width: 24px;
+    height: 24px;
+}
+
+#imgUpload p{
+    margin: 0;
+    color: #5C5C5C;
+    line-height: 100%; /* 16px */
+    letter-spacing: -0.16px;
+}
+
+#delete{
+    margin: 0;
+    color: #5C5C5C;
+    line-height: 100%; /* 16px */
+    letter-spacing: -0.16px;
+    text-decoration-line: underline;
+}
+
+#imgSample{
+    display: flex;
+    width: 570px;
+    height: 550px;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgrey;
+}
