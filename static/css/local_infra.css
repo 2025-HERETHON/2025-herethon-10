@@ -317,7 +317,7 @@ a{
     display: flex;
     flex-direction: column;
     gap: 30px;
-    margin-left: 300px;
+    margin-right: 180px;
 }
 
 #container{
@@ -393,13 +393,16 @@ white-space: nowrap;
 
 #searchinput{
     display: flex;
-width: 511px;
-height: 38px;
-justify-content: space-between;
-align-items: center;
-flex-shrink: 0;
+    width: 511px;
+    height: 38px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
 
-margin-left: 300px;
+    margin-left: 300px;
+
+    border-radius: 6px;
+    border: 1px solid #486284;
 }
 
 #searchbtn{
@@ -436,6 +439,7 @@ margin-left: 300px;
     display: flex;
     flex-direction: column;
 
+    margin-top: 28px;
   
 }
 

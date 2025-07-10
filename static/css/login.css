@@ -382,6 +382,8 @@ height: 24px;
 
     width: 448px;
     height: 24px;
+
+    position: relative;
 }
 #keyfindbox{
     margin-top: 10px;
@@ -426,4 +428,10 @@ height: 24px;
 #logobox{
     display: flex;
     gap: 5px;
+}
+
+#eye{
+    position: absolute;
+    margin-top: 435px;
+    margin-left: 420px;
 }

@@ -326,7 +326,7 @@ letter-spacing: -0.48px;
 margin-right: 100px;
 width: 300px;
 
-margin-top: 30px;
+margin-top: 39px;
 }
 .menutext{
 color: var(--navy-scale-navy-50, #57769E);
@@ -355,9 +355,9 @@ margin-left: 30px;
 
 
 }
-
+ 
 #top{
-    margin-top: 30px;
+    margin-top: 39px;
 color: #486284;
 font-family: Inter;
 font-size: 30px;
