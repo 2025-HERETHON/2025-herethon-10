@@ -1,68 +1,74 @@
-{% extends 'base.html' %}
 {% load static %}
+{% extends 'base.html' %}
+
 
 {% block title %}지역 인프라 미리보기{% endblock %}
 
-{% block banner %}
-<div id="banner">
-    <div id="bannerBox">
-        <h1>지역 인프라 미리보기</h1>
-        <h2>내가 살게 될 동네, 미리 둘러보세요</h2>
-    </div>
-</div>
-{% endblock %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/inde_home.css' %}">
+    <script src="{% static 'js/local_infra.js' %}"></script>
+</head>
 
-{% block main_content %}
-<div id="box1">
-    <div id="menu1">지역 인프라 미리보기</div>
-    <div id="menu2">지도 보기</div> 
-    <a id="menu3" href="{% url 'scrap_infra' %}">저장한 인프라 보기</a>
-</div>
-
-<div id="box2">
-    <div id="box4">
-        <div id="box3">
-            <div id="divider2"></div>
-            <div id="titletext">지도 보기</div>
-            <input type="text" id="searchinput" />
-            <div id="searchbtn">검색</div>
+<body>
+    <div id="banner">
+        <div id="bannerBox">
+            <h1>지역 인프라 미리보기</h1>
+            <h2>내가 살게 될 동네, 미리 둘러보세요</h2>
         </div>
     </div>
 
-    <div id="filterbar">
-        <div id="btn1">편의점</div>
-        <div id="btn2">마트(대형마트, 다이소)</div>
-        <div id="btn3">올리브영</div>
-        <div id="btn4">약국</div>
-        <div id="btn5">병원</div>
-        <div id="btn6">카페</div>
-        <div id="btn7">패스트푸드</div>
-        <div id="btn8">여성전용시설</div>
+
+
+    <div id="box1">
+        <div id="menu1">지역 인프라 미리보기</div>
+        <div id="menu2">지도 보기</div> 
+        <a id="menu3" href="{% url 'scrap_infra' %}">저장한 인프라 보기</a>
     </div>
 
-    <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
-    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
-    <div id="map"></div>
-
-    <div id="pininfo">
-        <div id="box7">
-            <div id="place-info-container" class="hidden">
-                <h3 id="place-name">장소 이름</h3>
-                <div id="box5">
-                    <p id="place-address">도로명 주소</p> <!-- address -->
-                    <p id="place-hours"></p>
-                </div>
-                <div id="box6">
-                    <div id="detail-btn">자세히 보기</div>
-                    <img src="{% static 'img/chevron-right.svg' %}" alt="chevron icon" />
-                </div>
+    <div id="box2">
+        <div id="box4">
+            <div id="box3">
+                <div id="divider2"></div>
+                <div id="titletext">지도 보기</div>
+                <input type="text" id="searchinput" />
+                <div id="searchbtn">검색</div>
             </div>
         </div>
-        <div id="savebtn">저장</div>
-    </div>
-</div>
-{% endblock %}
 
-{% block extra_js %}
-<script src="{% static 'js/local_infra.js' %}"></script>
+        <div id="filterbar">
+            <div id="btn1">편의점</div>
+            <div id="btn2">마트(대형마트, 다이소)</div>
+            <div id="btn3">올리브영</div>
+            <div id="btn4">약국</div>
+            <div id="btn5">병원</div>
+            <div id="btn6">카페</div>
+            <div id="btn7">패스트푸드</div>
+            <div id="btn8">여성전용시설</div>
+        </div>
+
+        <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
+        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
+        <div id="map"></div>
+
+        <div id="pininfo">
+            <div id="box7">
+                <div id="place-info-container" class="hidden">
+                    <h3 id="place-name">장소 이름</h3>
+                    <div id="box5">
+                        <p id="place-status">영업 중</p>
+                        <p id="place-hours">10:00 ~ 22:00</p>
+                    </div>
+                    <div id="box6">
+                        <div id="detail-btn">자세히 보기</div>
+                        <img src="{% static 'img/chevron-right.svg' %}" alt="chevron icon" />
+                    </div>
+                </div>
+            </div>
+            <div id="savebtn">저장</div>
+        </div>
+    </div>
+</body>
+
+
 {% endblock %}

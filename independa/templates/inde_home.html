@@ -1,62 +1,65 @@
-{% extends 'base.html' %}
 {% load static %}
+{% extends 'base.html' %}
 
 {% block title %}독립계획 시작하기(기본화면){% endblock %}
 
-{% block banner %}
-<div id="banner">
-    <div id="bannerBox">
-        <h1>독립계획 시작하기</h1>
-        <h2>계약부터 입주까지, 내 손안의 독립 계획표</h2>
-    </div>
-</div>
-{% endblock %}
+{% block content %}
+<head>
+    <script src="{% static 'js/inde_home.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/inde_home.css' %}">
+</head>
 
-{% block main_content %}
-<div id="box">
-    <div id="box1">
-        <!-- 메뉴 -->
-        <div id="start">독립계획 시작하기</div>
-        <a class="menutext" href="{% url 'inde_checklist' %}">나만의 체크리스트</a>
-        <a class="menutext" href="{% url 'inde_budget' %}">예산 계산기</a>
-        <a class="menutext" href="{% url 'inde_infra' %}">지역 인프라 미리보기</a>
+<body>
+    <div id="banner">
+        <div id="bannerBox">
+            <h1>독립계획 시작하기</h1>
+            <h2>계약부터 입주까지, 내 손안의 독립 계획표</h2>
+        </div>
     </div>
 
-    <div id="box2">
-        <!-- 당신의 첫 독립을 위해 -->
-        <div id="top">당신의 첫 독립을 위해</div>
 
-        <div class="optitle">나만의 체크리스트 만들기</div>
-        <div class="opcontent">
-            Welcome to Burger Bliss, where we take your cravings to a whole new level! Our mouthwatering burgers are made from 100% beef and are served on freshly baked buns.
-        </div>
-        <div id="box4">
-            <div id="btn1">나의 체크리스트 보기</div>
-            <div id="btn2">새로 만들기</div>
+    <div id="box">
+        <div id="box1">
+            <!-- 메뉴 -->
+            <div id="start">독립계획 시작하기</div>
+            <a class="menutext" href="{% url 'inde_checklist' %}">나만의 체크리스트</a>
+            <a class="menutext" href="{% url 'inde_budget' %}">예산 계산기</a>
+            <a class="menutext" href="{% url 'inde_infra' %}">지역 인프라 미리보기</a>
         </div>
 
-        <div class="optitle">예산 계산기</div>
-        <div class="opcontent">
-            Welcome to Burger Bliss, where we take your cravings to a whole new level! Our mouthwatering burgers are made from 100% beef and are served on freshly baked buns.
-        </div>
-        <a id="btn3" href="{% url 'inde_budget' %}">바로가기</a>
+        <div id="box2">
+            <!-- 당신의 첫 독립을 위해 -->
+            <div id="top">당신의 첫 독립을 위해</div>
 
-        <div class="optitle">지역 인프라 미리보기</div>
-        <div class="opcontent">
-            Welcome to Burger Bliss, where we take your cravings to a whole new level! Our mouthwatering burgers are made from 100% beef and are served on freshly baked buns.
+            <div class="optitle">나만의 체크리스트 만들기</div>
+            <div class="opcontent">
+                Welcome to Burger Bliss, where we take your cravings to a whole new level! Our mouthwatering burgers are made from 100% beef and are served on freshly baked buns.
+            </div>
+            <div id="box4">
+                <div id="btn1">나의 체크리스트 보기</div>
+                <div id="btn2">새로 만들기</div>
+            </div>
+
+            <div class="optitle">예산 계산기</div>
+            <div class="opcontent">
+                Welcome to Burger Bliss, where we take your cravings to a whole new level! Our mouthwatering burgers are made from 100% beef and are served on freshly baked buns.
+            </div>
+            <a id="btn3" href="{% url 'inde_budget' %}">바로가기</a>
+
+            <div class="optitle">지역 인프라 미리보기</div>
+            <div class="opcontent">
+                Welcome to Burger Bliss, where we take your cravings to a whole new level! Our mouthwatering burgers are made from 100% beef and are served on freshly baked buns.
+            </div>
+            <a id="btn4" href="{% url 'inde_infra' %}">바로가기</a>
         </div>
-        <a id="btn4" href="{% url 'inde_infra' %}">바로가기</a>
+
+        <div id="box3">
+            <!-- 이미지 3개 -->
+            <img src="{% static 'img/image1.jpg' %}" alt="이미지1" class="img" />
+            <img src="{% static 'img/image2.jpg' %}" alt="이미지2" class="img" />
+            <img src="{% static 'img/image3.jpg' %}" alt="이미지3" class="img" />
+        </div>
     </div>
+</body>
 
-    <div id="box3">
-        <!-- 이미지 3개 -->
-        <img src="{% static 'img/image1.jpg' %}" alt="이미지1" class="img" />
-        <img src="{% static 'img/image2.jpg' %}" alt="이미지2" class="img" />
-        <img src="{% static 'img/image3.jpg' %}" alt="이미지3" class="img" />
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/inde_home.js' %}"></script>
 {% endblock %}

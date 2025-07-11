@@ -1,68 +1,71 @@
-{% extends 'base.html' %}
 {% load static %}
+{% extends 'base.html' %}
 
 {% block title %}저장한 인프라 보기{% endblock %}
 
-{% block banner %}
-<div id="banner">
-    <div id="bannerBox">
-        <h1>저장한 인프라 보기</h1>
-        <h2>내가 찜한 동네 정보, 한눈에 모아봤어요</h2>
-    </div>
-</div>
-{% endblock %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/scrap_infra.css' %}">
+    <script src="{% static 'js/scrap_infra.js' %}"></script>
+</head>
 
-{% block main_content %}
-<div id="box1">
-    <div id="menu1">지역 인프라 미리보기</div>
-    <div id="menu2">지도 보기</div> 
-    <div id="menu3">저장한 인프라 보기</div>
-</div>
-
-<div id="box2">
-    <div id="box4">
-        <div id="box3">
-            <div id="divider2"></div>
-            <div id="titletext">지도 보기</div>
+<body>
+    <div id="banner">
+        <div id="bannerBox">
+            <h1>저장한 인프라 보기</h1>
+            <h2>내가 찜한 동네 정보, 한눈에 모아봤어요</h2>
         </div>
     </div>
 
-    <div id="filterbar">
-        <div id="btn1">편의점</div>
-        <div id="btn2">마트(대형마트, 다이소)</div>
-        <div id="btn3">올리브영</div>
-        <div id="btn4">약국</div>
-        <div id="btn5">병원</div>
-        <div id="btn6">카페</div>
-        <div id="btn7">패스트푸드</div>
-        <div id="btn8">여성전용시설</div>
+
+    <div id="box1">
+        <div id="menu1">지역 인프라 미리보기</div>
+        <div id="menu2">지도 보기</div> 
+        <div id="menu3">저장한 인프라 보기</div>
     </div>
 
-    <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
-    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
-    <div id="map"></div>
-
-    <!-- 지도 위에 붙는 사이드바 -->
-    <div id="sidebar" class="sidebar">
-        <div id="sidebarbanner">
-            <input type="text" id="sidebarsearch" />
-            <img src="{% static 'img/search.svg' %}" id="searchimg" alt="검색 아이콘" />
+    <div id="box2">
+        <div id="box4">
+            <div id="box3">
+                <div id="divider2"></div>
+                <div id="titletext">지도 보기</div>
+            </div>
         </div>
-        <div class="sidebar-content">
-            <section id="place-info">
-                <h2 class="place-title">GS25 태릉입구역점</h2>
-                <div class="place-details">도로명 주소</div>
-            </section>
+
+        <div id="filterbar">
+            <div id="btn1">편의점</div>
+            <div id="btn2">마트(대형마트, 다이소)</div>
+            <div id="btn3">올리브영</div>
+            <div id="btn4">약국</div>
+            <div id="btn5">병원</div>
+            <div id="btn6">카페</div>
+            <div id="btn7">패스트푸드</div>
+            <div id="btn8">여성전용시설</div>
+        </div>
+
+        <!-- 카카오 지도 API 로드 (자바스크립트 키 입력) -->
+        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fe95002d0a9002aab302b482c1d75950"></script>
+        <div id="map"></div>
+
+        <!-- 지도 위에 붙는 사이드바 -->
+        <div id="sidebar" class="sidebar">
+            <div id="sidebarbanner">
+                <input type="text" id="sidebarsearch" />
+                <img src="{% static 'img/search.svg' %}" id="searchimg" alt="검색 아이콘" />
+            </div>
+            <div class="sidebar-content">
+                <section id="place-info">
+                    <h2 class="place-title">GS25 태릉입구역점</h2>
+                    <div class="place-details"></div>
+                </section>
+            </div>
+        </div>
+
+        <!-- 사이드바 열기 버튼 -->
+        <div id="openSidebar" class="open-button">
+            <img width="10" id="sidebarIcon" src="{% static 'img/chevron-right.svg' %}" alt="사이드바 열기 아이콘" />
         </div>
     </div>
+</body>
 
-    <!-- 사이드바 열기 버튼 -->
-    <div id="openSidebar" class="open-button">
-        <img width="10" id="sidebarIcon" src="{% static 'img/chevron-right.svg' %}" alt="사이드바 열기 아이콘" />
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/scrap_infra.js' %}"></script>
 {% endblock %}

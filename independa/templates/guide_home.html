@@ -3,9 +3,13 @@
 
     {% block title %}생활 행정 가이드{% endblock %}
 
-{% block extra_css %}
+{% block content %}
+<head>
     <link rel="stylesheet" href="{% static 'css/guide_home.css' %}">
-{% endblock %}
+    <script src="{% static 'js/guide_home.js' %}"></script>
+</head>
+
+<body>
         <div id="banner">
             <div id="bannerBox">
                 <h1>생활 행정 가이드</h1>
@@ -115,6 +119,6 @@
             </section>
         </div>
 
-{% block extra_js %}
-<script src="{% static 'js/guide_home.js' %}"></script>
+</body>
+
 {% endblock %}
