@@ -50,10 +50,10 @@
 
     <div id="box2">
       <div class="textbox">이름</div>
-      {{ user_form.name }}
+      <p id="input1"> {{ user_form.name }}</p>
 
       <div class="textbox">이메일</div>
-      {{ user_form.email }}
+      <p id="input2">{{ user_form.email }}</p>
 
       <div class="textbox">성별</div>
       <div id="gender">
@@ -61,10 +61,12 @@
       </div>
 
       <div class="textbox">생년월일</div>
-      {{ user_form.birth_date }}
+      <p><input type="text" id="input3" value="{{ user_form.birth_date.value|default_if_none:'' }}"></p>
 
       <div class="textbox">직업</div>
-      {{ user_form.job }}
+      <div class="custom-dropdown">
+        {{ user_form.job }}
+      </div>
 
       <div id="box5">
         <div class="textbox">독립할 지역</div>
@@ -106,16 +108,24 @@
         </div>
 
         <div class="textbox">동거인 여부</div>
-        {{ plan_form.roommate }}
+        <div id="box7">
+            {{ plan_form.has_roomate }}
+        </div>
 
-        <div class="textbox">동거인 수</div>
-        {{ plan_form.roommate_count }}
+        <div id="roommateCountWrapper">
+            <div class="textbox">동거인 수</div>
+            {{ plan_form.roomate_count }}
+        </div>
 
         <div class="textbox">독립 유형</div>
-        {{ plan_form.housing_type }}
+        <div class="custom-dropdown">
+            {{ plan_form.residence_type }}
+        </div>
 
         <div class="textbox">이사 예정일</div>
-        {{ plan_form.move_date }}
+        <div class="custom-dropdown">
+            {{ plan_form.move_date }}
+        </div>
       </div>
 
       <button id="done" type="submit">가입하기</button>

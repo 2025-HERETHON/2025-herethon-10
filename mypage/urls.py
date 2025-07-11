@@ -4,5 +4,5 @@ from . import views
 app_name = 'mypage'
 
 urlpatterns = [
-    path('edit/', views.profile_edit, name='profile_edit'),  # 회원정보 수정
+    path('mypage/', views.profile_edit, name='mypage'),  # 회원정보 수정
 ]

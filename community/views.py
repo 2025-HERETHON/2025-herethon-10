@@ -21,6 +21,7 @@ def items_home_view(request):
     page_obj = paginator.get_page(page)
     
     
+
     return render(request, 'item_home.html', {'items_posts':page_obj, 'page_obj': page_obj, 'independence': independence})
 
 def items_search_view(request):
