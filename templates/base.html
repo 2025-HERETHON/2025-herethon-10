@@ -27,7 +27,11 @@
           <a href="/" id="community">커뮤니티</a>
           <a href="/" id="mypage">마이페이지</a>
           <div id="divider"></div>
-          <a href="/user/login" id="signinup">로그인/회원가입</a>
+          {% if user.is_authenticated %}
+            <a href="/user/logout" id="signinup">로그아웃</a>
+          {% else %}
+            <a href="/user/login" id="signinup">로그인/회원가입</a>
+          {% endif %}
         </div>
       </div>
     </div>
