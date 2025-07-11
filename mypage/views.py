@@ -4,7 +4,7 @@ from .forms import UserUpdateForm, IndependencePlanUpdateForm
 
 def profile_edit(request):
     user = request.user
-    plan = IndependencePlan.objects.get(user=user)
+    plan = IndependencePlan.objects.filter(user=user).order_by('-id').first()
 
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, request.FILES, instance=user)
@@ -29,7 +29,7 @@ def profile_edit(request):
         user_form = UserUpdateForm(instance=user)
         plan_form = IndependencePlanUpdateForm(instance=plan)
 
-    return render(request, 'test_user_update.html', {
+    return render(request, 'mypage.html', {
         'user_form': user_form,
         'plan_form': plan_form,
     })
