@@ -16,3 +16,4 @@ def home_view(request):
         'plan': plan
     })
 
+
