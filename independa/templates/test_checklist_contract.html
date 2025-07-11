@@ -112,20 +112,20 @@
                 {{ form.min_manage_budget }} ~ {{independenceplan.max_deposit_budget}} 만원<br><br>
                 </div>
 
-                <h3>독립 지역 정하기</h3>
+                {% comment %} <h3>독립 지역 정하기</h3>
                 <div style="display:flex;">
                     <!-- 시/도 선택 -->
-                    <div class="center" style="border:1px solid black; width:300px; height: 50px;">
+                    <div class="center" style="border:1px solid black; width:300px; height: 50px;"> {% endcomment %}
                         {% comment %} <label for="id_sido">시/도:</label> {% endcomment %}
-                        <select id="id_sido" name="area_si">
+                        {% comment %} <select id="id_sido" name="area_si">
                             <!-- JS가 옵션 동적으로 채움 -->
                         </select>
                     </div>&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <!-- 시/군/구 선택 -->
-                    <div class="center" style="border:1px solid black; width:300px; height: 50px;">
+                    <div class="center" style="border:1px solid black; width:300px; height: 50px;"> {% endcomment %}
                         {% comment %} <label for="id_sigungu">시/군/구:</label> {% endcomment %}
-                        <select id="id_sigungu" name="area_sgg" disabled>
+                        {% comment %} <select id="id_sigungu" name="area_sgg" disabled>
                             <!-- JS가 옵션 동적으로 채움 -->
                         </select>
                     </div>
@@ -133,7 +133,7 @@
                     <!-- 실제 제출용 hidden 필드 -->
                     <input type="hidden" name="area_si" id="hidden_area_si">
                     <input type="hidden" name="area_sgg" id="hidden_area_sgg">
-                </div>
+                </div> {% endcomment %}
 
             </section><br><br>
 
