@@ -181,3 +181,60 @@
 
 
 {% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sidoSelect = document.getElementById('id_sido');
+    const sigunguSelect = document.getElementById('id_sigungu');
+
+    const hiddenSi = document.getElementById('hidden_area_si');
+    const hiddenSgg = document.getElementById('hidden_area_sgg');
+
+    // 시/도 불러오기
+    fetch("{% url 'user:get_sido' %}")
+        .then(res => res.json())
+        .then(data => {
+            if (data.result) {
+                data.result.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.addr_name;
+                    option.dataset.code = item.cd;
+                    option.textContent = item.addr_name;
+                    sidoSelect.appendChild(option);
+                });
+            }
+        });
+
+    // 시/도 선택 시 시/군/구 로딩
+    sidoSelect.addEventListener('change', () => {
+        const sidoCode = sidoSelect.selectedOptions[0].dataset.code;
+        const sidoName = sidoSelect.value;
+        hiddenSi.value = sidoName;
+
+        sigunguSelect.innerHTML = '';
+        sigunguSelect.disabled = true;
+
+        if (!sidoCode) return;
+
+        fetch(`{% url 'user:get_sigungu' %}?sido_code=${sidoCode}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result) {
+                    sigunguSelect.disabled = false;
+                    data.result.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.addr_name;
+                        option.dataset.code = item.cd;
+                        option.textContent = item.addr_name;
+                        sigunguSelect.appendChild(option);
+                    });
+                }
+            });
+    });
+
+    // 시/군/구 선택 시 숨겨진 input에 값 설정
+    sigunguSelect.addEventListener('change', () => {
+        hiddenSgg.value = sigunguSelect.value;
+    });
+});
+</script>
