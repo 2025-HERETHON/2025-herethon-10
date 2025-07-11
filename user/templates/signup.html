@@ -63,12 +63,27 @@
       <div class="textbox">생년월일</div>
       <p><input type="text" id="input3" value="{{ user_form.birth_date.value|default_if_none:'' }}"></p>
 
-      <div class="textbox">직업</div>
+      {% comment %} <div class="textbox">직업</div>
       <div class="custom-dropdown">
         {{ user_form.job }}
+      </div> {% endcomment %}
+
+      <div class="infoBox">
+          <p class="userInfoTitle">직업</p>
+          <div class="dropdownBox">
+              <p>{{ user_form.job }}</p>
+              <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+          </div>
+          <div class="inputRegionDropdown">
+              <div class="dropdownContent1">선택해주세요</div>
+              <div class="dropdownContent2">대학생</div>
+              <div class="dropdownContent2">직장인</div>
+              <div class="dropdownContent3">기타</div>
+              
+          </div>
       </div>
 
-      <div id="box5">
+      {% comment %} <div id="box5">
         <div class="textbox">독립할 지역</div>
         <div id="box6">
           <select id="id_sido">
@@ -79,6 +94,36 @@
           </select>
           {{ plan_form.area_si }}
           {{ plan_form.area_sgg }}
+        </div> {% endcomment %}
+
+        <div class="infoBox">
+                <p class="userInfoTitle">독립할 지역</p>
+                <div class="userInfoContent2">
+                    <div class="dropdownBox2">
+                        <p>서울특별시</p>
+                        <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                    </div>
+                    <div class="inputRegionDropdown11">
+                        <div class="dropdownContent11">시/도</div>
+                        <div class="dropdownContent21">서울특별시</div>
+                        <div class="dropdownContent21">세종</div>
+                        <div class="dropdownContent21">강원</div>
+                        <div class="dropdownContent31">인천</div>
+                        
+                    </div>
+                    <div class="dropdownBox2">
+                        <p>노원구</p>
+                        <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                    </div>
+                    <div class="inputRegionDropdown11">
+                        <div class="dropdownContent11">시/군/구</div>
+                        <div class="dropdownContent21">서울 전체</div>
+                        <div class="dropdownContent21">강남구</div>
+                        <div class="dropdownContent21">강동구</div>
+                        <div class="dropdownContent31">강서구</div>
+                        
+                    </div>
+                </div>
         </div>
 
         <div class="budget-section">
@@ -117,14 +162,44 @@
             {{ plan_form.roomate_count }}
         </div>
 
-        <div class="textbox">독립 유형</div>
+        {% comment %} <div class="textbox">독립 유형</div>
         <div class="custom-dropdown">
             {{ plan_form.residence_type }}
+        </div> {% endcomment %}
+
+        <div class="infoBox">
+                <p class="userInfoTitle">독립 유형</p>
+                <div class="dropdownBox">
+                    <p>{{ plan_form.residence_type }}</p>
+                    <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                </div>
+                <div class="inputRegionDropdown">
+                    <div class="dropdownContent1">선택해주세요</div>
+                    <div class="dropdownContent2">원룸</div>
+                    <div class="dropdownContent2">기숙사</div>
+                    <div class="dropdownContent2">쉐어하우스</div>
+                    <div class="dropdownContent3">아직 정하지못했어요</div>
+                    
+                </div>
         </div>
 
-        <div class="textbox">이사 예정일</div>
+        {% comment %} <div class="textbox">이사 예정일</div>
         <div class="custom-dropdown">
             {{ plan_form.move_date }}
+        </div> {% endcomment %}
+
+        <div class="infoBox">
+                <p class="userInfoTitle">이사 예정일</p>
+                <div class="dropdownBox">
+                    <p>{{ plan_form.move_date }}</p>
+                    <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                </div>
+                <div class="inputRegionDropdown">
+                    <div class="dropdownContent1">선택해주세요</div>
+                    <div class="dropdownContent2">2025년 7월</div>
+                    <div class="dropdownContent2">2025년 8월</div>
+                    <div class="dropdownContent3">2025년 9월</div>
+                </div>
         </div>
       </div>
 
