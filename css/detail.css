@@ -434,6 +434,7 @@ color: #8f8f8f;
 #likeBtn{
 display: flex;
 height: 22px;
+width: 45px;
 padding: 8px 22px;
 justify-content: center;
 align-items: center;

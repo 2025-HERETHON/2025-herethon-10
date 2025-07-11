@@ -311,7 +311,7 @@ aside{
 section{
     display: flex;
     width: 55.4167vw; /* 1064px*/
-    padding: 0px 64px 11px 112px;
+    padding: 0px 64px 170px 112px;
     height: auto;
     flex-direction: column;
     align-items: center;
