@@ -10,6 +10,64 @@
 {% block content %}
 <div id="container">
 
+  {% if user.is_authenticated %}
+  <!-- 로그인 후 화면 -->
+  <div id="afterlogin">
+    <div id="box1">
+      <div id="title">어서오세요,<br>{{ user.name }} 님!</div>
+      <div id="text">Emb,on 과 함께 새 출발을 시작해요</div>
+      <a id="indebtn" href="/independa/inde_home">독립계획 시작하기</a>
+      <a id="lifebtn" href="/">생활 시작하기</a>
+      <a id="commubtn" href="/">커뮤니티</a>
+      <a id="mypagebtn" href="/mypage/profile_edit">마이 페이지</a>
+    </div>
+
+    <div id="box2">
+      <div id="backimg"></div>
+      <div id="compuimg"><img src="{% static 'img/compu.png' %}"></div>
+      <div id="loginbox">
+        <div id="box3">
+          {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}">
+          {% else %}
+            <img src="{% static 'img/yerin.svg' %}">
+          {% endif %}
+          <div id="box4">
+            <div id="nametext">{{ user.name }}</div>
+            <div id="box5">
+              <div class="infobox">
+                <div id="info1">독립할 지역</div>
+                <div id="info1-1">{{ plan.area_si }} {{ plan.area_sgg }}</div>
+              </div>
+              <div class="infobox">
+                <div id="info2">최대 예산</div>
+                <div id="info2-1">
+                  월세 최대 {{ plan.monthly_budget }}만원<br>
+                  보증금 최대 {{ plan.deposit_budget }}만원<br>
+                  관리비 최대 {{ plan.maintenance_budget }}만원
+                </div>
+              </div>
+              <div class="infobox">
+                <div id="info3">이사 예정일</div>
+                <div id="info3-1">{{ plan.move_date|date:"Y년 n월" }}</div>
+              </div>
+              <div class="infobox">
+                <div id="info4">동거인</div>
+                <div id="info4-1">{{ plan.roommate }}</div>
+              </div>
+              <div id="box6">
+                <a href="/mypage/profile_edit" id="infoaddbtn">정보 수정하기
+                  <img src="{% static 'img/go.svg' %}" id="rightbtn" width="18px">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
   <!-- 비로그인 화면 -->
   <div id="beforelogin">
     <div id="box1">
@@ -31,54 +89,7 @@
       <img src="{% static 'img/key.png' %}" id="key">
     </div>
   </div>
-
-  <!-- 로그인 후 화면 -->
-  <div id="afterlogin">
-    <div id="box1">
-      <div id="title">어서오세요,<br>김슈니 님!</div>
-      <div id="text">Emb,on 과 함께 새 출발을 시작해요</div>
-      <a id="indebtn" href="/independa/inde_home">독립계획 시작하기</a>
-      <a id="lifebtn" href="/">생활 시작하기</a>
-      <a id="commubtn" href="/">커뮤니티</a>
-      <a id="mypagebtn" href="/">마이 페이지</a>
-    </div>
-
-    <div id="box2">
-      <div id="backimg"></div>
-      <div id="compuimg"><img src="{% static 'img/compu.png' %}"></div>
-      <div id="loginbox">
-        <div id="box3">
-          <img src="{% static 'img/yerin.svg' %}">
-          <div id="box4">
-            <div id="nametext">이름</div>
-            <div id="box5">
-              <div class="infobox">
-                <div id="info1">독립할 지역</div>
-                <div id="info1-1">서울특별시 노원구</div>
-              </div>
-              <div class="infobox">
-                <div id="info2">최대 예산</div>
-                <div id="info2-1">월세 최대 60만원<br>보증금 최대 200만원<br>관리비 최대 15만원</div>
-              </div>
-              <div class="infobox">
-                <div id="info3">이사 예정일</div>
-                <div id="info3-1">2026년 2월</div>
-              </div>
-              <div class="infobox">
-                <div id="info4">동거인</div>
-                <div id="info4-1">없음</div>
-              </div>
-              <div id="box6">
-                <div id="infoaddbtn">정보 수정하기
-                  <img src="{% static 'img/go.svg' %}" id="rightbtn" width="18px">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% endif %}
 
 </div>
 {% endblock %}

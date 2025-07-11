@@ -48,4 +48,3 @@ class IndependencePlanForm(forms.ModelForm):
     class Meta:
         model = IndependencePlan
         exclude = ['user']
-        

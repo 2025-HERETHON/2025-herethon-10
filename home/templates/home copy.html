@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}홈{% endblock %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="container">
+
+  <!-- 비로그인 화면 -->
+  <div id="beforelogin">
+    <div id="box1">
+      <div id="title">독립이라는 항해를<br>처음 시작하는 이들을 위해,</div>
+      <div id="text">Embark On A New Life, Emb,on</div>
+      <div id="startbtn">시작하기</div>
+    </div>
+
+    <div id="box2">
+      <div id="backimg"></div>
+      <div id="compuimg"><img src="{% static 'img/compu.png' %}"></div>
+      <div id="loginbox">
+        <div id="content2">독립 체크리스트부터<br>공공지원 정보와 생활 행정 가이드까지</div>
+        <div id="title2">로그인 후 이용 가능</div>
+        <a id="kakaobox" href="/user/signup">
+          <img src="{% static 'img/kakaologo.svg' %}" id="kakaoimg">카카오로 시작하기
+        </a>
+      </div>
+      <img src="{% static 'img/key.png' %}" id="key">
+    </div>
+  </div>
+
+  <!-- 로그인 후 화면 -->
+  <div id="afterlogin">
+    <div id="box1">
+      <div id="title">어서오세요,<br>김슈니 님!</div>
+      <div id="text">Emb,on 과 함께 새 출발을 시작해요</div>
+      <a id="indebtn" href="/independa/inde_home">독립계획 시작하기</a>
+      <a id="lifebtn" href="/">생활 시작하기</a>
+      <a id="commubtn" href="/">커뮤니티</a>
+      <a id="mypagebtn" href="/">마이 페이지</a>
+    </div>
+
+    <div id="box2">
+      <div id="backimg"></div>
+      <div id="compuimg"><img src="{% static 'img/compu.png' %}"></div>
+      <div id="loginbox">
+        <div id="box3">
+          <img src="{% static 'img/yerin.svg' %}">
+          <div id="box4">
+            <div id="nametext">이름</div>
+            <div id="box5">
+              <div class="infobox">
+                <div id="info1">독립할 지역</div>
+                <div id="info1-1">서울특별시 노원구</div>
+              </div>
+              <div class="infobox">
+                <div id="info2">최대 예산</div>
+                <div id="info2-1">월세 최대 60만원<br>보증금 최대 200만원<br>관리비 최대 15만원</div>
+              </div>
+              <div class="infobox">
+                <div id="info3">이사 예정일</div>
+                <div id="info3-1">2026년 2월</div>
+              </div>
+              <div class="infobox">
+                <div id="info4">동거인</div>
+                <div id="info4-1">없음</div>
+              </div>
+              <div id="box6">
+                <div id="infoaddbtn">정보 수정하기
+                  <img src="{% static 'img/go.svg' %}" id="rightbtn" width="18px">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block script_extra %}
+  <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

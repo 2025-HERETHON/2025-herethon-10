@@ -102,7 +102,7 @@ def signup_view(request):
         user_form = SignupForm(instance=request.user)
         plan_form = IndependencePlanForm()
 
-    return render(request, 'test_signup.html', {
+    return render(request, 'signup.html', {
         'user_form': user_form,      
         'plan_form': plan_form
     })
