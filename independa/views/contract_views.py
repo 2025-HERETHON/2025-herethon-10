@@ -99,15 +99,15 @@ def contract_checklist_edit_view(request):
 
         if form.is_valid():
             form.save()
-            area_si = request.POST.get('area_si', '').strip()
-            area_sgg = request.POST.get('area_sgg', '').strip()
+            # area_si = request.POST.get('area_si', '').strip()
+            # area_sgg = request.POST.get('area_sgg', '').strip()
 
-            if area_si:
-                independenceplan.area_si = area_si
-            if area_sgg:
-                independenceplan.area_sgg = area_sgg
+            # if area_si:
+            #     independenceplan.area_si = area_si
+            # if area_sgg:
+            #     independenceplan.area_sgg = area_sgg
             
-            independenceplan.save()
+            # independenceplan.save()
             
             check=CheckAll.objects.get(user_id=request.user.id)
             check_all=is_contract_checklist_complete(checklist)

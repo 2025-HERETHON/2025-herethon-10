@@ -1,28 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>구비템 공유 게시판</title>
-    <link rel="stylesheet" href="../css/item_home.css">
-</head>
-<body>
-    <div id = background>
-        <div id="header">
-            <div id="headerBox">
-                <img src="../img/logo.svg" id=logo /> 
-                <div id="selectBox">
-                    <div id="home">홈</div> 
-                    <div id="plan">독립계획 시작하기</div> 
-                    <div id="life">생활 시작하기</div> 
-                    <div id="community">커뮤니티</div>
-                    <div id="mypage">마이페이지</div>
-                    <div id="divider"></div>
-                    <div id="signinup">로그인/회원가입</div>
-                </div>
-            </div>
-        </div>
-        
+{% load static %}
+{% extends "base.html" %}
+
+{% block title %}구비템 공유 게시판{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/item_home.css' %}">
+{% endblock %}
+
         <div id="banner">
             <div id="bannerBox">
                 <h1>구비템 공유 게시판</h1>
@@ -45,10 +29,8 @@
                 <article id="filterSearch">
                     <div id="filterBigBox">
                         <div class="filterSmallBox">
-                            <div class="filter">시/도
-                                <img src="../img/chevron-down.svg"/>
-                            </div>
-                            
+                            <div class="filter">시/도</div>
+                            <img src="{% static 'img/chevron-down.svg' %}"/>
                         </div>
                         <div class="inputRegionDropdown1">
                             <div class="dropdownContent1">서울특별시</div>
@@ -58,9 +40,8 @@
                             <div class="dropdownContent3">경기</div>
                         </div>
                         <div class="filterSmallBox">
-                            <div class="filter">시/군/구
-                                <img src="../img/chevron-down.svg"/>
-                            </div>
+                            <div class="filter">시/군/구</div>
+                            <img src="{% static 'img/chevron-down.svg' %}"/>
                         </div>
                         <div class="inputRegionDropdown2">
                             <div class="dropdownContent1">서울 전체</div>
@@ -71,7 +52,7 @@
                         </div>
                     </div>
                     <div id="search">
-                        <img src="../img/search.png">
+                        <img src="{% static 'img/search.png' %}">
                     </div>
                     <div id="write">글쓰기</div>
                 </article>
@@ -91,11 +72,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -119,11 +100,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -147,11 +128,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -175,11 +156,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -203,11 +184,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -231,11 +212,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -259,11 +240,11 @@
                                 </div>
                                 <div class="likeComment">
                                     <div class="like">
-                                        <img class="likeImg" src="../img/thumbs-up.png"/>
+                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
                                         <p class="likeCount">0</p>
                                     </div>
                                     <div class="comment">
-                                        <img class="commentImg" src="../img/message-square.png"/>
+                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
                                         <p class="commentCount">0</p>
                                     </div>
                                 </div>
@@ -289,50 +270,6 @@
             </section>
         </div>
 
-        <div id="footer">
-            <div id="footerContainer">
-                <div id="menuContainer">
-                    <div id="menu">
-                        <div class="menuBox">
-                            <div class="title" id="planStart">독립계획 시작하기</div>
-                            <div class="item" id="checkList">나만의 체크리스트</div>
-                            <div class="item"  id="calculator">예산 계산기</div>
-                            <div class="item"  id="infra">주변 인프라 미리보기</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title"  class="title" id="lifeStart">생활 시작하기</div>
-                            <div class="item"  id="guide">생활 행정 가이드</div>
-                            <div class="item"  id="info">공공지원 정보</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title" id="commu">커뮤니티</div>
-                            <div class="item" id="tem">구비템 공유 게시판</div>
-                            <div class="item" id="tip">입주민 실전팁 게시판</div>
-                        </div>
-
-                        <div class="menuBox">
-                            <div class="title" id="myPage">마이페이지</div>
-                            <div class="item" id="myList">내 체크리스트</div>
-                            <div class="item" id="saved">저장한 콘텐츠 모아보기</div>
-                            <div class="item" id="history">월별 지출 히스토리</div>
-                            <div class="item"  id="edit">정보수정</div>
-                            <div class="item"  id="logout">로그아웃</div>
-                            <div class="item"  id="leave">회원탈퇴</div>
-                        </div>
-                    </div>
-                    <div id="logoBox">
-                            <img src="../img/logo.svg" id=footerLogo /> 
-                    </div>
-
-                    <div id="copyright">© HERETON TEAM 10. All rights reserved. </div>
-                </div>
-            </div>
-        </div>
-
-        
-    </div>
-</body>
-<script src="../js/item_home.js"></script>
-</html>
+{% block extra_js %}
+<script src="{% static 'js/item_home.js' %}"></script>
+{% endblock %}
