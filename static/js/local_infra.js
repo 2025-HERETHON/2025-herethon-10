@@ -29,11 +29,13 @@ window.onload = function () {
 const places = [
   {
     name: '카페 이디야',
-
+    address: ''
   },
   {
     name: '스타벅스 강남점',
+    address: ''
    /*영업 중과 시간 없앴습니다.*/
+   /*address로 도로명 주소*/
   }
 ];
 
@@ -42,11 +44,11 @@ function onMapClick(placeIndex) {
 
   const container = document.getElementById('place-info-container');
   const nameEl = document.getElementById('place-name');
-  const statusEl = document.getElementById('place-status');
+  const statusEl = document.getElementById('place-address');/*address*/
   const hoursEl = document.getElementById('place-hours');
 
   nameEl.textContent = place.name;
-  statusEl.textContent = place.status;
+  statusEl.textContent = place.address;
   hoursEl.textContent = place.hours;
 
   container.classList.remove('hidden');
