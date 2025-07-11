@@ -1,12 +1,19 @@
-{% load static %}
 {% extends "base.html" %}
+{% load static %}
+
 
 {% block title %}구비템 공유 게시판{% endblock %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/item_home.css' %}">
-{% endblock %}
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/item_home.css' %}">
+        
+        <script src="{% static 'js/item_home.js' %}"></script>
+    </head>
 
+
+    
+    <body>
         <div id="banner">
             <div id="bannerBox">
                 <h1>구비템 공유 게시판</h1>
@@ -19,9 +26,9 @@
                 <div id="sideMenu">
                     <p id="sideMenuTitle">커뮤니티</p>
                     <div id="sideMenuContentBox">
-                        <p id="sideMenuContentStyle1">구비템 공유 게시판</p>
-                        <p id="sideMenuContentStyle2">입주민 실전팁 게시판</p>
-                        <p id="sideMenuContentStyle2">글쓰기</p>
+                        <a href={%url 'community:items'%}><p id="sideMenuContentStyle1">구비템 공유 게시판</p></a>
+                        <a href={%url 'community:tips'%}><p id="sideMenuContentStyle2">입주민 실전팁 게시판</p></a>
+                        <a href={%url 'community:write'%}><p id="sideMenuContentStyle2">글쓰기</p></a>
                     </div>
                 </div>
             </aside>
@@ -29,232 +36,73 @@
                 <article id="filterSearch">
                     <div id="filterBigBox">
                         <div class="filterSmallBox">
-                            <div class="filter">시/도</div>
-                            <img src="{% static 'img/chevron-down.svg' %}"/>
-                        </div>
-                        <div class="inputRegionDropdown1">
-                            <div class="dropdownContent1">서울특별시</div>
-                            <div class="dropdownContent2">세종</div>
-                            <div class="dropdownContent2">강원</div>
-                            <div class="dropdownContent2">인천</div>
-                            <div class="dropdownContent3">경기</div>
+                            <div class="filter">{{independence.area_si}}</div>
                         </div>
                         <div class="filterSmallBox">
-                            <div class="filter">시/군/구</div>
-                            <img src="{% static 'img/chevron-down.svg' %}"/>
-                        </div>
-                        <div class="inputRegionDropdown2">
-                            <div class="dropdownContent1">서울 전체</div>
-                            <div class="dropdownContent2">강남구</div>
-                            <div class="dropdownContent2">강동구</div>
-                            <div class="dropdownContent2">강북구</div>
-                            <div class="dropdownContent3">강서구</div>
+                            <div class="filter">{{independence.area_sgg}}</div>
                         </div>
                     </div>
-                    <div id="search">
+                    {% comment %} <div id="search">
                         <img src="{% static 'img/search.png' %}">
+                        
+                    </div> {% endcomment %}
+                    <div id="search">
+                        <form method="GET" action="{% url 'community:items_search' %}" class="search-form">
+                            {% csrf_token %}
+                            <button type="submit" class="search-button">
+                                <img src="{% static 'img/search.png' %}" alt="검색" class="search-icon">
+                            </button>
+                            <input type="text" name="searchbar" class="search-input" placeholder="검색어를 입력하세요.">
+                        </form>
                     </div>
-                    <div id="write">글쓰기</div>
+                    {% comment %} <form method="GET" action="{%url 'community:items_search'%}">
+                        {%csrf_token%}
+                        <input type="text" name="searchbar" style="width:300px;" placeholder="검색어를 입력하세요.">
+                        <button type="submit">검색</button>
+                    </form> {% endcomment %}
+                    <a href={%url 'community:write'%}><div id="write">글쓰기</div></a>
                 </article>
                 <article id="postBox">
+                    {% for post in items_posts %}
                     <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="questionTag">질문해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
+                        <a href="{% url 'community:detail' post.id %}">
+                            <div class="postWriting">
+                                <div class="postHeader">
+                                    <div class="questionTag">{{ post.get_post_type_display }}</div>
+                                    <p class="postTitle">{{ post.title }}</p>
                                 </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
+                                <div class="postContent">{{ post.content|truncatechars:100 }}  </div>
+                                <div class="postLast">
+                                    <div class="writerInfo">
+                                        <p class="nickname">{{post.user.name}}</p>
+                                        {% comment %} <p class="line">|</p>
+                                        <p class="region">서울시 은평구</p> {% endcomment %}
                                     </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
+                                    <div class="likeComment">
+                                        <div class="like">
+                                            <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
+                                            <p class="likeCount">{{ post.like_set.count }}</p>
+                                        </div>
+                                        <div class="comment">
+                                            <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
+                                            <p class="commentCount">{{ post.comment_count }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="postImg"></div> 
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" class="postImg" alt="포스트 이미지">
+                            {% else %}
+                                <div class="postImg"></div>
+                            {% endif %}
+
+                        </a>
                         <!-- 포스트 이미지로 바꾸기 -->
                     </div>
-                    <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="questionTag">질문해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
-                                </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
-                                    </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postImg"></div> 
-                        <!-- 포스트 이미지로 바꾸기 -->
-                    </div>
-                    <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="questionTag">질문해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
-                                </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
-                                    </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postImg"></div> 
-                        <!-- 포스트 이미지로 바꾸기 -->
-                    </div>
-                    <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="questionTag">질문해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
-                                </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
-                                    </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postImg"></div> 
-                        <!-- 포스트 이미지로 바꾸기 -->
-                    </div>
-                    <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="shareTag">공유해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
-                                </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
-                                    </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postImg"></div> 
-                        <!-- 포스트 이미지로 바꾸기 -->
-                    </div>
-                    <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="questionTag">질문해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
-                                </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
-                                    </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postImg"></div> 
-                        <!-- 포스트 이미지로 바꾸기 -->
-                    </div>
-                    <div class="post">
-                        <div class="postWriting">
-                            <div class="postHeader">
-                                <div class="questionTag">질문해요</div>
-                                <p class="postTitle">Lorem ipsum dolor sit</p>
-                            </div>
-                            <div class="postContent">Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectetur odio cursus.Lorem ipsum dolor sit amet consectetur. Egestas odio ornare id aliquam pulvinar consectet  </div>
-                            <div class="postLast">
-                                <div class="writerInfo">
-                                    <p class="nickname">홍길동</p>
-                                    <p class="line">|</p>
-                                    <p class="region">서울시 은평구</p>
-                                </div>
-                                <div class="likeComment">
-                                    <div class="like">
-                                        <img class="likeImg" src="{% static 'img/thumbs-up.png' %}"/>
-                                        <p class="likeCount">0</p>
-                                    </div>
-                                    <div class="comment">
-                                        <img class="commentImg" src="{% static 'img/message-square.png' %}"/>
-                                        <p class="commentCount">0</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postImg"></div> 
-                        <!-- 포스트 이미지로 바꾸기 -->
-                    </div>
-                </article>
-                <div id="paginationBox">
+                    {%endfor%}
+                </article>    
+                    
+                {% comment %} <div id="paginationBox">
                     <div id="pagination">
                         <div id="numBox">
                             <div class="num selected">1</div>
@@ -266,10 +114,39 @@
                         </div>
                         <div id="nextPage">다음 페이지</div>
                     </div>
+                </div> {% endcomment %}
+                <div id="paginationBox">
+                    <div id="pagination">
+                        <div id="numBox">
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                                    {% if num == page_obj.number %}
+                                        <div class="num selected">{{ num }}</div>
+                                    {% else %}
+                                        <a href="?searchbar={{ search_query }}&page={{ num }}">
+                                            <div class="num">{{ num }}</div>
+                                        </a>
+                                    {% endif %}
+                                {% elif num == 1 or num == page_obj.paginator.num_pages %}
+                                    <a href="?searchbar={{ search_query }}&page={{ num }}">
+                                        <div class="num">{{ num }}</div>
+                                    </a>
+                                {% elif num == page_obj.number|add:'-3' or num == page_obj.number|add:'3' %}
+                                    <div class="num">...</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        {% if page_obj.has_next %}
+                            <a href="?searchbar={{ search_query }}&page={{ page_obj.next_page_number }}">
+                                <div id="nextPage">다음 페이지</div>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
+
             </section>
         </div>
+    </body>
+    {% endblock %}
 
-{% block extra_js %}
-<script src="{% static 'js/item_home.js' %}"></script>
-{% endblock %}

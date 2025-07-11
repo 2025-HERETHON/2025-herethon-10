@@ -22,7 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     post_type = models.CharField(max_length=10, choices=POST_TYPE_CHOICES, default='question')
-    # image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     # likes = models.ManyToManyField(User, related_name='like_posts')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -37,9 +37,9 @@ class Post(models.Model):
         return self.title
     
     
-class Image(models.Model):
-    post=models.ForeignKey(Post, on_delete=models.CASCADE)
-    image=models.ImageField(upload_to = 'images/', null=True, blank = True)
+# class Image(models.Model):
+#     post=models.ForeignKey(Post, on_delete=models.CASCADE)
+#     image=models.ImageField(upload_to = 'images/', null=True, blank = True)
     
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,12 +1,15 @@
-{% load static %}
 {% extends "base.html" %}
+{% load static %}
+
     
 {% block title %}글보기{% endblock %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
-{% endblock %}
-
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+        <script src="{% static 'js/detail.js' %}"></script>
+    </head>
+    <body>
         <div id="banner">
             <div id="bannerBox">
                 <h1>글쓰기</h1>
@@ -19,72 +22,94 @@
                 <div id="sideMenu">
                     <p id="sideMenuTitle">커뮤니티</p>
                     <div id="sideMenuContentBox">
-                        <p id="sideMenuContentStyle2">구비템 공유 게시판</p>
-                        <p id="sideMenuContentStyle2">입주민 실전팁 게시판</p>
-                        <p id="sideMenuContentStyle1">글쓰기</p>
+                        <a href={%url 'community:items'%}><p id="sideMenuContentStyle1">구비템 공유 게시판</p></a>
+                        <a href={%url 'community:tips'%}><p id="sideMenuContentStyle2">입주민 실전팁 게시판</p></a>
+                        <a href={%url 'community:write'%}><p id="sideMenuContentStyle2">글쓰기</p></a>
                     </div>
                 </div>
             </aside>
             <section>
                 <div id="postTopBox">
                     <div id="postHeader">
-                        <div id="categoryQ">질문해요</div>
-                        <p id="postTitle">Lorem ipsum dolor sit amet consectetur.</p>
+                        <div id="categoryQ">{{post.get_post_type_display}}</div>
+                        <p id="postTitle">{{ post.title }}</p>
                     </div>
                     <div id="postInfoBox">
                         <div id="nameDateBox">
-                            <p id="name">홍길동</p>
-                            <p id="date">2025년 7월 12일 15:30 작성</p>
+                            <p id="name">{{post.user.name}}</p>
+                            <p id="date">{{post.created_at}} 작성</p>
                         </div>
-                        <div id="likeBtn">
-                            <img src="{% 'img/Vector.svg' %}" id="likeIcon" />
-                            <p id="likeCount">0</p>
+                        
+                        {% comment %} <div id="likeBtn">
+                            <img src="{% static 'img/Vector.svg' %}" id="likeIcon" />
+                            <p id="likeCount">{{ post.like_set.all.count }}</p>
                             <input id="btnPostGood" type="button"/>
-                        </div>
+                        </div> {% endcomment %}
+                        <form method="POST" action="{% url 'community:post_likes' post.id %}">
+                            {% csrf_token %}
+                            <div id="likeBtn" style="display: flex; align-items: center; gap: 4px;">
+                                <button type="submit" id="likeSubmitBtn" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                    <img src="{% static 'img/Vector.svg' %}" id="likeIcon" alt="좋아요" />
+                                </button>
+                                <p id="likeCount">{{ post.like_set.all.count }}</p>
+                                <input id="btnPostGood" type="hidden" />
+                            </div>
+                        </form>
+
                     </div>
                 </div>
+                {%if post.user == request.user %}
                 <div id="postEditBox">
-                    <p>수정</p>
+                    <a href="{% url 'community:post_update' post_id=post.id %}"><p>수정</p></a>&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'community:post_delete' post_id=post.id %}"><p>삭제</p></a>
                 </div>
+                {%endif%}
                 <div id="postContent">
-                    Lorem ipsum dolor sit amet consectetur. Enim facilisis at maecenas volutpat tempor bibendum lectus scelerisque. Quis volutpat mattis sit consectetur molestie. Integer ac vitae vitae lacinia. Quis mauris nullam dui blandit mollis sagittis. Iaculis molestie justo bibendum sit. Cras cras neque erat tempus quisque nulla orci eu vitae. Massa aliquam pharetra dui blandit ornare tortor amet sed non. Lorem ipsum dolor sit amet consectetur. Enim facilisis at maecenas volutpat tempor bibendum lectus scelerisque. Quis volutpat mattis sit consectetur molestie. Integer ac vitae vitae lacinia. Quis mauris nullam dui blandit mollis sagittis. Iaculis molestie justo bibendum sit. Cras cras neque erat tempus quisque nulla orci eu vitae. Massa aliquam pharetra dui blandit ornare tortor amet sed non.
+                    {{ post.content }}
                 </div>
-                <form>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="postImg" alt="포스트 이미지">
+                {% endif %}
+                <form method="POST" action={%url 'community:comment' post.id %}>
+                    {% csrf_token %}
                     <div id="commentWriteBox">
                         <div id="commentWriteHeader">
                             <p id="commentTitle">댓글</p>
-                            <p id="commentCount">2</p>
+                            <p id="commentCount">{{ post.comment_count }}</p>
                         </div>
-                        <textarea id="commentInput" placeholder="댓글을 작성해보세요"></textarea>
+                        <input type="text" id="commentInput" name="comments" placeholder="댓글을 작성해보세요">
+                        <button type="submit" class="btn btn-info" style="display: none;">댓글 작성</button>
                     </div>
                 </form>
+
+                
                 <div id="commentBox">
+                    {% for comment in post.comments.all %}
                     <div class="comment">
                         <div class="commentHeader">
-                            <p class="commentWriter">김슈니</p>
-                            <p class="commenttime">5분 전</p>
+                            <p class="commentWriter">{{ comment.user.name }}</p>
+                            <p class="commenttime">{{ comment.created_at }}</p>
                         </div>
-                        <div class="commentContent">Lorem ipsum dolor sit amet consectetur. Amet aenean semper sollicitudin pretium sit tempor aenean. Lorem ipsum dolor sit amet consectetur. Amet aenean semper sollicitudin pretium sit tempor aenean.</div>  
+                        <div class="commentContent">{{ comment.content }}</div>  
                         <div class="commentlast">
-                            <p class="commentEdit">수정</p>
-                            <p class="commentDelete">삭제</p>
+                            {% if comment.user == request.user %}
+                                <a href="{% url 'community:comment_delete' comment.id %}"><p class="commentDelete">삭제</p></a>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="comment">
-                        <div class="commentHeader">
-                            <p class="commentWriter">박눈송</p>
-                            <p class="commenttime">10분 전</p>
-                        </div>
-                        <div class="commentContent">Lorem ipsum dolor sit amet consectetur. Amet aenean semper sollicitudin pretium sit tempor aenean. Lorem ipsum dolor sit amet consectetur. Amet aenean semper sollicitudin pretium sit tempor aenean.</div>  
-                        <div class="commentlast">
-                            <p class="commentEdit">수정</p>
-                            <p class="commentDelete">삭제</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </section>
         </div>
 
-{% block extra_js %}
-<script src="{% static 'js/detail.js' %}"></script>
-{% endblock %}
+    </body>
+{%endblock%}
+
+<script>
+    document.getElementById('commentInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // 줄바꿈 방지
+            document.getElementById('commentForm').submit(); // form 제출
+        }
+    });
+</script>
