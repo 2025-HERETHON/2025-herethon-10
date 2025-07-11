@@ -7,6 +7,6 @@ def root_redirect(request):
 def home_view(request):
     if not request.user.is_authenticated:
         return redirect('/user/login/')  
-    return render(request, 'test_home.html', {
+    return render(request, 'home.html', {
         'user': request.user,
     })
