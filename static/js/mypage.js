@@ -63,3 +63,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const regions = document.querySelectorAll('.dropdownBox2');
+
+  regions.forEach(region => {
+    region.addEventListener('click', () => {
+      // 현재 region 숨김
+      region.style.display = 'none';
+
+      // 바로 다음 sibling 이 inputRegionDropdown 라고 가정
+      const dropdown = region.nextElementSibling;
+      if (dropdown && dropdown.classList.contains('inputRegionDropdown11')) {
+        dropdown.style.display = 'flex';
+
+        // 드롭다운 안의 항목들 클릭 시 다시 돌아오기
+        const dropdownItems = dropdown.querySelectorAll('div');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', () => {
+            dropdown.style.display = 'none';
+            region.style.display = 'flex'; // display:flex 로 원래대로 복구
+          });
+        });
+      }
+    });
+  });
+});
