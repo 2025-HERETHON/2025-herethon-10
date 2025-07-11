@@ -83,7 +83,7 @@ def get_sigungu(request):
     # print(f"시/군/구 데이터 for sido_code={sido_code}: ", data)
     return JsonResponse(data)
 
-
+@login_required(login_url='/accounts/login/')
 def signup_view(request):
     if hasattr(request.user, 'independenceplan'):
         return redirect('/home/')
