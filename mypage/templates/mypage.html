@@ -35,8 +35,7 @@
                 <div id="basicInfo">
                     <div class="infoTitle"><p>기본 정보</p></div>
                     <div id="basicInfoContent">
-                        <div id="userImg"></div>
-                        <!-- 이미지 태그로 바꾸기 -->
+                        <img id="userImg" src="{% static 'img/terin.svg' %}">
                         <div id="userInfoBox">
                             <div class="infoBox">
                                 <p class="userInfoTitle">이름</p>
@@ -75,6 +74,13 @@
                                     <p>대학생</p>
                                     <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
                                 </div>
+                                <div class="inputRegionDropdown">
+                                    <div class="dropdownContent1">선택해주세요</div>
+                                    <div class="dropdownContent2">대학생</div>
+                                    <div class="dropdownContent2">직장인</div>
+                                    <div class="dropdownContent3">기타</div>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,9 +95,25 @@
                                         <p>서울특별시</p>
                                         <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
                                     </div>
+                                    <div class="inputRegionDropdown11">
+                                        <div class="dropdownContent11">시/도</div>
+                                        <div class="dropdownContent21">서울특별시</div>
+                                        <div class="dropdownContent21">세종</div>
+                                        <div class="dropdownContent21">강원</div>
+                                        <div class="dropdownContent31">인천</div>
+                                        
+                                    </div>
                                     <div class="dropdownBox2">
                                         <p>노원구</p>
                                         <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                                    </div>
+                                    <div class="inputRegionDropdown11">
+                                        <div class="dropdownContent11">시/군/구</div>
+                                        <div class="dropdownContent21">서울 전체</div>
+                                        <div class="dropdownContent21">강남구</div>
+                                        <div class="dropdownContent21">강동구</div>
+                                        <div class="dropdownContent31">강서구</div>
+                                        
                                     </div>
                                 </div>
                         </div>

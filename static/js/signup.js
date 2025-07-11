@@ -2,34 +2,60 @@ document.getElementById('pen').addEventListener('click', function() {
     document.getElementById('uploadInput').click();
 });
 
-  document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
-    const selected = dropdown.querySelector('.selected');
-    const options = dropdown.querySelector('.options');
-    const hiddenInput = dropdown.querySelector('input');
+  // document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+  //   const selected = dropdown.querySelector('.selected');
+  //   const options = dropdown.querySelector('.options');
+  //   const hiddenInput = dropdown.querySelector('input');
 
-    selected.addEventListener('click', () => {
-      // 다른 드롭다운 닫기
-      document.querySelectorAll('.options').forEach(opt => {
-        if (opt !== options) opt.style.display = 'none';
-      });
-      // 현재 드롭다운 토글
-      options.style.display = options.style.display === 'block' ? 'none' : 'block';
-    });
+  //   selected.addEventListener('click', () => {
+  //     // 다른 드롭다운 닫기
+  //     document.querySelectorAll('.options').forEach(opt => {
+  //       if (opt !== options) opt.style.display = 'none';
+  //     });
+  //     // 현재 드롭다운 토글
+  //     options.style.display = options.style.display === 'block' ? 'none' : 'block';
+  //   });
 
-    options.querySelectorAll('li').forEach(option => {
-      option.addEventListener('click', () => {
-        selected.textContent = option.textContent;
-        hiddenInput.value = option.dataset.value;
-        options.style.display = 'none';
-      });
-    });
+  //   options.querySelectorAll('li').forEach(option => {
+  //     option.addEventListener('click', () => {
+  //       selected.textContent = option.textContent;
+  //       hiddenInput.value = option.dataset.value;
+  //       options.style.display = 'none';
+  //     });
+  //   });
 
-    document.addEventListener('click', (e) => {
-      if (!dropdown.contains(e.target)) {
-        options.style.display = 'none';
+  //   document.addEventListener('click', (e) => {
+  //     if (!dropdown.contains(e.target)) {
+  //       options.style.display = 'none';
+  //     }
+  //   });
+  // });
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const regions = document.querySelectorAll('.dropdownBox');
+
+  regions.forEach(region => {
+    region.addEventListener('click', () => {
+      // 현재 region 숨김
+      region.style.display = 'none';
+
+      // 바로 다음 sibling 이 inputRegionDropdown 라고 가정
+      const dropdown = region.nextElementSibling;
+      if (dropdown && dropdown.classList.contains('inputRegionDropdown')) {
+        dropdown.style.display = 'flex';
+
+        // 드롭다운 안의 항목들 클릭 시 다시 돌아오기
+        const dropdownItems = dropdown.querySelectorAll('div');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', () => {
+            dropdown.style.display = 'none';
+            region.style.display = 'flex'; // display:flex 로 원래대로 복구
+          });
+        });
       }
     });
   });
+});
 
 
 const sidoDropdown = document.getElementById('sidoDropdown');
@@ -132,5 +158,31 @@ const withRadios = document.querySelectorAll('#with input[type="radio"]');
 withRadios.forEach(radio => {
   radio.addEventListener('click', () => {
     withRadios.forEach(r => r.checked = (r === radio));
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const regions = document.querySelectorAll('.dropdownBox2');
+
+  regions.forEach(region => {
+    region.addEventListener('click', () => {
+      // 현재 region 숨김
+      region.style.display = 'none';
+
+      // 바로 다음 sibling 이 inputRegionDropdown 라고 가정
+      const dropdown = region.nextElementSibling;
+      if (dropdown && dropdown.classList.contains('inputRegionDropdown11')) {
+        dropdown.style.display = 'flex';
+
+        // 드롭다운 안의 항목들 클릭 시 다시 돌아오기
+        const dropdownItems = dropdown.querySelectorAll('div');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', () => {
+            dropdown.style.display = 'none';
+            region.style.display = 'flex'; // display:flex 로 원래대로 복구
+          });
+        });
+      }
+    });
   });
 });
