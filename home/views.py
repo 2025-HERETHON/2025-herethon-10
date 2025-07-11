@@ -2,7 +2,7 @@
 from django.shortcuts import redirect, render
 
 def root_redirect(request):
-    return redirect('/accounts/signup/')
+    return redirect('/accounts/login/')
 
 def home_view(request):
     plan = None
