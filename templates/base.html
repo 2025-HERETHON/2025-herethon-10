@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Emb,on{% endblock %}</title>
+  
+  {% block head_extra %}
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  {% block head_extra %}{% endblock %}
+  {% endblock %}
 </head>
 <body>
   <div id="background">
