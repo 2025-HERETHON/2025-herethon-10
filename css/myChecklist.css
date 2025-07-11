@@ -1,0 +1,1049 @@
+body {
+  display: flex;
+  justify-content: center;       
+  height: 100vh;            
+  margin: 0; 
+
+  /*기본 값 적용*/                 
+}
+
+#background{
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #FFFFFF;
+}
+
+#header{
+    display: flex;
+    width: 100vw;
+    height: 113px;
+
+
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid var(--navy-scale-navy-60, #3B506B);
+    background: var(--gray-scale-gray-0, #FFF);
+
+}
+
+#headerBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 73.96vw; /*1920기준 1420*/
+    height: 57px;
+
+}
+
+#logo{
+    
+}
+
+#selectBox{
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+    width: 670px;
+    height: 38px;
+}
+
+#home{
+    color: var(--navy-scale-navy-80, #1F2A38);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+
+}
+
+#plan{
+    color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+}
+
+#life{
+       color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+}
+
+#community{
+       color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+
+}
+
+#mypage{
+   color: var(--navy-scale-navy-60, #3B506B);
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 24px */
+    letter-spacing: -0.48px;
+    opacity: 0.9;
+}
+
+#divider{
+    width: 1px;
+    height: 21px;
+    opacity: 0.8;
+    background: #3B506B;
+}
+
+#signinup{
+    display: flex;
+    height: 38px;
+    padding: 1px 22px;/*8->1로 줄임(글자 깨짐)*/
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    background: var(--navy-scale-navy-60, #3B506B);
+
+    color: var(--gray-scale-gray-0, #FFF);
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 21px */
+    letter-spacing: -0.42px;
+}
+
+#banner{
+    width: 100vw;
+    height: 150px;
+
+    display: flex;
+    justify-content: center;
+    background: var(--gray-scale-gray-10, #F5F5F5);
+}
+
+#bannerBox{
+     width: 73.96vw; /*1920기준 1420*/
+     height: 150px;
+
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+
+     h1{
+        color: var(--navy-scale-navy-80, #1F2A38);
+        font-family: Inter;
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 45px */
+        letter-spacing: -0.9px;
+     }
+
+     h2{
+      color: var(--navy-scale-navy-80, #1F2A38);
+        font-family: Inter;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+        letter-spacing: -0.48px;
+     }
+
+        h1, h2 {
+    margin: 0;
+    }
+
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    width: 100vw;
+    height: auto; /*header->banner->container->footer*/
+
+}
+
+#loginContainer{
+ 
+}
+
+#footer{
+    width: 100vw;
+    height: 450px;
+   
+
+    border-top: 1px solid var(--navy-scale-navy-60, #3B506B);
+    background: var(--gray-scale-gray-0, #FFF);
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#footerContainer{
+
+    width: 83.33vw; /*1920이 100vw일 때 1600*/
+    height: 300px;
+
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    margin-top: 50px;
+    margin-bottom: 100px;
+
+}
+
+#menuContainer{
+    display: flex;
+    flex-direction: column; /*세로 정렬 위한 컨테이너*/
+    align-items: center;
+}
+
+#menu{
+ 
+    width: 54.43vw; /*1920이 100vw일 때 1045px*/
+    height: 254px;
+    
+    display: flex;
+    gap: 165px; 
+       
+    display: flex;
+    justify-content: center;
+
+
+}
+
+.menuBox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+ 
+    width: 300px; /*안 깨지게 일단 크게*/
+
+    gap: 3px;
+
+}
+
+.menuBox .title {
+    color: var(--navy-scale-navy-70, #2D3D52);
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 175% */
+    
+    margin-bottom: 15px;
+
+    white-space: nowrap; /*글자 한 줄로*/
+}
+
+.menuBox .item {
+    color: var(--navy-scale-navy-70, #2D3D52);
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    opacity: 0.5;
+
+    display: flex;
+    height: 30px; /*적절한 길이 부여*/
+
+    white-space: nowrap; /*글자 한 줄로*/
+
+}
+
+#logoBox{
+
+    width: 83.33vw;
+  
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+#footerLogo{
+ /*로고 이미지 크기 조정*/
+}
+
+#copyright{
+    color: var(--navy-scale-navy-70, #2D3D52);
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px; /* 162.5% */
+
+    margin-top: 20px;
+}
+
+aside{
+    width: 200px;
+    height: auto;
+}
+
+section{
+    width: 55.4167vw; /* 1064px*/
+    padding: 0px 64px 99px 112px;
+    
+}
+
+/* 사이드 메뉴 부분 시작 */
+
+#sideMenu{
+    margin-top: 40px;
+}
+
+#sideMenuContentBox{
+    display: flex;
+    width: 154px;
+    flex-direction: column;
+    gap:30px;
+}
+
+#sideMenuTitle{
+    color: #AAA;
+    margin: 0 0 30px 0;
+    letter-spacing: -0.48px;
+}
+
+#sideMenuContentStyle1{
+    margin: 0 0 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: -0.54px;
+}
+
+#sideMenuContentStyle2{
+    margin: 0 0 0 20px;
+    font-size: 18px;
+    color: #57769E;
+    letter-spacing: -0.54px;
+}
+
+/* 사이드 메뉴 부분 끝 */
+
+#sectionTitle{
+    font-size: 30px;
+    color: #486284;
+    border-left: 3px solid #486284;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 40px 0 0 0;
+    padding-left: 16px;
+    letter-spacing: 0.5px
+}
+
+#articleBox{
+    display: flex;
+    margin-top: 36px;
+    gap: 89px;
+}
+
+#checklist1,
+#checklist2,
+#checklist3{
+    display: flex;
+    width: 420px;
+    height: auto; /*1419px*/
+    padding-bottom: 30px;
+    gap: 25px;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+    border-radius: 24px;
+    background: #FFF;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+#checklist2,
+#checklist3{
+    display: none;
+}
+
+#checklistHeader{
+    width: 420px;
+    padding: 20px 0px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px 24px 0px 0px;
+    background-color: #CED7E4;
+}
+
+#checklistHeaderBox{
+    height: 24px;
+    display: flex;
+    padding: 0px 20px;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+#checklistHeaderBox p {
+    font-weight: bold;
+    font-size: 20px;
+    color: #1F2A38;
+}
+
+.contractTitle,
+.moveTitle,
+.habitationTitle{
+    font-size: 21px;
+    color: #231F20;
+    font-weight: bold;
+    width: 372px;
+    height: 25px;
+    background-color: #F9F9FA;
+    border-left: 2px solid #231F20 ;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    margin: 0 0 23px 0;
+}
+
+
+.toggleBox{
+    display: flex;
+    width: 362px;
+    height: 30px;
+    justify-content: space-between;
+    align-items: center
+}
+
+.toggleTitle{
+    font-weight: bold;
+    font-size: 14px;
+    color: #1F2A38;
+    margin: 0;
+}
+
+.toggleIcon{    
+    font-weight: bold;
+    color: #1F2A38;
+    margin: 0;
+}
+
+#toggleContent1,
+#toggleContent2,
+#toggleContent3,
+#toggleContent4,
+#toggleContent5,
+#toggleContent6,
+#toggleContent7,
+#toggleContent8{
+    display: none;
+    margin: 10px 0 0 0;
+}
+
+
+.toggleContent1Box{
+    display: flex;
+    width: 321px;
+    margin: 0 0 8px 41px;
+    gap: 12px;
+}
+
+.toggleContent1Title{
+    display: flex;
+    height: 26px;
+    padding: 3px 7px;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1F2A38;
+    border-radius: 10px;
+    background-color: #CED7E4;
+}
+
+.toggleContent1Content{
+    font-size: 14px;
+    font-weight: 400;
+    color: #1F2A38;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.toggleContent1Content p{
+    margin: 0;
+}
+
+#monthMin,#monthMax,#depositMin,#depositMax,#manageMin,#manageMax{
+display: flex;
+height: 20px;
+width: 27px;
+padding: 3px 7px;
+justify-content: center;
+align-items: center;
+border-radius: 8px;
+border: 1px solid #C2C2C2;
+}
+
+input:focus{
+    outline: none;
+}
+
+#inputRegionBox{
+    display: flex;
+    width: 316px;
+    margin-left: 40px;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.inputRegion{
+    display: flex;
+    width: 120px;
+    padding: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    border: 1px solid #c2c2c2;
+    background-color: #F9F9FA;
+}
+
+.inputRegionDropdown{
+display: none;
+width: 152px;
+flex-direction: column;
+align-items: flex-start;
+}
+
+.dropdownContent1{
+display: flex;
+padding: 12px 16px;
+width: 120px;
+align-items: center;
+border-radius: 8px 8px 0 0;
+border: 1px solid #C2C2C2;
+background-color: #F9F9FA;
+}
+
+.dropdownContent2{
+display: flex;
+padding: 12px 16px;
+width: 120px;
+align-items: center;
+border-right: 1px solid #C2C2C2;
+border-bottom: 1px solid #C2C2C2;
+border-left: 1px solid #C2C2C2;
+background-color: #F9F9FA;
+}
+
+.inputRegion p,
+.dropdownContent1,
+.dropdownContent2{
+    font-size: 12px;
+    color: #1F2A38;
+    line-height: 20px; /* 166.667% */
+    letter-spacing: -0.12px;
+    margin: 0;
+}
+
+.dropdownIcon{
+
+}
+
+.contractContent,
+.toggleContent4Content,
+.toggleContent6Content,
+.toggleContent7Content,
+.toggleContent8Content,
+.moveContent,
+.habitationContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    align-self: stretch;
+}   
+
+.contractContent,
+.moveContent,
+.habitationContent{
+    margin-bottom: 40px;
+}
+
+.contractWriteBox,
+.toggleContent4Box,
+.moveBox,
+.habitationBox{
+    display: flex;
+    width: 362px;
+    align-items: center;
+    gap: 12px;
+}
+
+.fakeCheckBox{
+    width: 24px;
+    height: 24px;
+    border: 2px solid #CCCCCC;
+    border-radius: 8px;
+}
+
+.fakeCheckBox.checked{
+    width: 24px;
+    height: 24px;
+    border: 2px solid #03C75A;
+    border-radius: 8px;
+    color: #03C75A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.contractWriteCheckbox,
+.toggleContent4Checkbox,
+.moveCheckbox,
+.habitationCheckbox{
+    display: none;
+}
+
+.checkboxContent{
+    margin: 0;
+    font-size: 14px;
+    color: #1F2A38;
+}
+
+#goodBadCheckboxBox1{
+    display: flex;
+    align-items: center;
+    width: 322px;
+    height: 184px;
+    margin-left: 41px;
+}
+
+#goodBadCheckboxBox2{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 322px;
+    height: 152px;
+    margin-left: 41px;
+    gap: 8px;
+}
+
+.goodBadCheckboxBoxMini{
+    display: flex;
+    width: 161px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.goodBadCheckbox{
+    display: flex;
+    height: 24px;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+}
+
+.goodBadFakeCheckbox{
+    /* 좋아요 */
+    display: flex;
+    width: 14px;
+    height: 20px;
+    padding: 3px 7px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #739CD1;
+}
+
+.goodBadFakeCheckbox.checked{
+    /* 싫어요 */
+    display: flex;
+    width: 14px;
+    height: 20px;
+    padding: 3px 7px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #D14949;
+}
+
+.good{
+    width: 14px;
+    height: 14px;
+}
+
+.goodBadRealCheckbox{
+    display: none;
+}
+
+.goodBadCheckboxContent{
+    color: #1F2A38;
+    font-size: 14px;
+    line-height: 19.833px; /* 141.667% */
+}
+
+#saveButtonBox{
+    width: 372px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+#saveButton{
+    display: flex;
+    height: 38px;
+    width: 70px;
+    padding: 8px 22px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    background-color: #3B506B;
+    color: #FFF;
+    font-size: 14px;
+    line-height: 150%; /* 21px */
+    letter-spacing: -0.42px;
+    border: 0;
+}
+
+#completeBox{
+    display: none;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+#completeIcon{
+    display: flex;
+    width: 8px;
+    height: 6px;
+    padding: 6px 5px;
+    border-radius: 9px;
+    align-items: center;
+    justify-content: center;
+    background-color: #03C75A;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#completeContent{
+    color: #5C5C5C;
+    font-size: 14px;
+}
+
+#deleteBox{
+    width: 372px;
+    height: 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#delete{
+    display: flex;
+    align-items: center;
+}
+
+#delete p{
+    margin: 0;
+    color: #757575;
+    font-size: 12px;
+    line-height: 25px; /* 208.333% */
+    letter-spacing: 0.5px;
+}
+
+#delete img{
+    width: 18px;
+    height: 18px;
+}
+
+#progressInfoMap{
+    display: flex;
+    width: 555px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 59px;
+}
+
+#checklistProgress{
+    display: flex;
+    gap: 25px;
+    flex-direction: column;
+    align-items: center;
+    height: 173px;
+    width: 550px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 24px;
+}
+
+#checklistProgressHeader{
+    display: flex;
+    height: 40px;
+    width: 510px;
+    padding: 0px 20px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 24px 24px 0px 0px;
+    background-color: #CED7E4;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #1F2A38;
+}
+
+#checklistProgressContent1,
+#checklistProgressContent2,
+#checklistProgressContent3{
+    width: 346px;
+    display: flex;
+    gap: 8px;
+}
+
+#checklistProgressContent2,
+#checklistProgressContent3{
+    display: none;
+}
+
+.progressBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkProgress.checked{
+    width: 32px;
+    height: 32px;
+    border-radius: 19px;
+    background-color: #57769E;
+    border: 3px solid #57769E;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px ;
+    font-weight: bold;
+}
+
+.checkProgress{
+    width: 32px;
+    height: 32px;
+    border-radius: 19px;
+    color: #A8A8A8;
+    border: 3px solid #A8A8A8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px ;
+    font-weight: bold;
+}
+
+.progressTitle.checked{
+    font-size: 14px;
+    color: #57769E;
+    line-height: 25px; /* 178.571% */
+    letter-spacing: 0.5px;
+    margin: 5px 0;
+}
+
+.progressTitle{
+    font-size: 14px;
+    color: #A8A8A8;
+    line-height: 25px; /* 178.571% */
+    letter-spacing: 0.5px;
+    margin: 5px 0;
+}
+
+.line{
+    width: 100px;
+    height: 3px;
+    background-color: #A8A8A8;
+    border-radius: 1.5px;
+    margin-top: 19px;
+}
+
+.line.checked{
+    width: 100px;
+    height: 3px;
+    background-color: #57769E;
+    border-radius: 1.5px;
+    margin-top: 19px;
+}
+
+#profileCard{
+    display: flex;
+    height: 256px;
+    padding: 40px;
+    align-items: flex-start;
+    align-self: stretch;
+    border-radius: 24px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.20);
+    background-color: #FFF;
+    gap: 44px;
+}
+
+#profileImg{
+    display: flex;
+    width: 160px;
+    height: 160px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 80px;
+    background-color: lightgray;
+}
+
+#profilecontent{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+#profileName{
+    font-size: 24px;
+    color: #1F2A38;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+#profileInfo{
+    display: flex;
+    width: 266px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.profileInfoBox{
+    display: flex;
+    padding-bottom: 4px;
+    align-items: center;
+    justify-content: space-between;
+    align-self: stretch;
+    border-bottom: 1px solid #DBDBDB;
+}
+
+#region,
+#budget,
+#date,
+#mate{
+    margin: 0;
+    font-size: 14px;
+    color: #757575;
+    line-height: 25px;
+    font-weight: 400;
+}
+
+#userRegion,
+#userBudget,
+#userDate,
+#userMate{
+    width: 120px;
+    margin: 0;
+    font-size: 14px;
+    color: #2D3D52;
+    line-height: 25px;
+    font-weight: 400;
+}
+
+#modify{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 266px;
+}
+
+#modify p{
+    font-size: 10px;
+    line-height: 25px;
+    letter-spacing: 0.5px;
+    color: #757575;
+    margin: 0;
+}
+
+#mapView{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 36px;
+    align-self: stretch;
+}
+
+#mapHeader{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#mapHeaderTitle{
+    width: 220px;
+    font-size: 30px;
+    color: #486284;
+    border-left: 3px solid #486284;
+    font-weight: bold;
+    line-height: 32px;
+    padding-left: 16px;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+#mapSearch{
+    display: flex;
+    padding: 7px 8px;
+    align-items: center;
+    border: 1px solid #486284;
+    border-radius: 6px;
+    width: 264px;
+    height: 26px;
+}
+
+#search{
+    height: 26px;
+    width: 264px;
+    border: 0;
+    font-size: 19px;
+    margin-left: 10px;
+}
+
+#search:focus{
+    outline: 0;
+}
+
+#map{
+    /* background-color: lightgray; */
+    width: 550px;
+    height: 580px;
+    border-radius: 24px;
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
