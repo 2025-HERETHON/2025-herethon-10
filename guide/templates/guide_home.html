@@ -3,118 +3,122 @@
 
     {% block title %}생활 행정 가이드{% endblock %}
 
-{% block extra_css %}
+{% block content %}
+<head>
     <link rel="stylesheet" href="{% static 'css/guide_home.css' %}">
-{% endblock %}
-        <div id="banner">
-            <div id="bannerBox">
-                <h1>생활 행정 가이드</h1>
-                <h2>복잡한 행정 정보, 이젠 엠브온이 쉽게 정리해드릴게요</h2>
-            </div>
+    <script src="{% static 'js/guide_home.js' %}"></script>
+</head>
+
+<body>
+    <div id="banner">
+        <div id="bannerBox">
+            <h1>생활 행정 가이드</h1>
+            <h2>복잡한 행정 정보, 이젠 엠브온이 쉽게 정리해드릴게요</h2>
         </div>
+    </div>
 
 
-        <div id="container">
-            <aside>
-                <div id="sideMenu">
-                    <p id="sideMenuTitle">생활 시작하기</p>
-                    <div id="sideMenuContentBox">
-                        <p id="sideMenuContentStyle1">생활 행정 가이드</p>
-                        <p id="sideMenuContentStyle2">공공지원 정보</p>
+    <div id="container">
+        <aside>
+            <div id="sideMenu">
+                <p id="sideMenuTitle">생활 시작하기</p>
+                <div id="sideMenuContentBox">
+                    <p id="sideMenuContentStyle1">생활 행정 가이드</p>
+                    <p id="sideMenuContentStyle2">공공지원 정보</p>
+                </div>
+            </div>
+        </aside>
+        <section>
+            <article class="guideBox">
+                <p class="guideTitle">집 계약 관련 행정 가이드</p>
+                <div class="guideContentBox">
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home1/1.png' %}"/>
+                        <div class="guideContentItemTitle">계약서 작성 시 주의사항</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home1/2.png' %}"/>
+                        <div class="guideContentItemTitle">전입신고</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home1/3.png' %}"/>
+                        <div class="guideContentItemTitle">확정일자 신청</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home1/4.png' %}"/>
+                        <div class="guideContentItemTitle">주택 임대차 신고</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home1/5.png' %}"/>
+                        <div class="guideContentItemTitle">주민등록등·초본 발급</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home1/6.png' %}"/>
+                        <div class="guideContentItemTitle">전세보증금 반환보증</div>
                     </div>
                 </div>
-            </aside>
-            <section>
-                <article class="guideBox">
-                    <p class="guideTitle">집 계약 관련 행정 가이드</p>
-                    <div class="guideContentBox">
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home1/1.png' %}"/>
-                            <div class="guideContentItemTitle">계약서 작성 시 주의사항</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home1/2.png' %}"/>
-                            <div class="guideContentItemTitle">전입신고</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home1/3.png' %}"/>
-                            <div class="guideContentItemTitle">확정일자 신청</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home1/4.png' %}"/>
-                            <div class="guideContentItemTitle">주택 임대차 신고</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home1/5.png' %}"/>
-                            <div class="guideContentItemTitle">주민등록등·초본 발급</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home1/6.png' %}"/>
-                            <div class="guideContentItemTitle">전세보증금 반환보증</div>
-                        </div>
+            </article>
+            <!-- <article class="guideBox">
+                <p class="guideTitle">이사 및 입주 관련 행정 가이드</p>
+                <div class="guideContentBox">
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">1</div>
                     </div>
-                </article>
-                <!-- <article class="guideBox">
-                    <p class="guideTitle">이사 및 입주 관련 행정 가이드</p>
-                    <div class="guideContentBox">
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">1</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">2</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">3</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">4</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">5</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">6</div>
-                        </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">2</div>
                     </div>
-                </article> -->
-                <article class="guideBox">
-                    <p class="guideTitle">노원구 행정 소식</p>
-                    <div class="guideContentBox">
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home2/1.png' %}"/>
-                            <div class="guideContentItemTitle">대형폐기물 배출신고</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home2/2.png' %}"/>
-                            <div class="guideContentItemTitle">구민안심보험</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home2/3.png' %}"/>
-                            <div class="guideContentItemTitle">보건증 발급</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home2/4.png' %}"/>
-                            <div class="guideContentItemTitle">광운대역세권 도시 개발</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home2/5.png' %}"/>
-                            <div class="guideContentItemTitle">일자리 정보</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <img class="guideContentItem" src="{% static 'img/guide_home2/6.png' %}"/>
-                            <div class="guideContentItemTitle">노원구청 바로가기</div>
-                        </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">3</div>
                     </div>
-                </article>
-            </section>
-        </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">4</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">5</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">6</div>
+                    </div>
+                </div>
+            </article> -->
+            <article class="guideBox">
+                <p class="guideTitle">노원구 행정 소식</p>
+                <div class="guideContentBox">
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home2/1.png' %}"/>
+                        <div class="guideContentItemTitle">대형폐기물 배출신고</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home2/2.png' %}"/>
+                        <div class="guideContentItemTitle">구민안심보험</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home2/3.png' %}"/>
+                        <div class="guideContentItemTitle">보건증 발급</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home2/4.png' %}"/>
+                        <div class="guideContentItemTitle">광운대역세권 도시 개발</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home2/5.png' %}"/>
+                        <div class="guideContentItemTitle">일자리 정보</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/guide_home2/6.png' %}"/>
+                        <div class="guideContentItemTitle">노원구청 바로가기</div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+</body>
 
-{% block extra_js %}
-<script src="{% static 'js/guide_home.js' %}"></script>
+
 {% endblock %}
