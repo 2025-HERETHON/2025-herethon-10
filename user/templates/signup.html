@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}회원가입{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="banner">
+    <div id="bannerBox">
+        <h1>정보 입력</h1>
+        <h2>독립 체크리스트부터, 생활 행정가이드까지 엠브온이 당신의 새 출발을 도와드릴게요</h2>
+    </div>
+</div>
+
+<div id="container">
+    <div id="box1">
+        <div id="box3"><div class="divider2"></div><div class="basetext">기본 정보</div></div>
+
+        <div id="profile">
+            <img src="{% static 'img/yerin.svg' %}" width="160px" alt="프로필 이미지">
+            <img src="{% static 'img/pen.svg' %}" id="pen" width="28px" alt="수정 버튼">
+            <input type="file" id="uploadInput" accept="image/*" style="display:none;">
+        </div>
+
+        <div id="box4"><div class="divider2"></div><div class="basetext">독립 계획 정보</div></div>
+    </div>
+
+    <div id="box2">
+        <div class="textbox">이름</div>
+        <input type="text" id="input1" placeholder="이름을 입력해주세요">
+
+        <div class="textbox">이메일</div>
+        <input type="text" id="input2" placeholder="이메일을 입력해주세요">
+
+        <div class="textbox">성별</div>
+        <div id="gender">
+            <label class="gender-label">
+                <input type="radio" value="female" class="gender-check">
+                <span class="custom-box"></span>
+                여성
+            </label>
+            <label class="gender-label">
+                <input type="radio" value="male" class="gender-check">
+                <span class="custom-box"></span>
+                남성
+            </label>
+        </div>
+
+        <div class="textbox">생년월일</div>
+        <input type="text" id="input3" placeholder="ex. 031201">
+
+        <div class="textbox">직업</div>
+        <div class="custom-dropdown">
+            <div class="selected">선택해주세요</div>
+            <ul class="options">
+                <li data-value="대학생">대학생</li>
+                <li data-value="직장인">직장인</li>
+                <li data-value="기타">기타</li>
+            </ul>
+            <input type="hidden" id="mySelect">
+        </div>
+
+        <div id="box5">
+            <div class="textbox">독립할 지역</div>
+            <div id="box6">
+                <div class="custom-dropdown2" id="sidoDropdown">
+                    <div class="selected2">시/도</div>
+                    <ul class="options2"></ul>
+                </div>
+                <div class="custom-dropdown2" id="sigunguDropdown">
+                    <div class="selected2">시/군/구</div>
+                    <ul class="options2"></ul>
+                </div>
+                <select id="sido" style="display: none;">
+                    <option value="">시/도</option>
+                </select>
+                <select id="sigungu" disabled style="display: none;">
+                    <option value="">시/군/구</option>
+                </select>
+            </div>
+
+            <div class="budget-section">
+                <div class="budget-item">
+                    <div class="textbox">월세 예산</div>
+                    <div class="input-row">
+                        <span class="prefix">최대</span>
+                        <input type="text" id="monthlyRent" />
+                        <span class="unit">만원</span>
+                    </div>
+                </div>
+
+                <div class="budget-item">
+                    <div class="textbox">관리비 예산</div>
+                    <div class="input-row">
+                        <span class="prefix">최대</span>
+                        <input type="text" id="maintenanceCost" />
+                        <span class="unit">만원</span>
+                    </div>
+                </div>
+
+                <div class="budget-item">
+                    <div class="textbox">보증금 예산</div>
+                    <div class="input-row">
+                        <span class="prefix">최대</span>
+                        <input type="text" id="deposit"/>
+                        <span class="unit">만원</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="textbox">동거인 여부</div>
+            <div id="box7">
+                <div id="with">
+                    <label class="with-label">
+                        <input type="radio" value="yes" class="with-check">
+                        <span class="custom-box"></span>
+                        동거인 있음
+                    </label>
+                    <label class="with-label">
+                        <input type="radio" value="no" class="with-check">
+                        <span class="custom-box"></span>
+                        동거인 없음
+                    </label>
+                </div>
+            </div>
+
+            <div id="roommateCountWrapper" style="display:none">
+                <div class="textbox">동거인 수</div>
+                <input type="text" id="input4" placeholder="n명" />
+            </div>
+
+            <div class="textbox">독립 유형</div>
+            <div class="custom-dropdown">
+                <div class="selected">선택해주세요</div>
+                <ul class="options">
+                    <li data-value="원룸">원룸</li>
+                    <li data-value="기숙사">기숙사</li>
+                    <li data-value="쉐어하우스">쉐어하우스</li>
+                    <li data-value="미정">아직 정하지 못했어요</li>
+                </ul>
+                <input type="hidden" id="roomSelect">
+            </div>
+
+            <div class="textbox">이사 예정일</div>
+            <div class="custom-dropdown">
+                <div class="selected">선택해주세요</div>
+                <ul class="options">
+                    <li data-value="7월">2025년 7월</li>
+                    <li data-value="8월">2025년 8월</li>
+                    <li data-value="9월">2025년 9월</li>
+                </ul>
+                <input type="hidden" id="monthSelect">
+            </div>
+        </div>
+
+        <div id="done">가입하기</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

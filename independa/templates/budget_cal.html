@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}예산 계산기 | Emb,on{% endblock %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="{% static 'css/budget_cal.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="banner">
+  <div id="bannerBox">
+    <h1>예산 계산기</h1>
+    <h2>돈 걱정 줄이는 첫 걸음, 예산부터 짜보세요</h2>
+  </div>
+</div>
+
+<div id="container">
+  <div id="Box">
+    <div id="box1">
+      <div id="menu1">예산 계산기</div>
+      <div id="menu2">예산 계산하기</div>
+      <div id="menu3">계산 히스토리</div>
+    </div>
+
+    <div id="box2">
+      <div id="row"><div class="divider2"></div><div class="menutext">초기비용</div></div>
+
+      <div class="charge">중개 수수료</div>
+      <input type="text" id="inputcharge1">
+      <div class="explain">노원구 원룸의 평균 중개 수수료는 00만원이에요.</div>
+
+      <div class="charge">가구 및 가전 구매 비용</div>
+      <input type="text" id="inputcharge2">
+      <div class="explain">원룸 거주하는 20대의 평균 가구 및 가전 구매비는 000만원이에요.</div>
+
+      <div class="charge">이사 비용</div>
+      <input type="text" id="inputcharge3">
+      <div class="explain">노원구 이사 업체의 평균 이사 비용은 00만원이에요.</div>
+
+      <div id="row"><div class="divider2"></div><div class="menutext">변동비</div></div>
+
+      <div class="charge">식비</div>
+      <input type="text" id="inputcharge4">
+      <div class="explain">서울시에 거주하는 20대 여성의 월 평균 식비는 00만원이에요.</div>
+
+      <div class="charge">쇼핑비</div>
+      <input type="text" id="inputcharge5">
+      <div class="explain">서울시에 거주하는 20대 여성의 월 평균 쇼핑 비용은 00만원이에요.</div>
+
+      <div class="charge">취미 비용</div>
+      <input type="text" id="inputcharge6">
+      <div class="explain">서울시에 거주하는 20대의 월 평균 취미 비용은 00만원이에요.</div>
+    </div>
+
+    <div id="box3">
+      <div id="row"><div class="divider2"></div><div class="menutext">고정비</div></div>
+
+      <div class="charge">월세</div>
+      <input type="text" id="inputcharge7">
+      <div class="explain">노원구 원룸의 평균 월세는 00만원이에요.</div>
+
+      <div class="charge">관리비</div>
+      <input type="text" id="inputcharge8">
+      <div class="explain">노원구 원룸의 월 평균 관리비는 00만원이에요.</div>
+
+      <div class="charge">통신비</div>
+      <input type="text" id="inputcharge9">
+      <div class="explain">서울시에 거주하는 20대의 월 평균 통신비는 00만원이에요.</div>
+
+      <div class="charge">교통비</div>
+      <input type="text" id="inputcharge10">
+      <div class="explain">서울시에 거주하는 20대의 월 평균 교통비는 00만원이에요.</div>
+
+      <div id="row"><div class="divider2"></div><div class="menutext">수입</div></div>
+
+      <div class="charge">아르바이트</div>
+      <input type="text" id="inputcharge11">
+      <div class="explain">서울시에 거주하는 20대 여성의 알바 월급은 00만원이에요.</div>
+
+      <div class="charge">용돈(생활비)</div>
+      <input type="text" id="inputcharge12">
+      <div class="explain">서울시에 거주하는 20대 여성의 월 평균 용돈(생활비)은 00만원이에요.</div>
+    </div>
+  </div>
+
+  <div id="bud">계산하기</div>
+
+  <div id="box4">
+    <div id="divider2" style="display: none;"></div>
+    <div id="menutext" style="display: none;">계산 분석 및 결과</div>
+  </div>
+
+  <div id="calbudbox">
+    <div id="calbox">
+      <div class="result-line" id="result1"></div>
+      <div id="explanation1"></div>
+
+      <div class="result-line" id="result2"></div>
+      <div id="explanation2"></div>
+
+      <div class="result-line" id="result3"></div>
+      <div id="explanation3"></div>
+
+      <div class="result-line" id="result4"></div>
+      <div id="explanation4"></div>
+    </div>
+
+    <div id="budbox" style="text-align: center; display: none;">
+      <img id="statusImage" src="" alt="" style="width: 200px; margin: 0 auto; display: block;" />
+      <h2 id="mainMessage"></h2>
+      <p id="subMessage"></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script_extra %}
+<script src="{% static 'js/budget_cal.js' %}"></script>
+{% endblock %}
