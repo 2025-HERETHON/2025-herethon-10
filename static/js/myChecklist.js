@@ -74,58 +74,58 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  let currentIndex = 1;
+// document.addEventListener('DOMContentLoaded', () => {
+//   let currentIndex = 1;
 
-  // 총 몇 개 체크리스트인지
-  const totalChecklists = 3;
+//   // 총 몇 개 체크리스트인지
+//   const totalChecklists = 3;
 
-  // 체크리스트 article들
-  const checklists = [
-    document.getElementById('checklist1'),
-    document.getElementById('checklist2'),
-    document.getElementById('checklist3')
-  ];
+//   // 체크리스트 article들
+//   const checklists = [
+//     document.getElementById('checklist1'),
+//     document.getElementById('checklist2'),
+//     document.getElementById('checklist3')
+//   ];
 
-  // 진행률 article들
-  const progressContents = [
-    document.getElementById('checklistProgressContent1'),
-    document.getElementById('checklistProgressContent2'),
-    document.getElementById('checklistProgressContent3')
-  ];
+//   // 진행률 article들
+//   const progressContents = [
+//     document.getElementById('checklistProgressContent1'),
+//     document.getElementById('checklistProgressContent2'),
+//     document.getElementById('checklistProgressContent3')
+//   ];
 
-  // 초기 설정 → 첫 번째만 보이게
-  function showChecklist(index) {
-    checklists.forEach((el, i) => {
-      el.style.display = (i + 1 === index) ? 'flex  ' : 'none';
-    });
-    progressContents.forEach((el, i) => {
-      el.style.display = (i + 1 === index) ? 'flex' : 'none';
-    });
-  }
+//   // 초기 설정 → 첫 번째만 보이게
+//   function showChecklist(index) {
+//     checklists.forEach((el, i) => {
+//       el.style.display = (i + 1 === index) ? 'flex  ' : 'none';
+//     });
+//     progressContents.forEach((el, i) => {
+//       el.style.display = (i + 1 === index) ? 'flex' : 'none';
+//     });
+//   }
 
-  showChecklist(currentIndex);
+//   showChecklist(currentIndex);
 
-  // nextPage 버튼
-  document.querySelectorAll('.nextPage').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentIndex < totalChecklists) {
-        currentIndex += 1;
-        showChecklist(currentIndex);
-      }
-    });
-  });
+//   // nextPage 버튼
+//   document.querySelectorAll('.nextPage').forEach(btn => {
+//     btn.addEventListener('click', () => {
+//       if (currentIndex < totalChecklists) {
+//         currentIndex += 1;
+//         showChecklist(currentIndex);
+//       }
+//     });
+//   });
 
-  // previousPage 버튼
-  document.querySelectorAll('.previousPage').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentIndex > 1) {
-        currentIndex -= 1;
-        showChecklist(currentIndex);
-      }
-    });
-  });
-});
+//   // previousPage 버튼
+//   document.querySelectorAll('.previousPage').forEach(btn => {
+//     btn.addEventListener('click', () => {
+//       if (currentIndex > 1) {
+//         currentIndex -= 1;
+//         showChecklist(currentIndex);
+//       }
+//     });
+//   });
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
   const regions = document.querySelectorAll('.inputRegion');

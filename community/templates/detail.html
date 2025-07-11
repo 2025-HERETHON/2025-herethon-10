@@ -3,10 +3,13 @@
     
 {% block title %}글보기{% endblock %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
-{% endblock %}
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+        <script src="{% static 'js/detail.js' %}"></script>
+    </head>
 
+    <body>
         <div id="banner">
             <div id="bannerBox">
                 <h1>글쓰기</h1>
@@ -84,7 +87,4 @@
                 </div>
             </section>
         </div>
-
-{% block extra_js %}
-<script src="{% static 'js/detail.js' %}"></script>
-{% endblock %}
+    </body>
