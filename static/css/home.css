@@ -318,7 +318,7 @@ a{
 #container{
     display: flex;
     justify-content: center;
-    align-items: center;
+        /* align-items: center; */
     width: 100vw;
     height: 833px; /*header->banner->container->footer*/
 

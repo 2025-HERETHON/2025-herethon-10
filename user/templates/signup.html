@@ -1,167 +1,205 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}회원가입{% endblock %}
-
-{% block head_extra %}
-<link rel="stylesheet" href="{% static 'css/signup.css' %}">
-{% endblock %}
+{% block title %}마이페이지{% endblock %}
 
 {% block content %}
-<div id="banner">
-    <div id="bannerBox">
-        <h1>정보 입력</h1>
-        <h2>독립 체크리스트부터, 생활 행정가이드까지 엠브온이 당신의 새 출발을 도와드릴게요</h2>
-    </div>
-</div>
+<head>
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+    <script src="{% static 'js/mypage.js' %}"></script>
+</head>
 
-<div id="container">
-    <div id="box1">
-        <div id="box3"><div class="divider2"></div><div class="basetext">기본 정보</div></div>
-
-        <div id="profile">
-            <img src="{% static 'img/yerin.svg' %}" width="160px" alt="프로필 이미지">
-            <img src="{% static 'img/pen.svg' %}" id="pen" width="28px" alt="수정 버튼">
-            <input type="file" id="uploadInput" accept="image/*" style="display:none;">
+<body>
+    <div id="banner">
+        <div id="bannerBox">
+            <h1>정보 입력</h1>
+            <h2>독립 체크리스트부터, 생활 행정가이드까지 엠브온이 당신의 새 출발을 도와드릴게요</h2>
         </div>
-
-        <div id="box4"><div class="divider2"></div><div class="basetext">독립 계획 정보</div></div>
     </div>
 
-    <div id="box2">
-        <div class="textbox">이름</div>
-        <input type="text" id="input1" placeholder="이름을 입력해주세요">
 
-        <div class="textbox">이메일</div>
-        <input type="text" id="input2" placeholder="이메일을 입력해주세요">
-
-        <div class="textbox">성별</div>
-        <div id="gender">
-            <label class="gender-label">
-                <input type="radio" value="female" class="gender-check">
-                <span class="custom-box"></span>
-                여성
-            </label>
-            <label class="gender-label">
-                <input type="radio" value="male" class="gender-check">
-                <span class="custom-box"></span>
-                남성
-            </label>
-        </div>
-
-        <div class="textbox">생년월일</div>
-        <input type="text" id="input3" placeholder="ex. 031201">
-
-        <div class="textbox">직업</div>
-        <div class="custom-dropdown">
-            <div class="selected">선택해주세요</div>
-            <ul class="options">
-                <li data-value="대학생">대학생</li>
-                <li data-value="직장인">직장인</li>
-                <li data-value="기타">기타</li>
-            </ul>
-            <input type="hidden" id="mySelect">
-        </div>
-
-        <div id="box5">
-            <div class="textbox">독립할 지역</div>
-            <div id="box6">
-                <div class="custom-dropdown2" id="sidoDropdown">
-                    <div class="selected2">시/도</div>
-                    <ul class="options2"></ul>
+    <div id="container">
+        {% comment %} <aside>
+            <div id="sideMenu">
+                <p id="sideMenuTitle">마이페이지</p>
+                <div id="sideMenuContentBox">
+                    <p id="sideMenuContentStyle1">정보 수정</p>
+                    <p id="sideMenuContentStyle2">저장된 콘텐츠 모아보기</p>
+                    <p id="sideMenuContentStyle2">지출 히스토리</p>
+                    <p id="sideMenuContentStyle2">회원탈퇴</p>
                 </div>
-                <div class="custom-dropdown2" id="sigunguDropdown">
-                    <div class="selected2">시/군/구</div>
-                    <ul class="options2"></ul>
-                </div>
-                <select id="sido" style="display: none;">
-                    <option value="">시/도</option>
-                </select>
-                <select id="sigungu" disabled style="display: none;">
-                    <option value="">시/군/구</option>
-                </select>
             </div>
-
-            <div class="budget-section">
-                <div class="budget-item">
-                    <div class="textbox">월세 예산</div>
-                    <div class="input-row">
-                        <span class="prefix">최대</span>
-                        <input type="text" id="monthlyRent" />
-                        <span class="unit">만원</span>
+        </aside> {% endcomment %}
+        <section>
+            <article id="myPageBox">
+                <div id="basicInfo">
+                    <div class="infoTitle"><p>기본 정보</p></div>
+                    <div id="basicInfoContent">
+                        <img id="userImg" src="{% static 'img/terin.svg' %}">
+                        <div id="userInfoBox">
+                            <div class="infoBox">
+                                <p class="userInfoTitle">이름</p>
+                                <input class="inputBox" type="text" value="김슈니"/>
+                            </div>
+                            <div class="infoBox">
+                                <p class="userInfoTitle">이메일</p>
+                                <input class="inputBox" type="email" value="swuni@gmail.com"/>
+                            </div>
+                            <div class="infoBox">
+                                <p class="userInfoTitle">성별</p>
+                                <div class="userInfoContent">
+                                    <div class="checkboxBox" data-group="gender">
+                                        <div class="checkbox">
+                                            <div class="fakeCheckbox checked"></div>
+                                            <input type="checkbox" class="realCheckbox"/>
+                                        </div>
+                                        <p class="checkboxContent">여성</p>
+                                    </div>
+                                    <div class="checkboxBox" data-group="gender">
+                                        <div class="checkbox">
+                                            <div class="fakeCheckbox"></div>
+                                            <input type="checkbox" class="realCheckbox"/>
+                                        </div>
+                                        <p class="checkboxContent">남성</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="infoBox">
+                                <p class="userInfoTitle">생년월일</p>
+                                <input class="inputBox" type="date" value="2003-02-02"/>
+                            </div>
+                            <div class="infoBox">
+                                <p class="userInfoTitle">직업</p>
+                                <div class="dropdownBox">
+                                    <p>대학생</p>
+                                    <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                                </div>
+                                <div class="inputRegionDropdown">
+                                    <div class="dropdownContent1">선택해주세요</div>
+                                    <div class="dropdownContent2">대학생</div>
+                                    <div class="dropdownContent2">직장인</div>
+                                    <div class="dropdownContent3">기타</div>
+                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="budget-item">
-                    <div class="textbox">관리비 예산</div>
-                    <div class="input-row">
-                        <span class="prefix">최대</span>
-                        <input type="text" id="maintenanceCost" />
-                        <span class="unit">만원</span>
+                <div id="planInfo">
+                    <div class="infoTitle"><p>독립 계획 정보</p></div>
+                    <div id="planInfoContent">
+                        <div class="infoBox">
+                                <p class="userInfoTitle">독립할 지역</p>
+                                <div class="userInfoContent2">
+                                    <div class="dropdownBox2">
+                                        <p>서울특별시</p>
+                                        <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                                    </div>
+                                    <div class="inputRegionDropdown11">
+                                        <div class="dropdownContent11">시/도</div>
+                                        <div class="dropdownContent21">서울특별시</div>
+                                        <div class="dropdownContent21">세종</div>
+                                        <div class="dropdownContent21">강원</div>
+                                        <div class="dropdownContent31">인천</div>
+                                        
+                                    </div>
+                                    <div class="dropdownBox2">
+                                        <p>노원구</p>
+                                        <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                                    </div>
+                                    <div class="inputRegionDropdown11">
+                                        <div class="dropdownContent11">시/군/구</div>
+                                        <div class="dropdownContent21">서울 전체</div>
+                                        <div class="dropdownContent21">강남구</div>
+                                        <div class="dropdownContent21">강동구</div>
+                                        <div class="dropdownContent31">강서구</div>
+                                        
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="userInfoContent2">
+                            <div class="miniInfoBox">
+                                <p class="userInfoTitle">월세 예산</p>
+                                <div class="budgetBox">
+                                    <p>최대</p>
+                                    <input class="budget" value="100" type="text"></input>
+                                    <p>만원</p>
+                                </div>
+                            </div>
+                            <div class="miniInfoBox">
+                                <p class="userInfoTitle">관리비 예산</p>
+                                <div class="budgetBox">
+                                    <p>최대</p>
+                                    <input class="budget" value="100" type="text"></input>
+                                    <p>만원</p>
+                                </div>
+                            </div>
+                            <div class="miniInfoBox">
+                                <p class="userInfoTitle">보증금 예산</p>
+                                <div class="budgetBox">
+                                    <p>최대</p>
+                                    <input class="budget" value="100" type="text"></input>
+                                    <p>만원</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                            <p class="userInfoTitle">동거 여부</p>
+                            <div class="userInfoContent">
+                                <div class="checkboxBox" data-group="cohabitation">
+                                    <div class="checkbox">
+                                        <div class="fakeCheckbox checked"></div>
+                                        <input type="checkbox" class="realCheckbox"/>
+                                    </div>
+                                    <p class="checkboxContent">동거인 있음</p>
+                                </div>
+                                <div class="checkboxBox" data-group="cohabitation">
+                                    <div class="checkbox">
+                                        <div class="fakeCheckbox"></div>
+                                        <input type="checkbox" class="realCheckbox"/>
+                                    </div>
+                                    <p class="checkboxContent">동거인 없음</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="infoBox">
+                                <p class="userInfoTitle">독립 유형</p>
+                                <div class="dropdownBox">
+                                    <p>원룸</p>
+                                    <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                                </div>
+                                <div class="inputRegionDropdown">
+                                    <div class="dropdownContent1">선택해주세요</div>
+                                    <div class="dropdownContent2">원룸</div>
+                                    <div class="dropdownContent2">기숙사</div>
+                                    <div class="dropdownContent2">쉐어하우스</div>
+                                    <div class="dropdownContent3">아직 정하지못했어요</div>
+                                    
+                                </div>
+                        </div>
+                        <div class="infoBox">
+                                <p class="userInfoTitle">이사 예정일</p>
+                                <div class="dropdownBox">
+                                    <p>2026년 2월</p>
+                                    <img class="dropdownButton" src="{% static 'img/chevron-down.png' %}"/>
+                                </div>
+                                <div class="inputRegionDropdown">
+                                    <div class="dropdownContent1">선택해주세요</div>
+                                    <div class="dropdownContent2">2025년 7월</div>
+                                    <div class="dropdownContent2">2025년 8월</div>
+                                    <div class="dropdownContent3">2025년 9월</div>
+                                </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="budget-item">
-                    <div class="textbox">보증금 예산</div>
-                    <div class="input-row">
-                        <span class="prefix">최대</span>
-                        <input type="text" id="deposit"/>
-                        <span class="unit">만원</span>
-                    </div>
+                <div id="buttonBox">
+                    <input id="modifyButton" type="button" value="가입하기"/>
                 </div>
-            </div>
-
-            <div class="textbox">동거인 여부</div>
-            <div id="box7">
-                <div id="with">
-                    <label class="with-label">
-                        <input type="radio" value="yes" class="with-check">
-                        <span class="custom-box"></span>
-                        동거인 있음
-                    </label>
-                    <label class="with-label">
-                        <input type="radio" value="no" class="with-check">
-                        <span class="custom-box"></span>
-                        동거인 없음
-                    </label>
-                </div>
-            </div>
-
-            <div id="roommateCountWrapper" style="display:none">
-                <div class="textbox">동거인 수</div>
-                <input type="text" id="input4" placeholder="n명" />
-            </div>
-
-            <div class="textbox">독립 유형</div>
-            <div class="custom-dropdown">
-                <div class="selected">선택해주세요</div>
-                <ul class="options">
-                    <li data-value="원룸">원룸</li>
-                    <li data-value="기숙사">기숙사</li>
-                    <li data-value="쉐어하우스">쉐어하우스</li>
-                    <li data-value="미정">아직 정하지 못했어요</li>
-                </ul>
-                <input type="hidden" id="roomSelect">
-            </div>
-
-            <div class="textbox">이사 예정일</div>
-            <div class="custom-dropdown">
-                <div class="selected">선택해주세요</div>
-                <ul class="options">
-                    <li data-value="7월">2025년 7월</li>
-                    <li data-value="8월">2025년 8월</li>
-                    <li data-value="9월">2025년 9월</li>
-                </ul>
-                <input type="hidden" id="monthSelect">
-            </div>
-        </div>
-
-        <div id="done">가입하기</div>
+            </article>
+        </section>
     </div>
-</div>
-{% endblock %}
 
-{% block script %}
-<script src="{% static 'js/signup.js' %}"></script>
+</body>
+
+
 {% endblock %}

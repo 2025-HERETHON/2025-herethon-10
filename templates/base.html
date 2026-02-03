@@ -22,9 +22,9 @@
         <div id="selectBox">
           <a href="/" id="home">홈</a>
           <a href="/independa/inde_home" id="plan">독립계획 시작하기</a>
-          <a href="/" id="life">생활 시작하기</a>
-          <a href="/" id="community">커뮤니티</a>
-          <a href="/" id="mypage">마이페이지</a>
+          <a href="/guide/guide_home" id="life">생활 시작하기</a>
+          <a href="community/item_home" id="community">커뮤니티</a>
+          <a href="mypage/mypage" id="mypage">마이페이지</a>
           <div id="divider"></div>
           {% if user.is_authenticated %}
             <a href="/user/logout" id="signinup">로그아웃</a>
@@ -87,6 +87,5 @@
   </div>
 
   <script src="{% static 'js/home.js' %}"></script>
-  {% block script_extra %}{% endblock %}
 </body>
 </html>

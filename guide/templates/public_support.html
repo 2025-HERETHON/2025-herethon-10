@@ -3,119 +3,121 @@
 
 {% block title %}공공지원 정보{% endblock %}
 
-{% block extra_css %}
+{% block content %}
+<head>
     <link rel="stylesheet" href="{% static 'css/public_support.css' %}">
-{% endblock %}
+    <script src="{% static 'js/public_support.js' %}"></script>
+</head>
 
-        <div id="banner">
-            <div id="bannerBox">
-                <h1>공공지원 정보</h1>
-                <h2>숨은 공공혜택, 쉽고 간단하게 알려드릴게요</h2>
-            </div>
+<body>
+    <div id="banner">
+        <div id="bannerBox">
+            <h1>공공지원 정보</h1>
+            <h2>숨은 공공혜택, 쉽고 간단하게 알려드릴게요</h2>
         </div>
+    </div>
 
 
-        <div id="container">
-            <aside>
-                <div id="sideMenu">
-                    <p id="sideMenuTitle">생활 시작하기</p>
-                    <div id="sideMenuContentBox">
-                        <p id="sideMenuContentStyle2">생활 행정 가이드</p>
-                        <p id="sideMenuContentStyle1">공공지원 정보</p>
+    <div id="container">
+        <aside>
+            <div id="sideMenu">
+                <p id="sideMenuTitle">생활 시작하기</p>
+                <div id="sideMenuContentBox">
+                    <p id="sideMenuContentStyle2">생활 행정 가이드</p>
+                    <p id="sideMenuContentStyle1">공공지원 정보</p>
+                </div>
+            </div>
+        </aside>
+        <section>
+            <article class="guideBox">
+                <p class="guideTitle">청년 대상 지원 혜택</p>
+                <div class="guideContentBox">
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support1/1.png' %}"/>
+                        <div class="guideContentItemTitle">계약서 작성 시 주의사항</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support1/2.png' %}"/>
+                        <div class="guideContentItemTitle">전입신고</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support1/3.png' %}"/>
+                        <div class="guideContentItemTitle">확정일자 신청</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support1/4.png' %}"/>
+                        <div class="guideContentItemTitle">주택 임대차 신고</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support1/5.png' %}"/>
+                        <div class="guideContentItemTitle">주민등록등·초본 발급</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support1/6.png' %}"/>
+                        <div class="guideContentItemTitle">전세보증금 반환보증</div>
                     </div>
                 </div>
-            </aside>
-            <section>
-                <article class="guideBox">
-                    <p class="guideTitle">청년 대상 지원 혜택</p>
-                    <div class="guideContentBox">
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">계약서 작성 시 주의사항</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">전입신고</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">확정일자 신청</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">주택 임대차 신고</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">주민등록등·초본 발급</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">전세보증금 반환보증</div>
-                        </div>
+            </article>
+            <article class="guideBox">
+                <p class="guideTitle">여성 대상 지원 혜택</p>
+                <div class="guideContentBox">
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support2/1.png' %}"/>
+                        <div class="guideContentItemTitle">여성 창업 지원</div>
                     </div>
-                </article>
-                <article class="guideBox">
-                    <p class="guideTitle">여성 대상 지원 혜택</p>
-                    <div class="guideContentBox">
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">1</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">2</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">3</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">4</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">5</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">6</div>
-                        </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support2/2.png' %}"/>
+                        <div class="guideContentItemTitle">여성 새로일하기 운영센터</div>
                     </div>
-                </article>
-                <article class="guideBox">
-                    <p class="guideTitle">서울시 공공지원 정보</p>
-                    <div class="guideContentBox">
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">대형폐기물 배출신고</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">구민안심보험</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">보건증 발급</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">광운대역세권 도시 개발</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">일자리 정보</div>
-                        </div>
-                        <div class="guideContentItemBox">
-                            <div class="guideContentItem"></div>
-                            <div class="guideContentItemTitle">노원구청 바로가기</div>
-                        </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support2/3.png' %}"/>
+                        <div class="guideContentItemTitle">여성 기업 인력 지원</div>
                     </div>
-                </article>
-            </section>
-        </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support2/4.png' %}"/>
+                        <div class="guideContentItemTitle">24시 여성 안심망 '안심이'</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support2/5.png' %}"/>
+                        <div class="guideContentItemTitle">여성기업 종합포털 'WBIZ'</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <img class="guideContentItem" src="{% static 'img/public_support2/6.png' %}"/>
+                        <div class="guideContentItemTitle">서울 우먼업</div>
+                    </div>
+                </div>
+            </article>
+            {% comment %} <article class="guideBox">
+                <p class="guideTitle">서울시 공공지원 정보</p>
+                <div class="guideContentBox">
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">대형폐기물 배출신고</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">구민안심보험</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">보건증 발급</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">광운대역세권 도시 개발</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">일자리 정보</div>
+                    </div>
+                    <div class="guideContentItemBox">
+                        <div class="guideContentItem"></div>
+                        <div class="guideContentItemTitle">노원구청 바로가기</div>
+                    </div>
+                </div>
+            </article> {% endcomment %}
+        </section>
+    </div>
+</body>
 
-{% block extra_js %}
-<script src="{% static 'js/public_support.js' &}"></script>
 {% endblock %}

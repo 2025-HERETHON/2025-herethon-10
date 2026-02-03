@@ -1,12 +1,15 @@
-{% load static %}
 {% extends "base.html" %}
+{% load static %}
+
 
 {% block title %}글수정{% endblock %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/update.css' %}">
-{% endblock %}
-
+{% block content %}
+    <head>
+        <link rel="stylesheet" href="{% static 'css/update.css' %}">
+        <script src="{% static 'js/update.js' %}"></script>
+    </head>
+    <body>
         <div id="banner">
             <div id="bannerBox">
                 <h1>글쓰기</h1>
@@ -19,40 +22,27 @@
                 <div id="sideMenu">
                     <p id="sideMenuTitle">커뮤니티</p>
                     <div id="sideMenuContentBox">
-                        <p id="sideMenuContentStyle2">구비템 공유 게시판</p>
-                        <p id="sideMenuContentStyle2">입주민 실전팁 게시판</p>
-                        <p id="sideMenuContentStyle1">글쓰기</p>
+                        <a href={%url 'community:items'%}><p id="sideMenuContentStyle1">구비템 공유 게시판</p></a>
+                        <a href={%url 'community:tips'%}><p id="sideMenuContentStyle2">입주민 실전팁 게시판</p></a>
+                        <a href={%url 'community:write'%}><p id="sideMenuContentStyle2">글쓰기</p></a>
                     </div>
                 </div>
             </aside>
             <section>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div id="writeHeader">
                         <div id="regionPickBox">
-                            <p class="pickTitle">지역 선택</p>
+                            <p class="pickTitle">지역</p>
                             <div class="pickContent1">
                                 <div class="inputRegion">
-                                    <p>시/도</p>
-                                    <img src="{% static 'img/minichevron-down.png' %}"/>
+                                    <p>{{independence.area_si}}</p>
                                 </div>
-                                <div class="inputRegionDropdown1">
-                                    <div class="dropdownContent1">서울특별시</div>
-                                    <div class="dropdownContent2">세종</div>
-                                    <div class="dropdownContent2">강원</div>
-                                    <div class="dropdownContent2">인천</div>
-                                    <div class="dropdownContent3">경기</div>
-                                </div>
+                                
                                 <div class="inputRegion">
-                                    <p>시/군/구</p>
-                                    <img src="{% static 'img/minichevron-down.png' %}"/>
+                                    <p>{{independence.area_sgg}}</p>
                                 </div>
-                                <div class="inputRegionDropdown2">
-                                    <div class="dropdownContent1">서울 전체</div>
-                                    <div class="dropdownContent2">강남구</div>
-                                    <div class="dropdownContent2">강동구</div>
-                                    <div class="dropdownContent2">강북구</div>
-                                    <div class="dropdownContent3">강서구</div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div id="communityPickBox">
@@ -60,54 +50,123 @@
                             <div class="pickContent2">
                                 <div class="checkboxBox" data-group="community">
                                     <div class="checkbox">
-                                        <div class="fakeCheckbox checked"></div>
-                                        <input type="checkbox" class="realCheckbox"/>
+                                        <div class="fakeCheckbox {% if post.board == 'shared_items' %}checked{% endif %}"></div>
+                                        <input type="checkbox" class="realCheckbox" name="u_board" value="shared_items"
+                                            {% if post.board == 'shared_items' %}checked{% endif %}/>
                                     </div>
                                     <p class="checkboxContent">구비템 공유 게시판</p>
                                 </div>
+
                                 <div class="checkboxBox" data-group="community">
                                     <div class="checkbox">
-                                        <div class="fakeCheckbox"></div>
-                                        <input type="checkbox" class="realCheckbox"/>
+                                        <div class="fakeCheckbox {% if post.board == 'resident_tips' %}checked{% endif %}"></div>
+                                        <input type="checkbox" class="realCheckbox" name="u_board" value="resident_tips"
+                                            {% if post.board == 'resident_tips' %}checked{% endif %}/>
                                     </div>
                                     <p class="checkboxContent">입주민 실전팁 게시판</p>
                                 </div>
                             </div>
                         </div>
-                        <input type="button" id="uploadButton" value="등록"/>
+                        <input type="submit" id="uploadButton" value="등록"/>
                     </div>
+
                     <div id="inputBox">
-                        <input id="inputTitle" type="text" placeholder="제목을 입력해주세요"/>
-                        <textarea id="inputContent" placeholder="내용을 입력해주세요"></textarea>
+                        <input id="inputTitle" type="text" name='u_title' placeholder="제목을 입력해주세요" value="{{ post.title }}"/>
+
+                        <textarea id="inputContent" name='u_content' placeholder="내용을 입력해주세요">{{ post.content }}</textarea>
                     </div>
+
                     <div id="writeBottomBox">
                         <div class="checkboxBox" data-group="post">
                             <div class="checkbox">
-                                <div class="fakeCheckbox checked"></div>
-                                <input type="checkbox" class="realCheckbox"/>
+                                <div class="fakeCheckbox {% if post.post_type == 'question' %}checked{% endif %}"></div>
+                                <input type="radio" class="realCheckbox" name="u_post_type" value="question"
+                                    {% if post.post_type == 'question' %}checked{% endif %}/>
                             </div>
                             <p class="checkboxContent">질문해요</p>
                         </div>
+
                         <div class="checkboxBox" data-group="post">
                             <div class="checkbox">
-                                <div class="fakeCheckbox"></div>
-                                <input type="checkbox" class="realCheckbox"/>
+                                <div class="fakeCheckbox {% if post.post_type == 'share' %}checked{% endif %}"></div>
+                                <input type="radio" class="realCheckbox" name="u_post_type" value="share"
+                                    {% if post.post_type == 'share' %}checked{% endif %}/>
                             </div>
                             <p class="checkboxContent">공유해요</p>
                         </div>
                     </div>
-                    <div id="writeLastBox">
+                    {% comment %} <div id="writeLastBox">
                         <div id="imgUpload">
                             <img src="{% static 'img/link-2.png' %}" id="imgUploadIcon" />
-                            <p>이미지 업로드</p>
+                            <input name="image" type="file" value="이미지 업로드">
                         </div>
                         <p id="delete">삭제</p>
+                    </div> {% endcomment %}
+                    <div id="writeLastBox">
+                        <div id="imgUpload">
+                            <label for="imageInput">
+                                <img src="{% static 'img/link-2.png' %}" id="imgUploadIcon" style="cursor: pointer;" />
+                            </label>
+                            <input name="image" id="imageInput" type="file" style="display: none;" accept="image/*" />
+                        </div>
+
+                        {% if post.image %}
+                            <img id="imgSample" src="{{ post.image.url }}" />
+                            <button type="submit" name="delete_image" id="delete">삭제</button>
+                        {% else %}
+                            <img id="imgSample" style="display:none;" />
+                        {% endif %}
                     </div>
-                    <img id="imgSample"/>
                 </form>
             </section>
         </div>
-
-{% block extra_js %}
-<script src="{% static 'js/update.js' %}"></script>
+    </body>
 {% endblock %}
+
+<script>
+    document.getElementById('imgUpload').addEventListener('click', function() {
+        document.getElementById('imageInput').click();
+    });
+</script>
+
+<script>
+    document.querySelectorAll('.checkboxBox').forEach(box => {
+        const fake = box.querySelector('.fakeCheckbox');
+        const real = box.querySelector('.realCheckbox');
+        
+        // 초기 상태에 따라 클래스 세팅
+        if(real.checked) {
+            fake.classList.add('checked');
+        } else {
+            fake.classList.remove('checked');
+        }
+        
+        fake.addEventListener('click', () => {
+            real.checked = !real.checked;
+            fake.classList.toggle('checked');
+        });
+    });
+
+    document.querySelectorAll('#writeBottomBox .checkboxBox').forEach(label => {
+        const fake = label.querySelector('.fakeCheckbox');
+        const real = label.querySelector('.realCheckbox');
+
+        label.addEventListener('click', () => {
+            // 모든 fakeCheckbox에서 checked 클래스 제거
+            document.querySelectorAll('#writeBottomBox .fakeCheckbox').forEach(f => f.classList.remove('checked'));
+
+            // 현재 클릭된 라디오만 checked 클래스 추가
+            fake.classList.add('checked');
+
+            // 실제 라디오 버튼도 선택
+            real.checked = true;
+        });
+    });
+
+
+    {% comment %} document.getElementById('imgUpload').addEventListener('click', function () {
+        document.getElementById('imageInput').click();
+    }); {% endcomment %}
+
+
+</script>

@@ -1,10 +1,10 @@
 body {
-  display: flex;
-  justify-content: center;       
-  height: 100vh;            
-  margin: 0; 
+    display: flex;
+    justify-content: center;       
+    height: 100vh;            
+    margin: 0; 
 
-  /*기본 값 적용*/                 
+    /*기본 값 적용*/                 
 }
 
 #background{
@@ -74,7 +74,7 @@ body {
 }
 
 #life{
-       color: var(--navy-scale-navy-60, #3B506B);
+    color: var(--navy-scale-navy-60, #3B506B);
     font-family: "Plus Jakarta Sans";
     font-size: 16px;
     font-style: normal;
@@ -683,3 +683,4 @@ height: 16px;
     color: #8F8F8F;
     letter-spacing: -0.45px;
 }
+

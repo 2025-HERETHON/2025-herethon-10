@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 
 from community.forms import PostForm
-from community.models import Comment, Image, Like, Post
+from community.models import Comment, Like, Post
 from user.models import IndependencePlan
 from django.db.models import Q
 from django.shortcuts import render
@@ -21,7 +21,8 @@ def items_home_view(request):
     page_obj = paginator.get_page(page)
     
     
-    return render(request, 'item_home.html', {'items_posts':page_obj, 'page_obj': page_obj,})
+
+    return render(request, 'item_home.html', {'items_posts':page_obj, 'page_obj': page_obj, 'independence': independence})
 
 def items_search_view(request):
 
@@ -88,7 +89,7 @@ def tips_home_view(request):
     paginator = Paginator(base_qs, 15)  # 한 페이지에 15개
     page_obj = paginator.get_page(page)
     
-    return render(request, 'test_tips_home.html', {'tips_posts':page_obj, 'page_obj': page_obj,})
+    return render(request, 'tips_home.html', {'tips_posts':page_obj, 'page_obj': page_obj, 'independence':independence})
 
 def tips_search_view(request):
 
@@ -150,25 +151,63 @@ def tips_search_view(request):
 def write_view(request):
     user=request.user
     independence = IndependencePlan.objects.get(user=user)
-    if request.method == 'POST':
-        post_form=PostForm(request.POST)
-        if post_form.is_valid():
-            post = post_form.save(commit=False)
-            post.user = request.user
-            post.area_si=independence.area_si
-            post.area_sgg=independence.area_sgg
-            post.save()
-            for img in request.FILES.getlist('image', None):
-                Image.objects.create(post=post, image=img)
-            return redirect('community:items')
-        return redirect('community:write')
-    else:
-        post_form = PostForm()
-        return render(request, 'test_write.html', {'post_form':post_form})
+    
+    if request.method == "POST":
+        board = request.POST.get('board')
+        post_type = request.POST.get("post_type")
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        image = request.FILES.get("image")
+
+        print("board:", board)
+        print("post_type:", post_type)
+        print("title:", title)
+        print("content:", content)
+        print("image:", image)
+
+        if not all([board, post_type, title, content]):
+            return render(request, 'write.html', {
+                'error': '모든 필드를 입력해주세요.'
+            })
+
+        Post.objects.create(
+            user=request.user,
+            board=board,
+            post_type=post_type,
+            title=title,
+            content=content,
+            image=image,
+            area_si=independence.area_si,
+            area_sgg=independence.area_sgg
+        )
+
+        return redirect("community:items")
+
+    return render(request, 'write.html',{'independence':independence})
+
+# def write_view(request):
+#     user=request.user
+#     independence = IndependencePlan.objects.get(user=user)
+#     if request.method == 'POST':
+#         post_form=PostForm(request.POST)
+#         if post_form.is_valid():
+#             post = post_form.save(commit=False)
+#             post.user = request.user
+#             post.area_si=independence.area_si
+#             post.area_sgg=independence.area_sgg
+#             post.image=request.FILES.get('image')
+#             post.save()
+#             # for img in request.FILES.getlist('image', None):
+#             #     Image.objects.create(post=post, image=img)
+#             return redirect('community:items')
+#         return redirect('community:write')
+#     else:
+#         post_form = PostForm()
+#         return render(request, 'write.html', {'post_form':post_form, 'independence':independence})
     
 def detail_view(request, post_id):
     post=get_object_or_404(Post, pk=post_id)
-    images=Image.objects.filter(post=post)
+    # images=Image.objects.filter(post=post)
     is_liked = False
     # comments=Comment.objects.filter(post=post)
     # post.views+=1
@@ -179,11 +218,11 @@ def detail_view(request, post_id):
     
     context={
         'post':post,
-        'images':images,
+        # 'images':images,
         'is_liked': is_liked,
         # 'comments':comments,
     }
-    return render(request, 'test_detail.html', context)
+    return render(request, 'detail.html', context)
 
 def post_likes_view(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -202,33 +241,47 @@ def post_likes_view(request, post_id):
     return redirect('user:login')
 
 def post_update_view(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    if post.user == request.user:
-        if request.method=='GET':
-            p_form=PostForm(instance=post)
-            p_images=Image.objects.filter(post_id=post_id)
-            return render(request, 'test_update.html', {'p_form': p_form, 'p_images':p_images})
-        else:
-            p_form = PostForm(request.POST, request.FILES, instance=post)
-            if p_form.is_valid():
-                updatepost = p_form.save(commit=False)
-                updatepost.updated_at = timezone.now()
-                updatepost.save()
-                
-                delete_ids_str = request.POST.get('delete_images', '')
-                delete_ids = delete_ids_str.split(',') if delete_ids_str else []
-            
-                for img_id in delete_ids:
-                    Image.objects.filter(id=img_id, post=post).delete()
-                    
-                for img_file in request.FILES.getlist('image'):
-                    Image.objects.create(post=post, image=img_file)
-                
-                return redirect('community:detail', post_id=post.id)
-            else:
-                return render(request, 'test_update.html', {'p_form': p_form})
-    else:
+    user = request.user
+    independence = get_object_or_404(IndependencePlan, user=user)
+    post = get_object_or_404(Post, id=post_id, user=user)  # 자신의 글만 수정 가능
+
+    if request.method == 'POST':
+        # 삭제 버튼 눌렀는지 확인
+        if 'delete_image' in request.POST:
+            post.image.delete(save=False)  # 파일 삭제
+            post.image = None
+            post.save()
+            return redirect('community:post_update', post_id=post.id)
+
+        u_board = request.POST.getlist('u_board')
+        u_post_type = request.POST.get('u_post_type')
+        u_title = request.POST.get('u_title')
+        u_content = request.POST.get('u_content')
+        new_image = request.FILES.get('image')
+
+        if not all([u_board, u_post_type, u_title, u_content]):
+            return render(request, 'update.html', {
+                'independence': independence,
+                'post': post,
+                'error': '모든 항목을 입력해주세요.'
+            })
+
+        post.board = u_board[0]  # 단일 선택만 저장
+        post.post_type = u_post_type
+        post.title = u_title
+        post.content = u_content
+
+        if new_image:
+            post.image = new_image
+
+        post.save()
+
         return redirect('community:detail', post_id=post.id)
+
+    return render(request, 'update.html', {
+        'independence': independence,
+        'post': post
+    })
     
     
 def post_delete_view(request, post_id):
